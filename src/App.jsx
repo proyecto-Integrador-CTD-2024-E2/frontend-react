@@ -5,7 +5,7 @@ import './App.css'
 function App() {
   return (
     <div className="container mt-4"> 
-      <h1>Hola mundo!!</h1>
+      <h1>Hola!!</h1>
       <p>inicio del proyecto integrador.</p>
       <div className="mb-2"> 
         <div className="mr-2"> 
