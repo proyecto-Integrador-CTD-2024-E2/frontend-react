@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="container mt-4"> 
       <h1>Hola!!</h1>
-      <p>inicio del proyecto integrador.</p>
+      <p>inicio del proyecto integrador1.</p>
       <div className="mb-2"> 
         <div className="mr-2"> 
           
