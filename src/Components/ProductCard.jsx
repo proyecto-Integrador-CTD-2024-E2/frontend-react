@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 const ProductCard = ({producto}) => {
+    
     ProductCard.propTypes = {
         producto: PropTypes.object.isRequired
     };
@@ -19,7 +20,7 @@ const ProductCard = ({producto}) => {
                 <h2>
                     ${producto.price}
                 </h2>
-                <Link to={'/detail/'} className="btn btn-primary mt-2">Ver Detalles</Link>
+                <Link to={'/detail/'+producto.id}className="btn btn-primary mt-2">Ver Detalles</Link>
             </div>
         </div>
     );
