@@ -1,9 +1,12 @@
 import React from 'react';
+import Busqueda from "../Components/Busqueda"
+import style from "../Styles/home.module.css"
 
 const Home = () => {
     return (
-        <div>
-            <h1>HOME</h1>
+        <div className={style.home}>
+            <div className={style.busqueda}><Busqueda/></div>
+            
         </div>
     );
 };
