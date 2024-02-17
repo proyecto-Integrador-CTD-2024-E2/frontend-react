@@ -13,7 +13,7 @@ const  Products = () => {
         });
     }, []);
     return (
-        <div className="d-flex-column align-items-center justify-content-center bg-primary p-1 p-md-5">
+        <div className="d-flex-column align-items-center justify-content-center  p-1 p-md-5">
             <div className='row justify-content-center g-4'>
                 {productos.map(producto => {
                 
