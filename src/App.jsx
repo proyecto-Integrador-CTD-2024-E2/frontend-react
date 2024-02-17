@@ -7,7 +7,7 @@ import Detail from './Routers/Detail';
 
 function App() {
   return (
-    <div className="container mt-4"> 
+    <div style={{backgroundColor: 'FFF9E1'}}> 
     
       <Routes>
           <Route path='/' element= {<Home/>}></Route>
