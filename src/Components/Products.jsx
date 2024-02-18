@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from './ProductCard';
 
 const  Products = () => {
@@ -8,24 +8,35 @@ const  Products = () => {
         fetch('https://fakestoreapi.com/products?limit=10')
         .then((res) => res.json())
         .then((productos) => {
-            console.log('Productos', productos)
-            setProductos(productos)
+            
+            const productosApiFake = productos.map((producto) => ({
+                ...producto,
+                images: [producto.image, producto.image, producto.image, producto.image, producto.image],
+                category: {
+                  id: producto.category,
+                  name: producto.category,
+                  image: ['https://fakestoreapi.com/img/71-3HjGNDUL.AC_SY879._SX._UX._SY._UY.jpg'],
+                }
+            }));
+            console.log('productosApiFake =>', productosApiFake);
+            setProductos(productosApiFake)
         });
     }, []);
     return (
-        <div className="d-flex-column align-items-center justify-content-center  p-1 p-md-5">
-            <div className='row justify-content-center g-4'>
+
+        <div className='p-3 rounded-3' style={{ backgroundColor: '#7E634E'}}>
+            <h2 className='mb-4 text-center text-white'>Recomendaciones</h2>
+            <div className="row justify-content-center">
                 {productos.map(producto => {
-                
-                return <div key={producto.id} className='col-12 col-md-6 col-lg-6 mb-4 d-flex align-items-stretch'>
-                        <ProductCard  producto={producto}/>
-                </div> 
-                
-            })}
-            </div>
             
+                return <div key={producto.id} className='my-2 col-12 col-md-6'>
+                            <ProductCard  producto={producto}/>
+                    </div> 
+                })}
+
+            </div>
         </div>
     );
 };
 
-export default Products ;
+export default Products;

@@ -1,27 +1,49 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 const Categories = () => {
-    const categorias = [
-        {id: 1, nombre: 'Adhesivos', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyr0fcKTO-S_ozLt3KpOa0dyVTh6R2hEPu5g&usqp=CAU'},
-        {id: 2, nombre: 'Adhesivos', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyr0fcKTO-S_ozLt3KpOa0dyVTh6R2hEPu5g&usqp=CAU'},
-        {id: 3, nombre: 'Adhesivos', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyr0fcKTO-S_ozLt3KpOa0dyVTh6R2hEPu5g&usqp=CAU'},
-        {id: 4, nombre: 'Adhesivos', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyr0fcKTO-S_ozLt3KpOa0dyVTh6R2hEPu5g&usqp=CAU'}
-    ]
+
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products/categories')
+        .then((res) => res.json())
+        .then((categorias) => {
+            
+            const categoriasApiFake = categorias.map((categoria) => ({
+                id: categoria,
+                name: categoria,
+                image: ['https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg'],
+            }));
+            console.log('categoriasApiFake =>', categoriasApiFake);
+
+            categoriasApiFake[1].image = 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg'
+            setCategories(categoriasApiFake)
+            
+        });
+    }, []);
+
     return (
-    <div className="row row-cols-1 row-cols-md-2 g-4">
-        {categorias.map((categoria) => (
-            <div key={categoria.id} className='col'>
-                <div className='d-flex flex-column h-100'>
-                    <div className='card border-dark p-1 mx-auto' style={{ maxWidth: '100px', minWidth: '140px' }} >
-                        <img src={categoria.img} className='card-img-top' alt="" />
-                        <div className='card-body p-1'>
-                            <h5 className='card-title text-center'>{categoria.nombre}</h5>
-                        </div>
-                    </div>
+
+    <div className='p-3 rounded-3 mb-4' style={{ backgroundColor: '#7E634E'}}>
+        <h2 className='mb-4 text-center text-white'>Categorias</h2>
+        <div className="row justify-content-center">
+        {categories.map((categoria) => (
+            <div key={categoria.id} className='my-2 my-lg-0 col-12 col-md-6 col-lg-3'>
+               
+               <div className="card h-100 bg-white p-3 p-lg-4 rounded-3 shadow">
+                <div className="w-100 row align-self-center" style={{height: '150px'}}>
+                <img src={categoria.image} className="h-100 w-100" alt={categoria.name} style={{ objectFit: 'contain'}}/>
                 </div>
+                <div className='p-2 row-cols-auto align-self-center'>
+                    <h5 className='p-2 mb-0 card-title text-center  rounded-pill bg-warning text-dark'>{categoria.name}</h5>
+                </div>
+                </div>
+             
             </div>
         ))}
+        </div>
     </div>
+    
 );
 };
 
