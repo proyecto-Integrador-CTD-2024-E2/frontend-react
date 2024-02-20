@@ -1,8 +1,7 @@
-
 .searchButton {
     min-width: 90vw;
     padding: 30px;
-    
+    margin-top: 3.5em;
 }
 
 @media (min-width: 640px) {
@@ -12,17 +11,15 @@
 }
 
 .searchButton__container {
-   
+
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 20px;
 }
 
-
 /*Estilos del input*/
 .searchButton__input {
-   
     width: 100%;
     font-size: 16px;
     line-height: 20px;
