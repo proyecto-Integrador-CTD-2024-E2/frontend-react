@@ -2,7 +2,7 @@
 .searchButton {
     min-width: 90vw;
     padding: 30px;
-    
+    margin-top: 3.5em;
 }
 
 @media (min-width: 640px) {
