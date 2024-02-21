@@ -1,0 +1,48 @@
+.header_cont{
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  z-index: 40;
+  padding: 16px;
+  background-color: #553D2A;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+
+ 
+}
+.img {
+  height: 28px;
+  width: auto;
+}
+
+.btn{
+  display: flex;
+  gap: 10px;
+}
+
+.btn1 {
+  background: #FFC872;
+  border: 1px solid gray;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #000000;
+  border-radius: 6px;
+  padding: 2px 4px;
+  text-decoration: none;
+}
+
+.btn2 {
+  background: #FFC872;
+  border: 1px solid gray;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #000000;
+  border-radius: 6px;
+  padding: 2px 4px;
+  text-decoration: none;
+}
+

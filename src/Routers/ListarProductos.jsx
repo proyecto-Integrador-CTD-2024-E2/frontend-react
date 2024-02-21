@@ -43,19 +43,20 @@ const ListarProductos = () => {
                         <th scope="col">Categoría</th>
                     </tr>
                 </thead>
-                <tbody class="table-group-divider">
+                <tbody className="table-group-divider">
                     {productos.map(producto => (
                     <tr key={producto.id}>
                         <td>{producto.id}</td>
                         <td>{producto.title}</td>
                         <td>{producto.category.name}</td>
                         <td>
+                            <button className="btn btn-outline-primary ms-2" onClick={() => handleEdit(producto.id)}>
+                                ✏️
+                            </button>
                             <button className="btn btn-outline-danger " onClick={() => handleDelete(producto.id)}>
                                 ✖️
                             </button>
-                            <button class="btn btn-outline-primary ms-2" onClick={() => handleEdit(producto.id)}>
-                                ✏️
-                            </button>
+                            
                         </td>
                     </tr>
                     ))}
