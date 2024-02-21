@@ -1,11 +1,11 @@
 .primeraColumna, .segundaColumna {
-    background-color: #7E634E;
+    background-color: #c7b6a4;
     border-radius: 15px;
     padding: 20px;
 }
 
 .primeraColumna .formgroup, .segundaColumna .formgroup {
-    background-color: #E3D7BF;
+    background-color: #F1ECE7;
     border-radius: 15px;
     padding: 16px;
 }
@@ -32,7 +32,7 @@
 }
 
 .botones button {
-    background-color: #E3D7BF;
+    background-color: #EBEBEB;
     padding: 10px 35px;
     border: 1px solid #8F8F8F;
 }

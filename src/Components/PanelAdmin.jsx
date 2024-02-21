@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const PanelAdmin = () => {
     return (
        
-            <nav className='p-3 me-2' style={{backgroundColor: '#7E634E' }}>
+            <nav className='p-3 me-2' style={{backgroundColor: '#114358 ' }}>
 
                 <h5 className="text-white ">
                   Menú

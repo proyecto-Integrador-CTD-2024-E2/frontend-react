@@ -12,7 +12,7 @@ const Header = () => {
                 <Link className={style.logo} to="/">
                     <img
                         className={style.img}
-                        src="../../public/IMG-20240215-WA0022-removebg-preview.png"
+                        src="../../public/logo5.png"
                         alt="logo"
                     />
                 </Link>

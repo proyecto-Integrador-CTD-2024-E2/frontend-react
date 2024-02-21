@@ -33,7 +33,7 @@ const getRandomOrder = (array) => {
 };
 
 return (
-    <div className="p-3 rounded-3" style={{ backgroundColor: "#7E634E" }}>
+    <div className="p-3 rounded-3" style={{ backgroundColor: "#AB9680" }}>
       <h2 className="mb-4 text-center text-white">Recomendaciones</h2>
       <div className="row justify-content-center">
         {productos.length ? (

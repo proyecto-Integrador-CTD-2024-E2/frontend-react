@@ -24,7 +24,7 @@ const Categories = () => {
 
     return (
 
-    <div className='p-3 rounded-3 mb-4' style={{ backgroundColor: '#7E634E'}}>
+    <div className='p-3 rounded-3 mb-4' style={{ backgroundColor: '#AB9680'}}>
         <h2 className='mb-4 text-center text-white'>Categorias</h2>
         <div className="row justify-content-center">
         {categories.map((categoria) => (

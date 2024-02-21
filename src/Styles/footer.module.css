@@ -1,6 +1,6 @@
 /*Estilos del footer*/
 .footer {
-    background-color: #553D2A;
+    background-color: #114358;
     border-top: 1px solid gray;
 }
 
@@ -57,15 +57,16 @@
 
 .logo {
     width: auto;
-    height: 16px;
+    height:35px;
 }
 
 .textoCopywriting {
     margin: 0;
-    font-size: 16px;
+    padding: 10px;
+    font-size: 18px;
     line-height: 20px;
     font-weight: 300;
-    color: rgb(255, 255, 255);
+    color: #FFFFFF;
 }
 
 /*Estilos de la seccion de navegation*/

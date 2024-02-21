@@ -34,14 +34,14 @@ const Detail = () => {
         </h4>
         <div className='d-flex '>
           <Link to="/" className="btn btn-light ">
-          <i className="bi bi-arrow-left-square-fill"></i> ⬅️
+          <i className="bi bi-arrow-left-square-fill" ></i> ⬅️
           </Link>
         </div>
       </div>
       <div className='col-12'>
    
 
-        <div className='d-flex flex-column flex-md-row mb-2 p-4' style={{ backgroundColor: '#C7B69F'}}>
+        <div className='d-flex flex-column flex-md-row mb-2 p-4' style={{ backgroundColor: '#AB9680'}}>
           <div className='mb-4 mb-md-0 flex-fill me-2'>
             <div className="w-100 rounded-start-3 p-2 shadow bg-white" style={{height: '325px'}}>
                   <img src={producto.images[0]} className="h-100 w-100" alt={producto.name} style={{ objectFit: 'contain'}}/>
@@ -85,7 +85,7 @@ const Detail = () => {
         </div>
 
         <div className='d-flex justify-content-end mt-2 mb-4 px-4'>
-          <button className='btn btn-primary'>Ver más</button>
+          <button className='btn btn-primary' style={{backgroundColor:'#F2AA1F', border: 'none'}}>Ver más</button>
         </div>
         <div className='p-3 rounded-3' >
           <div className="col-12 col-lg-6 d-flex flex-column justify-content-center">
