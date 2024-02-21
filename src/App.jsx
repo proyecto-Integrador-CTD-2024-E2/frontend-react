@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css/animate.min.css';
 import './App.css'
-import { Route, Routes } from 'react-router-dom';
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './Routers/Home';
 import Detail from './Routers/Detail';
 import Admin from './Routers/Admin';
@@ -15,12 +15,13 @@ import Footer from './Components/Footer';
 function App() {
   return (
     <div style={{backgroundColor: 'FFF9E1'}}>  
-    
     <Header />
       <Routes>
           <Route path='/' element={<Home/>}></Route>
           <Route path='/detail/:id' element={<Detail/>}/>
           <Route path='/admin' element={<Admin/>}>
+            {/* Para que muestre la lista cuando el user va a /admin y no una pantalla vacia */}
+            <Route index element={<Navigate replace to="listar" />} />
             <Route path='listar' element={<ListarProductos/>}/>
             <Route path='agregar' element={<AgregarProductos/>}/>
           </Route>
