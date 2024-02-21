@@ -3,6 +3,7 @@
     min-width: 90vw;
     padding: 30px;
     margin-top: 3.5em;
+    
 }
 
 @media (min-width: 640px) {
@@ -27,7 +28,7 @@
     font-size: 16px;
     line-height: 20px;
     font-weight: 300;
-    color: gray;
+    color: #ffffff;
     border-radius: 6px;
     background-color: #ffffff;
     padding: 10px;
@@ -54,7 +55,7 @@
 /*Estilos del boton de lupa*/
 .searchButton__buttton {
     color: #ffffff;
-    background-color:gray;
+    background-color:#A9A9A9;
     border: none;
     padding: 10px 20px;
     border-radius: 6px;

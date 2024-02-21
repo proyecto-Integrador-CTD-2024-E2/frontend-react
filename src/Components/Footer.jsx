@@ -8,10 +8,10 @@ const Footer = () => {
        <div className={style.footer__container}>
         <div className={style.copywriting}>
           <a href="#" className={style.enlace}>
-            <img className={style.logo} src="../../public/IMG-20240215-WA0022-removebg-preview.png" alt="" />
+            <img className={style.logo} src="../../public/logo5.png" alt="" />
           </a>
           <p  className={style.textoCopywriting}>
-            ©️ 2024 Tools To h.
+            ©️ 2024 Tools House.
           </p>
         </div>
 
