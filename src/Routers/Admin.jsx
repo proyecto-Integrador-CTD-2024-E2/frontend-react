@@ -1,13 +1,20 @@
-import React from 'react';
-import PanelAdmi from '../Components/PanelAdmi';
+import { useEffect } from 'react';
+import { useNavigate, Outlet } from 'react-router-dom';
+import PanelAdmin from '../Components/PanelAdmin';
 
-const Admi = () => {
+const Admin = () => {
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        // Redirige a listado-productos como ruta por defecto dentro de /admin
+        navigate('listar');
+    }, [navigate]);
     return (
-        <div>
-            
-            <PanelAdmi/>
+        <div className='d-flex flex-row p-4 pt-5'>
+            <PanelAdmin/>
+            <Outlet/>
         </div>
     );
 };
 
-export default Admi;
+export default Admin;

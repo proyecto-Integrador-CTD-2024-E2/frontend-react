@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 
 const ListarProductos = () => {
 
@@ -25,7 +24,7 @@ const ListarProductos = () => {
     }, []);
 
     const handleEdit = (id) => {
-        console.log('Editar producto con id ${id}')
+        console.log(`Editar producto con id ${id}`)
     };
 
     const handleDelete = (id) => {
@@ -34,35 +33,35 @@ const ListarProductos = () => {
       };
 
     return (
-        <div className="table-responsive" >
-            <table className="table table-hover table-striped table-bordered  mt-2 ms-2" >
-                <thead className="thead-dark" >
-                    <tr >
-                        <th scope="col">Id</th >
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Categoría</th>
-                    </tr>
-                </thead>
-                <tbody className="table-group-divider">
-                    {productos.map(producto => (
-                    <tr key={producto.id}>
-                        <td>{producto.id}</td>
-                        <td>{producto.title}</td>
-                        <td>{producto.category.name}</td>
-                        <td>
-                            <button className="btn btn-outline-primary ms-2" onClick={() => handleEdit(producto.id)}>
-                                ✏️
-                            </button>
-                            <button className="btn btn-outline-danger " onClick={() => handleDelete(producto.id)}>
-                                ✖️
-                            </button>
-                            
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-            </table>
-    </div>
+       
+        <table className="table table-hover table-striped table-bordered  my-0" >
+            <thead className="thead-dark" >
+                <tr >
+                    <th scope="col">Id</th >
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Categoría</th>
+                </tr>
+            </thead>
+            <tbody className="table-group-divider">
+                {productos.map(producto => (
+                <tr key={producto.id}>
+                    <td>{producto.id}</td>
+                    <td>{producto.title}</td>
+                    <td>{producto.category.name}</td>
+                    <td className='d-flex flex-row justify-content-around'>
+                        <button className="btn btn-outline-primary" onClick={() => handleEdit(producto.id)}>
+                           ✏️ 
+                        </button>
+                        <button className="btn btn-outline-danger " onClick={() => handleDelete(producto.id)}>
+                            ✖️
+                        </button>
+                        
+                    </td>
+                </tr>
+                ))}
+            </tbody>
+        </table>
+  
     );
 };
 

@@ -19,7 +19,7 @@ return (
                     
                 >Buscar</button >
                 </div>
-                </form>
+                </form> 
 
 )
 

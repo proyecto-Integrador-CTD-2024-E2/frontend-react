@@ -37,7 +37,7 @@ const Categories = () => {
                 <div className='p-2 row-cols-auto align-self-center'>
                     <h5 className='p-2 mb-0 card-title text-center  rounded-pill bg-warning text-dark'>{categoria.name}</h5>
                 </div>
-                </div>
+                </div> 
              
             </div>
         ))}
