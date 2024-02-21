@@ -1,0 +1,48 @@
+.primeraColumna, .segundaColumna {
+    background-color: #c7b6a4;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.primeraColumna .formgroup, .segundaColumna .formgroup {
+    background-color: #F1ECE7;
+    border-radius: 15px;
+    padding: 16px;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 2em;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+}
+
+.botones button {
+    background-color: #EBEBEB;
+    padding: 10px 35px;
+    border: 1px solid #8F8F8F;
+}
+
+.botones button:first-child {
+    background-color: #EBEBEB;
+    padding: 10px 35px;
+}
+
+
+.container input {
+    width: 25em;
+}
