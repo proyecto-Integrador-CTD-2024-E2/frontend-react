@@ -17,25 +17,16 @@ function App() {
     
     <Header />
       <Routes>
-          <Route path='/' element= {<Home/>}></Route>
+          <Route path='/' element={<Home/>}></Route>
           <Route path='/detail/:id' element={<Detail/>}/>
-          <Route path='*' element={<h1>Page not found - Error 404</h1>}/>
           <Route path='/admin' element={<Admin/>}>
-            {/* <Route path='/listar' element={<ListarProductos/>}/>
-            <Route path='/agregar' element={<AgregarProductos/>}/> */}
+            <Route path='listar' element={<ListarProductos/>}/>
+            {/* <Route path='/agregar' element={<AgregarProductos/>}/> */}
           </Route>
-          <Route path='/listar' element={<ListarProductos/>}/>
-          
+          <Route path='*' element={<h1>Page not found - Error 404</h1>}/>
       </Routes>
       <Footer />
     </div>
-    
-
-
-
-
-
-
   );
 }
 

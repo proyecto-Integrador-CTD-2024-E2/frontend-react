@@ -12,7 +12,7 @@ const ProductCard = ({producto}) => {
 
         <div className="card h-100 bg-white p-3 p-lg-4 rounded-3 shadow">
             <div className="w-100 row align-self-center" style={{height: '150px'}}>
-                <img src={producto.images[0]} className="h-100 w-100" alt={producto.name} style={{ objectFit: 'contain'}}/>
+                <img src={producto.images[0]} className="h-100 w-100" alt={producto.title} style={{ objectFit: 'contain'}}/>
             </div>
             
             <div className="card-body d-flex flex-column justify-content-between">
