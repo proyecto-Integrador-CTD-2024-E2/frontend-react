@@ -34,7 +34,7 @@ const Detail = () => {
         </h4>
         <div className='d-flex '>
           <Link to="/" className="btn btn-light ">
-          <i class="bi bi-arrow-left-square-fill"></i> ⬅️
+          <i className="bi bi-arrow-left-square-fill"></i> ⬅️
           </Link>
         </div>
       </div>

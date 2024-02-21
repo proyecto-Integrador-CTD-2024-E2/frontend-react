@@ -1,4 +1,3 @@
-import React from 'react';
 import Busqueda from "../Components/Busqueda"
 import style from "../Styles/home.module.css"
 import Products from '../Components/Products';
