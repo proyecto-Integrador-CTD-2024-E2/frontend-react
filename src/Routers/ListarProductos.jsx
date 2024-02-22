@@ -1,25 +1,25 @@
 import { useEffect, useState } from 'react';
 
 const ListarProductos = () => {
-
     const [productos, setProductos] = useState([]);
 
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products?limit=10')
-        .then((res) => res.json())
-        .then((productos) => {
-            
-            const productosApiFake = productos.map((producto) => ({
-                ...producto,
-                images: [producto.image, producto.image, producto.image, producto.image, producto.image],
-                category: {
-                  id: producto.category,
-                  name: producto.category,
-                  image: ['https://fakestoreapi.com/img/71-3HjGNDUL.AC_SY879._SX._UX._SY._UY.jpg'],
-                }
-            }));
-            console.log('productosApiFake =>', productosApiFake);
-            setProductos(productosApiFake)
+      fetch('http://localhost:8080/Herramientas')
+      .then((res) => res.json())
+      .then((responseData) => {
+  
+        const productosApiFake = responseData.map((producto) => ({
+            id: producto.id,
+            nombre: producto.nombre,
+            descripcion: producto.descripcion,
+            precio: producto.precio,
+            categoria: producto.categoria,
+            marca: producto.marca,
+            imagenes: producto.imagenes.map((imagen) => imagen.url),
+        }));
+
+        setProductos(productosApiFake);
+
         });
     }, []);
 
@@ -40,14 +40,16 @@ const ListarProductos = () => {
                     <th scope="col">Id</th >
                     <th scope="col">Nombre</th>
                     <th scope="col">Categoría</th>
+                    <th scope="col">Marca</th>
                 </tr>
             </thead>
             <tbody className="table-group-divider">
                 {productos.map(producto => (
                 <tr key={producto.id}>
                     <td>{producto.id}</td>
-                    <td>{producto.title}</td>
-                    <td>{producto.category.name}</td>
+                    <td>{producto.nombre}</td>
+                    <td>{producto.categoria}</td>
+                    <td>{producto.marca}</td>
                     <td className='d-flex flex-row justify-content-around'>
                         <button className="btn btn-outline-primary" onClick={() => handleEdit(producto.id)}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil" viewBox="0 0 16 16">
