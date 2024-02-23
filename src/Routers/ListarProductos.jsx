@@ -27,13 +27,30 @@ const ListarProductos = () => {
         console.log(`Editar producto con id ${id}`)
     };
 
-    const handleDelete = (id) => {
-        
-        console.log(`Eliminar producto con id ${id}`);
+    const handleDelete = async (id) => {
+        if (window.confirm("¿Estás seguro que queres eliminar este producto?")) {
+          try {
+            const response = await fetch(`http://localhost:8080/Herramientas/${id}`, {
+              method: "DELETE",
+            });
+            
+            if (!response.ok) {
+              throw new Error(`HTTP error: ${response.status}`);
+            }
+      
+            setProductos((prevProductos) => prevProductos.filter((prod) => prod.id !== id));
+      
+            alert("El producto se eliminó correctamente.");
+          } catch (error) {
+            console.error("Error:", error.message);
+            alert("Hubo un problema al eliminar el producto.");
+          }
+        } else {
+          alert("Eliminacion cancelada.");
+        }
       };
 
     return (
-       
         <table className="table table-hover table-striped table-bordered  my-0" >
             <thead className="thead-dark" >
                 <tr >
@@ -61,13 +78,11 @@ const ListarProductos = () => {
                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
                             </svg>
                         </button>
-                        
                     </td>
                 </tr>
                 ))}
             </tbody>
         </table>
-  
     );
 };
 

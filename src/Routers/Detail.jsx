@@ -28,13 +28,10 @@ const Detail = () => {
   
   return (
     <div className="col-12">
-      <div className='d-flex p-4 justify-content-between align-self-start'>
-        <h4 className='mb-0'>
-          {producto.nombre}
-        </h4>
-        <div className='d-flex '>
+      <div className='d-flex px-4 pt-5 justify-content-between align-self-start' style={{ backgroundColor: '#AB9680'}}>
+        <div className='d-flex'>
           <Link to="/" className="btn btn-light ">
-          <i className="bi bi-arrow-left-square-fill" ></i> ⬅️
+              <i className="bi bi-arrow-left"></i> Volver
           </Link>
         </div>
       </div>
@@ -76,18 +73,25 @@ const Detail = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <div className='d-flex justify-content-end mt-2 mb-4 px-4'>
+            <div className='d-flex justify-content-end mt-2 mb-4 px-4'>
           <button className='btn btn-primary' style={{backgroundColor:'#F2AA1F', border: 'none'}}>Ver más</button>
         </div>
+          </div>
+
+          
+        </div>
+
         <div className='p-3 rounded-3' >
           <div className="col-12 col-lg-6 d-flex flex-column justify-content-center">
             <div className="px-4">
-                <span className="badge rounded-pill bg-warning text-dark mb-2">{producto.categoria}</span>
+                <div className='d-flex align-items-center '>
+                  <h4 className='mb-1'>
+                    {producto.nombre}
+                  </h4>
+                  <span className="badge rounded-pill bg-warning text-dark mx-2">{producto.categoria}</span>
+                </div>
                 <p className=" text-dark">{producto.descripcion}</p>
-                <p className="fs-2 text-dark">${producto.precio}</p>
+                <p className="fs-2 text-dark"><b>${producto.precio}</b></p>
             </div>
           </div>
         </div>
