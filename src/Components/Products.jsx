@@ -1,52 +1,78 @@
-import { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
+import { useState, useEffect } from 'react';
+import ProductCard from './ProductCard';
+import style from '../Styles/products.module.css';
 
 const Products = () => {
   const [productos, setProductos] = useState([]);
+  const [start, setStart] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
   useEffect(() => {
-    fetch('http://localhost:8080/Herramientas')
-    .then((res) => res.json())
-    .then((responseData) => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/Herramientas');
+        if (!response.ok) throw Error("Error loading data");
 
-    const productosApiFake = responseData.map((producto) => ({
-      id: producto.id,
-      nombre: producto.nombre,
-      descripcion: producto.descripcion,
-      precio: producto.precio,
-      categoria: producto.categoria,
-      imagenes: producto.imagenes.map((imagen) => imagen.url),
-    }));
+        const responseData = await response.json();
 
-    // Ejecutar funcion que ordena aleatoriamente los productos en cada recarga antes de setear el estado
-    const ordenRandom = getRandomOrder(productosApiFake);
-      setProductos(ordenRandom);
-    });
-}, []);
+        const productosApiFake = responseData.map((producto) => ({
+          id: producto.id,
+          nombre: producto.nombre,
+          descripcion: producto.descripcion,
+          precio: producto.precio,
+          categoria: producto.categoria,
+          imagenes: producto.imagenes.map((imagen) => imagen.url),
+        }));
 
-// funcion que ordena aleatoriamente los productos
-const getRandomOrder = (array) => {
+        const ordenRandom = getRandomOrder(productosApiFake);
+        setProductos(ordenRandom);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, []);
+  // Randomizar el orden de los productos
+  const getRandomOrder = (array) => {
     return array.reduce((result, currentValue) => {
         const insertIndex = Math.round(Math.random() * result.length);
         return [].concat([...result.slice(0, insertIndex), currentValue, ...result.slice(insertIndex)]);
     }, []);
 };
+  // Logica para la paginacion
+  useEffect(() => {
+    setStart((currentPage - 1) * pageSize);
+  }, [currentPage]);
+  const handleNextClick = () => {
+    setCurrentPage(currentPage => Math.min(currentPage + 1, Math.ceil(productos.length / pageSize)));
+  };
+  const handlePrevClick = () => {
+    setCurrentPage(currentPage => Math.max(currentPage - 1, 1));
+  };
 
-return (
-    <div className="p-3 rounded-3" style={{ backgroundColor: "#AB9680" }}>
+  return (
+    <div className="p-3 rounded-3" style={{ backgroundColor: '#AB9680' }}>
       <h2 className="mb-4 text-center text-white">Recomendaciones</h2>
       <div className="row justify-content-center">
-      {productos.length ? (
-        productos.map((producto) => {
+        {productos.slice(start, start + pageSize).map((producto) => {
           return (
             <div key={producto.id} className="my-2 col-12 col-md-6">
               <ProductCard producto={producto} />
             </div>
           );
-        })
-      ) : (
-        <div className="text-center">Cargando...</div>
-      )}
+        })}
+      </div>
+      <div className="d-flex justify-content-center align-items-center my-5 gap-2">
+        <button onClick={() => handlePrevClick()} disabled={currentPage === 1} className={style.btn} style={{opacity: currentPage === 1 ? 0.6 : 1 }}>        
+            <span aria-hidden="true">&laquo;</span>
+          </button>
+        
+        <button className={style.btn}><u>{currentPage}</u></button>
+        
+        <button onClick={() => handleNextClick()} disabled={currentPage === Math.ceil(productos.length / pageSize)} className={style.btn} style={{opacity: currentPage === Math.ceil(productos.length / pageSize) ? 0.6 : 1 }}>
+          <span aria-hidden="true">&raquo;</span>
+        </button>
       </div>
     </div>
   );
