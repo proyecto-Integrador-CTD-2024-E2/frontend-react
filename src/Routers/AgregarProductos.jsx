@@ -1,9 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import style from '../Styles/agregar.module.css';
 import { toast } from 'sonner'
 
 const AgregarProductos = () => {
+
+  const { id } = useParams();
+
   const [productData, setProductData] = useState({
+    id: null,
     nombre: '',
     descripcion: '',
     stock: '',
@@ -12,6 +17,31 @@ const AgregarProductos = () => {
     disponibilidad: '',
     imageUrls: Array(1).fill({ url: '' }),
   });
+
+
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:8080/Herramientas/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          setProductData({
+            id: data.id,
+            nombre: data.nombre,
+            descripcion: data.descripcion,
+            stock: data.stock,
+            precio: data.precio,
+            categoria: data.categoria,
+            disponibilidad: data.disponibilidad,
+            imageUrls: data.imagenes,
+          });
+        })
+        .catch((error) => {
+          console.error('Error:', error.message);
+          toast.error(`Ha ocurrido un problema al obtener el producto. ${error.message}`);
+        });
+    }
+  }, [id]);
 
   const isFieldEmpty = (fieldName) => !productData[fieldName];
   const isAllFieldsNonEmpty = () => !(isFieldEmpty('nombre') || isFieldEmpty('descripcion') || isFieldEmpty('stock') || isFieldEmpty('precio') || isFieldEmpty('categoria'));
@@ -52,36 +82,81 @@ const AgregarProductos = () => {
       toast.error('Hay campos vacios, rellena todos para poder agregar el producto.');
       return;
     }
-  
-    try {
-      const response = await fetch('http://localhost:8080/Herramientas', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          categoria: productData.categoria,
-          stock: productData.stock,
-          precio: productData.precio,
-          disponibilidad: true,
-          nombre: productData.nombre,
-          marca: 'Y',
-          descripcion: productData.descripcion,
-          imagenes: productData.imageUrls.filter((url) => url !== ""),
-        }),
-      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+    if (id) {
+      console.log(id);
+      try {
+
+        console.log(productData)
+        const response = await fetch(`http://localhost:8080/Herramientas`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: productData.id,
+            categoria: productData.categoria,
+            stock: productData.stock,
+            precio: productData.precio,
+            disponibilidad: productData.disponibilidad,
+            nombre: productData.nombre,
+            marca: 'Y',
+            descripcion: productData.descripcion,
+            imagenes: productData.imageUrls.filter((urlObj) => urlObj.url !== ""),
+          }),
+        });
+        console.log(response)
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+    
+        const responseData = await response.json();
+        console.log(responseData)
+        console.log('Success:', responseData);
+        toast.success('Producto actualizado con éxito!');
+      } catch (error) {
+        console.error('Error:', error.message);
+        toast.error(`Ha ocurrido un problema al actualizar el producto. ${error.message}`);
       }
 
-      const responseData = await response.json();
-    console.log('Success:', responseData);
-    toast.success('Se ha agregado exitosamente el producto!');
-  } catch (error) {
-    console.error('Error:', error.message);
-    toast.error('Ha ocurrido un problema al crear el nuevo producto.' , error.message);
-  }
+    } else {
+
+      try {
+        console.log(productData)
+
+        const response = await fetch('http://localhost:8080/Herramientas', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: productData.id,
+            categoria: productData.categoria,
+            stock: productData.stock,
+            precio: productData.precio,
+            disponibilidad: true,
+            nombre: productData.nombre,
+            marca: 'Y',
+            descripcion: productData.descripcion,
+            imagenes: productData.imageUrls.filter((url) => url !== ""),
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const responseData = await response.json();
+      console.log('Success:', responseData);
+      toast.success('Se ha agregado exitosamente el producto!');
+    } catch (error) {
+      console.error('Error:', error.message);
+      toast.error('Ha ocurrido un problema al crear el nuevo producto.' , error.message);
+    }
+
+    }
+  
+    
   };
 
   return (
@@ -178,12 +253,9 @@ const AgregarProductos = () => {
     
         </div>
             <div className={style.botones}>
-            <button type="button" className="btn">
-                Descartar
-            </button>
-            <button type="submit" className="btn">
-                Agregar
-            </button>
+              <button type="submit" className="btn">
+                  { id ? 'Actualizar': 'Agregar' }
+              </button>
             </div>
       </form>
     </div>

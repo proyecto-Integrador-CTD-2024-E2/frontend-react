@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 const ListarProductos = () => {
     const [productos, setProductos] = useState([]);
@@ -24,7 +26,9 @@ const ListarProductos = () => {
     }, []);
 
     const handleEdit = (id) => {
-        console.log(`Editar producto con id ${id}`)
+   
+      
+        
     };
 
     const handleDelete = async (id) => {
@@ -68,9 +72,12 @@ const ListarProductos = () => {
                     <td>{producto.categoria}</td>
                     <td>{producto.marca}</td>
                     <td className='d-flex flex-row justify-content-around'>
+                      <Link to={`/admin/agregar/${producto.id}`}>
                         <button className="btn btn-outline-primary" onClick={() => handleEdit(producto.id)}>
                             <i className="bi bi-pencil-square"></i>
                         </button>
+                      </Link>
+                       
                         <button className="btn btn-outline-danger " onClick={() => handleDelete(producto.id)}>
                             <i className="bi bi-trash"></i>
                         </button>

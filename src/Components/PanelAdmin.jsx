@@ -8,10 +8,13 @@ const PanelAdmin = () => {
                 </h5>
                 <ul className="navbar-nav">
                   <li className='nav-item w-100 text-nowrap'>
-                    <Link className="nav-link text-white text-decoration-underline" to="/admin/listar">Listar Productos</Link> {/*aqui va un link */}
+                    <Link className="nav-link text-white text-decoration-underline" to="/admin/listar">Listar Productos</Link> 
                   </li>
                   <li className='nav-item w-100 text-nowrap'>
-                    <Link className="nav-link text-white text-decoration-underline" to="/admin/agregar">Agregar Producto</Link>  {/*aqui va un link */}
+                    <Link className="nav-link text-white text-decoration-underline" to="/admin/agregar">Agregar Producto</Link>  
+                  </li>
+                  <li className='nav-item w-100 text-nowrap'>
+                    <Link className="nav-link text-white text-decoration-underline" to="/admin/listaU">Lista Usuarios</Link>  
                   </li>
                 </ul>
             </nav>
