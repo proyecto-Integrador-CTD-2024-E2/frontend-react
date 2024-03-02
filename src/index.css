@@ -1,21 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-    margin-top: 3.5em;
+  margin-top: 3.5em;
 }
 
 /* Estilos para el scrollbar */
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: transparent; 
-  }
-   
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 4px
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
