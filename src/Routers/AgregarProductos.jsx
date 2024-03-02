@@ -110,7 +110,7 @@ const AgregarProductos = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
     
-        const responseData = await response.json();
+        const responseData =  response;
         console.log(responseData)
         console.log('Success:', responseData);
         toast.success('Producto actualizado con éxito!');

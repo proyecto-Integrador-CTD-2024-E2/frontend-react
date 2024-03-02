@@ -55,23 +55,24 @@ const ListarProductos = () => {
       };
 
     return (
-        <table className="table table-hover table-striped table-bordered  my-0" >
-            <thead className="thead-dark" >
+      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+           <table className="w-full text-sm text-left text-gray-500" >
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr >
-                    <th scope="col">Id</th >
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Categoría</th>
-                    <th scope="col">Marca</th>
+                    <th scope="col" className="px-6 py-3">Id</th >
+                    <th scope="col" className="px-6 py-3">Nombre</th>
+                    <th scope="col" className="px-6 py-3">Categoría</th>
+                    <th scope="col" className="px-6 py-3">Marca</th>
                 </tr>
             </thead>
             <tbody className="table-group-divider">
                 {productos.map(producto => (
-                <tr key={producto.id}>
-                    <td>{producto.id}</td>
-                    <td>{producto.nombre}</td>
-                    <td>{producto.categoria}</td>
-                    <td>{producto.marca}</td>
-                    <td className='d-flex flex-row justify-content-around'>
+                <tr key={producto.id} className={`odd:bg-white even:bg-gray-50 border-b`}>
+                    <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{producto.id}</td>
+                    <td className="px-6 py-4">{producto.nombre}</td >
+                    <td className="px-6 py-4">{producto.categoria}</td >
+                    <td className="px-6 py-4">{producto.marca}</td >
+                    <td className="px-6 py-4" >
                       <Link to={`/admin/agregar/${producto.id}`}>
                         <button className="btn btn-outline-primary" onClick={() => handleEdit(producto.id)}>
                             <i className="bi bi-pencil-square"></i>
@@ -86,6 +87,8 @@ const ListarProductos = () => {
                 ))}
             </tbody>
         </table>
+      </div>
+       
     );
 };
 

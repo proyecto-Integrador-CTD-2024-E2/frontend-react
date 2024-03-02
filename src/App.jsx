@@ -11,6 +11,8 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import ListarUsuarios from './Routers/ListarUsuarios';
 import Resgistro from './Routers/Registro';
+import ListarCategorias from './Routers/ListarCategorias';
+import AgregarCategoria from './Routers/AgregarCategoria';
 
 
 
@@ -23,11 +25,14 @@ function App() {
           <Route path='/registro' element={<Resgistro/>}/>
           <Route path='/detail/:id' element={<Detail/>}/>
           <Route path='/admin' element={<Admin/>}>
-            <Route index element={<Navigate replace to="listar" />} />
-            <Route path='listar' element={<ListarProductos/>}/>
-            <Route path='agregar' element={<AgregarProductos/>}/>
-            <Route path='agregar/:id' element={<AgregarProductos/>}/>
-            <Route path='listaU' element={<ListarUsuarios/>}/>
+            <Route index element={<Navigate replace to="listar-productos" />} />
+            <Route path='listar-productos' element={<ListarProductos/>}/>
+            <Route path='agregar-producto' element={<AgregarProductos/>}/>
+            <Route path='agregar-producto/:id' element={<AgregarProductos/>}/>
+            <Route path='listar-usuarios' element={<ListarUsuarios/>}/>
+            <Route path='listar-categorias' element={<ListarCategorias/>}/>
+            <Route path='agregar-categoria' element={<AgregarCategoria/>}/>
+            <Route path='agregar-categoria/:id' element={<AgregarCategoria/>}/>
           </Route>
           <Route path='*' element={<h1>Page not found - Error 404</h1>}/>
       </Routes>

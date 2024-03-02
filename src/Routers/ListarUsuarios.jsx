@@ -42,7 +42,7 @@ const ListarUsuarios = () => {
                             <td className="px-6 py-4">{usuario.apellido}</td>
                             <td className="px-6 py-4">
                                 <select
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-900 focus:border-amber-400 block w-full p-2.5"
                                     value={usuario.rol.id}
                                     onChange={(e) => handleRolChange(usuario.id, e.target.value)}
                                 >

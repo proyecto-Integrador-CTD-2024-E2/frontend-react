@@ -68,7 +68,7 @@ const Resgistro = () => {
                             name="nombre"
                             value={formulario.nombre}
                             onChange={handleChange}
-                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 ${errores.nombre ? 'border-red-500' : ''}`}
+                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400 ${errores.nombre ? 'border-red-500' : ''}`}
                             required
                         />
                         {errores.nombre && <p className="text-red-500 mt-1">{errores.nombre}</p>}
@@ -81,7 +81,7 @@ const Resgistro = () => {
                             name="apellido"
                             value={formulario.apellido}
                             onChange={handleChange}
-                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 ${errores.apellido ? 'border-red-500' : ''}`}
+                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400 ${errores.apellido ? 'border-red-500' : ''}`}
                             required
                         />
                         {errores.apellido && <p className="text-red-500 mt-1">{errores.apellido}</p>}
@@ -94,7 +94,7 @@ const Resgistro = () => {
                             name="correo"
                             value={formulario.correo}
                             onChange={handleChange}
-                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 ${errores.correo ? 'border-red-500' : ''}`}
+                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400 ${errores.correo ? 'border-red-500' : ''}`}
                             required
                         />
                         {errores.correo && <p className="text-red-500 mt-1">{errores.correo}</p>}
@@ -107,7 +107,7 @@ const Resgistro = () => {
                             name="ciudad"
                             value={formulario.ciudad}
                             onChange={handleChange}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                         />
                     </div>
                                         <div className="mb-4">
@@ -118,14 +118,14 @@ const Resgistro = () => {
                             name="contrasena"
                             value={formulario.contrasena}
                             onChange={handleChange}
-                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 ${errores.contrasena ? 'border-red-500' : ''}`}
+                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400 ${errores.contrasena ? 'border-red-500' : ''}`}
                             required
                         />
                         {errores.contrasena && <p className="text-red-500 mt-1">{errores.contrasena}</p>}
                     </div>
 
-                    <div className=''>
-                        <button type="submit" className="  text-white font-semibold px-4 py-2 rounded-md hover:bg-indigo-600 transition duration-300 " style={{backgroundColor: ' #114358'}}>Registrarse</button>
+                    <div className='grid justify-items-center '>
+                        <button type="submit" className="  text-white font-semibold px-4 py-2 rounded-md bg-cyan-900 hover:bg-indigo-600 transition duration-300 " style={{backgroundColor: ' #114358'}}>Registrarse</button>
                     </div>
                     
                 </form>
