@@ -7,7 +7,6 @@ import Detail from './Routers/Detail';
 import Admin from './Routers/Admin';
 import ListarProductos from './Routers/ListarProductos';
 import AgregarProductos from './Routers/AgregarProductos';
-
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
@@ -20,7 +19,6 @@ function App() {
           <Route path='/' element={<Home/>}></Route>
           <Route path='/detail/:id' element={<Detail/>}/>
           <Route path='/admin' element={<Admin/>}>
-            {/* Para que muestre la lista cuando el user va a /admin y no una pantalla vacia */}
             <Route index element={<Navigate replace to="listar" />} />
             <Route path='listar' element={<ListarProductos/>}/>
             <Route path='agregar' element={<AgregarProductos/>}/>

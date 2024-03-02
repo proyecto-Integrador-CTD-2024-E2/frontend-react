@@ -3,7 +3,7 @@ import PanelAdmin from '../Components/PanelAdmin';
 
 const Admin = () => {
     return (
-        <div className='d-flex flex-row p-4 pt-5'>
+        <div className='d-flex flex-row py-5'>
             <PanelAdmin/>
             <Outlet/>
         </div>
