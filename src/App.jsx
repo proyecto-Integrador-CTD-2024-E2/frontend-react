@@ -18,7 +18,7 @@ import AgregarCategoria from './Routers/AgregarCategoria';
 
 function App() {
   return (
-    <div style={{backgroundColor: 'FFF9E1'}}>  
+    <div className='pt-16 flex flex-col min-h-screen' style={{backgroundColor: 'FFF9E1'}}>  
     <Header />
       <Routes>
           <Route path='/' element={<Home/>}></Route>

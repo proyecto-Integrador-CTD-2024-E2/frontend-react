@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { getIconByName } from '../utilities/icons';
 
 
 const ListarProductos = () => {
@@ -25,11 +27,7 @@ const ListarProductos = () => {
         });
     }, []);
 
-    const handleEdit = (id) => {
-   
-      
-        
-    };
+    
 
     const handleDelete = async (id) => {
         if (window.confirm("¿Estás seguro que queres eliminar este producto?")) {
@@ -55,7 +53,7 @@ const ListarProductos = () => {
       };
 
     return (
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative overflow-x-auto shadow-md w-full rounded-lg">
            <table className="w-full text-sm text-left text-gray-500" >
             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                 <tr >
@@ -63,6 +61,8 @@ const ListarProductos = () => {
                     <th scope="col" className="px-6 py-3">Nombre</th>
                     <th scope="col" className="px-6 py-3">Categoría</th>
                     <th scope="col" className="px-6 py-3">Marca</th>
+                    <th scope="col" className="px-6 py-3">Opciones</th>
+
                 </tr>
             </thead>
             <tbody className="table-group-divider">
@@ -72,15 +72,15 @@ const ListarProductos = () => {
                     <td className="px-6 py-4">{producto.nombre}</td >
                     <td className="px-6 py-4">{producto.categoria}</td >
                     <td className="px-6 py-4">{producto.marca}</td >
-                    <td className="px-6 py-4" >
-                      <Link to={`/admin/agregar/${producto.id}`}>
-                        <button className="btn btn-outline-primary" onClick={() => handleEdit(producto.id)}>
-                            <i className="bi bi-pencil-square"></i>
+                    <td className="px-6 py-4 flex gap-x-2" >
+                      <Link to={`/admin/agregar-producto/${producto.id}`}>
+                        <button className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
+                          <FontAwesomeIcon icon={getIconByName('pencil')} size="lg" />
                         </button>
                       </Link>
                        
-                        <button className="btn btn-outline-danger " onClick={() => handleDelete(producto.id)}>
-                            <i className="bi bi-trash"></i>
+                        <button className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800" onClick={() => handleDelete(producto.id)}>
+                          <FontAwesomeIcon icon={getIconByName('trash')} size="lg" />
                         </button>
                     </td>
                 </tr>
