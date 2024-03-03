@@ -1,8 +1,12 @@
 
+import { useState } from "react";
 import style from "../Styles/header.module.css";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+
+
+
     return (
         <header className={style.header_cont}>
            
@@ -20,7 +24,10 @@ const Header = () => {
             </div>
 
             <div className={style.btn}>
-            <Link to="/" className={style.btn1}>Crear cuenta</Link>
+               
+            <Link to="/registro" className={style.btn1}>Crear cuenta
+            
+            </Link>
             <Link to="/" className={style.btn2}>Iniciar Sesion</Link>
             
             </div>
