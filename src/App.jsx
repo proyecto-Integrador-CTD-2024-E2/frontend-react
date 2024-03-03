@@ -13,7 +13,7 @@ import ListarUsuarios from './Routers/ListarUsuarios';
 import Resgistro from './Routers/Registro';
 import ListarCategorias from './Routers/ListarCategorias';
 import AgregarCategoria from './Routers/AgregarCategoria';
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function App() {
