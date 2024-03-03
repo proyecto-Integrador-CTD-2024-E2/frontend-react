@@ -18,7 +18,7 @@ const Categories = () => {
 
   return (
     <div className="p-3 rounded-3 mb-4">
-      <div className="flex justify-between">
+      <div className="flex justify-between overflow-auto">
         <div className="my-2 my-lg-0 ">
           <div className="card h-100 w-[14em] border-0 rounded-3 justify-center items-center">
             <svg
