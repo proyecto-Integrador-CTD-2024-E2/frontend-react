@@ -1,25 +1,40 @@
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 const ProductCard = ({ producto }) => {
   return (
-    <div className="card h-100 bg-white p-3 p-lg-4 rounded-3 shadow">
-      
-      <div className="w-100 row align-self-center" style={{ height: '150px' }}>
-        <img src={producto.imagenes[1]} className="h-100 w-100" alt={producto.nombre} style={{ objectFit: 'contain' }} />
+    <div className="card h-full bg-white p-6 rounded-2xl">
+      <div className="w-full row align-self-center" style={{ height: "150px" }}>
+        <img
+          src={producto.imagenes[1]}
+          className="h-full w-full"
+          alt={producto.nombre}
+          style={{ objectFit: "contain" }}
+        />
       </div>
-      <div className="card-body d-flex flex-column justify-content-between">
+      <div className="flex flex-col gap-2 justify-between">
         <div>
-          <h5 className="card-title text-dark">{producto.nombre}</h5>
-          <span className='badge rounded-pill bg-warning text-dark'>{producto.categoria}</span>
-          <p className="fs-6  card-text text-secondary">{producto.descripcion.substring(0, 100)}{producto.descripcion.length > 30 ? '...' : ''}</p>
+          <div className="flex items-center gap-2">
+            <h5 className="font-semibold text-xl">{producto.nombre}</h5>
+            <span className="rounded-full px-4 bg-amber-400 text-sm">
+              {producto.categoria}
+            </span>
+          </div>
+          <p className="fs-6  card-text text-secondary">
+            {producto.descripcion.substring(0, 100)}
+            {producto.descripcion.length > 30 ? "..." : ""}
+          </p>
         </div>
-        <h2>
-          ${producto.precio}
-        </h2>
-        <div>
-          <Link to={'/detail/' + producto.id} className="btn btn-warning mt-2">Ver Detalles</Link>
+        <div className="flex justify-between items-center gap-2">
+          <h2 className="font-bold text-2xl text-slate-900">
+            ${producto.precio}
+          </h2>
+          <Link
+            to={"/detail/" + producto.id}
+            className="bg-amber-400 px-4 py-2 rounded-full hover:bg-amber-300 transition-all"
+          >
+            Ver Detalles
+          </Link>
         </div>
-
       </div>
     </div>
   );

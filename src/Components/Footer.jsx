@@ -1,25 +1,31 @@
-import style from "../Styles/footer.module.css";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className={style.footer}>
-       <div className={style.footer__container}>
-        <div className={style.copywriting}>
-          <a href="#" className={style.enlace}>
-            <img className={style.logo} src="../../public/logo5.png" alt="" />
+    <footer className="bg-sky-900">
+      <div className="flex flex-col items-center p-4 sm:p-12 md:flex-row">
+        <div className="flex flex-col items-center gap-8 md:gap-6 md:flex-row">
+          <a href="#" className="flex font-semibold items-center text-gray-800">
+            <img
+              className="w-auto h-8 md:h-10"
+              src="../../public/logo5.png"
+              alt=""
+            />
           </a>
-          <p  className={style.textoCopywriting}>
+          <p className="m-0 p-2 text-lg leading-5 font-light text-white">
             ©️ 2024 Tools House.
           </p>
         </div>
 
-        <div className={style.navegation}>
-          <Link to="/" className={style.navegation__enlace}></Link>
+        <div className="flex flex-wrap justify-center gap-4 md:gap-16">
+          <Link
+            to="/"
+            className="text-sm leading-5 font-light text-gray-500 hover:underline"
+          ></Link>
         </div>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
