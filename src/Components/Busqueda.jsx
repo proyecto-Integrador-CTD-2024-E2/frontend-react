@@ -1,9 +1,9 @@
 import style from "../Styles/busqueda.module.css";
-// import { Link } from "react-router-dom";
+
 
 const Busqueda = () => {
   return (
-    <form className="mt-[1em]">
+    <form >
       <div className={style.searchButton__container}>
         <input
           type="search"

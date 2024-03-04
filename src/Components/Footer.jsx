@@ -1,22 +1,14 @@
-import style from "../Styles/footer.module.css";
-import { Link } from "react-router-dom";
-
 const Footer = () => {
   return (
-    <footer className={style.footer}>
-       <div className={style.footer__container}>
-        <div className={style.copywriting}>
-          <a href="#" className={style.enlace}>
-            <img className={style.logo} src="../../public/logo5.png" alt="" />
+    <footer className="bg-cyan-900 text-white w-full mt-auto">
+      <div className="flex flex-col md:flex-row justify-between items-center p-4 md:p-6 lg:px-16">
+        <div className="flex flex-col md:flex-row items-center gap-2">
+          <a href="#" className="flex items-center">
+            <img src="../../public/logo5.png" alt="" className="h-9" />
           </a>
-          <p  className={style.textoCopywriting}>
-            ©️ 2024 Tools House.
-          </p>
+          <p>© 2024 Tools House.</p>
         </div>
 
-        <div className={style.navegation}>
-          <Link to="/" className={style.navegation__enlace}></Link>
-        </div>
       </div>
     </footer>
   )

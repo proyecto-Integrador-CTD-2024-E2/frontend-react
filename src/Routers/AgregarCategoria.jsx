@@ -125,45 +125,45 @@ const AgregarCategoria = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h3 className="text-lg font-semibold mb-4">Agregar Categoría</h3>
-      <form onSubmit={handleFormSubmit}>
-        <div className="col">
-            <div className="mb-6">
-                <label className="block text-gray-700 font-semibold mb-2" htmlFor="nombre">Nombre</label>
-                <input
-                    type="text"
-                    id="nombre"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
-                    placeholder="Nombre de la categoria"
-                    value={categoryData.nombre}
-                    onChange={handleInputChange}
-                />
-            </div>
-            <div className="mb-3">
+    <h3 className="text-lg font-semibold mb-4">Agregar Categoría</h3>
+    <form onSubmit={handleFormSubmit}>
+      <div className="col">
+          <div className="mb-6">
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="nombre">Nombre</label>
+              <input
+                  type="text"
+                  id="nombre"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
+                  placeholder="Nombre de la categoria"
+                  value={categoryData.nombre}
+                  onChange={handleInputChange}
+              />
+          </div>
+          <div className="mb-3">
 
-                <label htmlFor="icono" className="block text-gray-700 font-semibold mb-2">Icono</label>
-                <div className="flex flex-wrap items-center justify-start gap-4">
-                    {iconNames.map((iconName) => (
-                    <button
-                    type='button'
-                        id="icono"
-                        key={iconName}
-                        className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 ${categoryData.icono === iconName ? 'bg-cyan-900 border-cyan-900 text-white' : 'bg-white text-cyan-900 border-cyan-900'} cursor-pointer transition-colors duration-150 ease-in-out`}
-                        onClick={() => handleIconSelect(iconName)}
-                    >
-                        <FontAwesomeIcon icon={getIconByName(iconName)} size="lg" />
-                    </button>
-                    ))}
-                </div>
+              <label htmlFor="icono" className="block text-gray-700 font-semibold mb-2">Icono</label>
+              <div className="flex flex-wrap items-center justify-start gap-4">
+                  {iconNames.map((iconName) => (
+                   <button
+                   type='button'
+                   key={iconName}
+                   className={`flex items-center justify-center w-16 h-16 rounded-lg border-2 transition-transform duration-150 ease-in-out ${categoryData.icono === iconName ? 'bg-cyan-900 border-cyan-900 text-white' : 'bg-white text-cyan-900 border-cyan-900 cursor-pointer hover:scale-105'} `}
+                   onClick={() => handleIconSelect(iconName)}
+               >
+                   <FontAwesomeIcon icon={getIconByName(iconName)} className="text-xl" />
+               </button>
+                  ))}
+              </div>
 
-            </div>
-        </div>
-        <div className="flex justify-end mt-4">
-            <button type="submit" className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
-                {id ? 'Actualizar' : 'Agregar'}
-            </button>
-        </div>
-      </form>
+          </div>
+
+      </div>
+      <div className="flex justify-end mt-4">
+          <button type="submit" className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
+              {id ? 'Actualizar' : 'Agregar'}
+          </button>
+      </div>
+    </form>
     </div>
 
   );

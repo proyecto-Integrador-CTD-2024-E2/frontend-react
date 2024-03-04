@@ -13,12 +13,12 @@ import ListarUsuarios from './Routers/ListarUsuarios';
 import Resgistro from './Routers/Registro';
 import ListarCategorias from './Routers/ListarCategorias';
 import AgregarCategoria from './Routers/AgregarCategoria';
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function App() {
   return (
-    <div style={{backgroundColor: 'FFF9E1'}}>  
+    <div className='pt-16 flex flex-col min-h-screen' style={{backgroundColor: 'FFF9E1'}}>  
     <Header />
       <Routes>
           <Route path='/' element={<Home/>}></Route>

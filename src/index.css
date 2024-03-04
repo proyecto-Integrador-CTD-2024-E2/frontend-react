@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin-top: 3.5em;
-}
+
 
 /* Estilos para el scrollbar */
 ::-webkit-scrollbar {
