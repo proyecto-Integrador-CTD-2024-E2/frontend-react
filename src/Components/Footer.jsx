@@ -1,14 +1,28 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
-    <footer className="bg-cyan-900 text-white w-full mt-auto">
-      <div className="flex flex-col md:flex-row justify-between items-center p-4 md:p-6 lg:px-16">
-        <div className="flex flex-col md:flex-row items-center gap-2">
-          <a href="#" className="flex items-center">
-            <img src="../../public/logo5.png" alt="" className="h-9" />
+    <footer className="bg-sky-900">
+      <div className="flex flex-col items-center p-4 sm:p-12 md:flex-row">
+        <div className="flex flex-col items-center gap-8 md:gap-6 md:flex-row">
+          <a href="#" className="flex font-semibold items-center text-gray-800">
+            <img
+              className="w-auto h-8 md:h-10"
+              src="../../public/logo5.png"
+              alt=""
+            />
           </a>
-          <p>© 2024 Tools House.</p>
+          <p className="m-0 p-2 text-lg leading-5 font-light text-white">
+            ©️ 2024 Tools House.
+          </p>
         </div>
 
+        <div className="flex flex-wrap justify-center gap-4 md:gap-16">
+          <Link
+            to="/"
+            className="text-sm leading-5 font-light text-gray-500 hover:underline"
+          ></Link>
+        </div>
       </div>
     </footer>
   );
