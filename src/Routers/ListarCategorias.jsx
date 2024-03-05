@@ -1,6 +1,13 @@
+<<<<<<< Updated upstream
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { getIconByName } from "../utilities/icons";
+=======
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+import { getIconByName } from '../utilities/icons';
+import { useEffect, useState } from 'react';
+>>>>>>> Stashed changes
 
 const ListarCategorias = () => {
   const categorias = [
@@ -31,6 +38,7 @@ const ListarCategorias = () => {
     },
   ];
 
+<<<<<<< Updated upstream
   const handleDelete = (id) => {};
 
   return (
@@ -75,6 +83,31 @@ const ListarCategorias = () => {
                     <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
                   </button>
                 </Link>
+=======
+    const [categorias, setCategorias] = useState ([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const obtenerCategorias = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/categorias');
+                if (!response.ok) {
+                    throw new Error('Error al obtener las categorías');
+                }
+                const data = await response.json();
+                setCategorias(data);
+            } catch (error) {
+                setError(error.message);
+            }
+        };
+
+        obtenerCategorias();
+    }, []);
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+>>>>>>> Stashed changes
 
                 <button
                   className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800"

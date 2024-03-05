@@ -18,7 +18,7 @@ const AgregarCategoria = () => {
 
   useEffect(() => {
     if (id) {
-        return;
+        // return;
       fetch(`http://localhost:8080/Categorias/${id}`)
         .then((res) => res.json())
         .then((data) => {
@@ -63,7 +63,7 @@ const AgregarCategoria = () => {
       try {
 
         console.log(categoryData)
-        return;
+        // return;
         const response = await fetch(`http://localhost:8080/Categorias`, {
           method: 'PUT',
           headers: {
@@ -93,7 +93,7 @@ const AgregarCategoria = () => {
 
       try {
         console.log(categoryData)
-        return
+        // return
         const response = await fetch('http://localhost:8080/Categorias', {
           method: 'POST',
           headers: {
@@ -115,7 +115,7 @@ const AgregarCategoria = () => {
       toast.success('Se ha agregado exitosamente la categoria!');
     } catch (error) {
       console.error('Error:', error.message);
-      toast.error('Ha ocurrido un problema al crear el la nueca categoria.' , error.message);
+      toast.error('Ha ocurrido un problema al crear la nueva categoria.' , error.message);
     }
 
     }
