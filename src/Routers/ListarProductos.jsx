@@ -3,54 +3,51 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getIconByName } from '../utilities/icons';
 
-
 const ListarProductos = () => {
-    const [productos, setProductos] = useState([]);
+  const [productos, setProductos] = useState([]);
 
-    useEffect(() => {
-      fetch('http://localhost:8080/Herramientas')
+  useEffect(() => {
+    fetch("http://localhost:8080/Herramientas")
       .then((res) => res.json())
       .then((responseData) => {
-  
         const productosApiFake = responseData.map((producto) => ({
-            id: producto.id,
-            nombre: producto.nombre,
-            descripcion: producto.descripcion,
-            precio: producto.precio,
-            categoria: producto.categoria,
-            marca: producto.marca,
-            imagenes: producto.imagenes.map((imagen) => imagen.url),
+          id: producto.id,
+          nombre: producto.nombre,
+          descripcion: producto.descripcion,
+          precio: producto.precio,
+          categoria: producto.categoria,
+          marca: producto.marca,
+          imagenes: producto.imagenes.map((imagen) => imagen.url),
         }));
 
         setProductos(productosApiFake);
+      });
+  }, []);
 
+  const handleEdit = (id) => {
+    console.log(`Editar producto con id ${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro que quieres eliminar este producto?")) {
+      try {
+        const response = await fetch(`http://localhost:8080/Herramientas/${id}`, {
+          method: "DELETE",
         });
-    }, []);
 
-    
-
-    const handleDelete = async (id) => {
-        if (window.confirm("¿Estás seguro que queres eliminar este producto?")) {
-          try {
-            const response = await fetch(`http://localhost:8080/Herramientas/${id}`, {
-              method: "DELETE",
-            });
-            
-            if (!response.ok) {
-              throw new Error(`HTTP error: ${response.status}`);
-            }
-      
-            setProductos((prevProductos) => prevProductos.filter((prod) => prod.id !== id));
-      
-            alert("El producto se eliminó correctamente.");
-          } catch (error) {
-            console.error("Error:", error.message);
-            alert("Hubo un problema al eliminar el producto.");
-          }
-        } else {
-          alert("Eliminacion cancelada.");
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
         }
-      };
+
+        setProductos((prevProductos) => prevProductos.filter((prod) => prod.id !== id));
+
+        alert("El producto se eliminó correctamente.");
+      } catch (error) {
+        console.error("Error:", error.message);
+        alert("Hubo un problema al eliminar el producto.");
+      }
+    }
+  };
 
     return (
       <div className="relative overflow-x-auto shadow-md w-full rounded-lg">
@@ -89,7 +86,8 @@ const ListarProductos = () => {
         </table>
       </div>
        
-    );
+                    );
+                
 };
 
 export default ListarProductos;

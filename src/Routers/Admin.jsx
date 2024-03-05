@@ -1,5 +1,5 @@
-import { Outlet } from 'react-router-dom';
-import PanelAdmin from '../Components/PanelAdmin';
+import { Outlet } from "react-router-dom";
+import PanelAdmin from "../Components/PanelAdmin";
 
 const Admin = () => {
     return (

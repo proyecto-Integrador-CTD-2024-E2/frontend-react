@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
@@ -18,80 +18,100 @@ const Detail = () => {
           categoria: responseData.categoria,
           imagenes: responseData.imagenes.map((imagen) => imagen.url),
         };
-  
+
         setProducto(productoData);
       })
       .catch((error) => console.error("Error haciendo el fetch:", error));
   }, [id]);
 
-  if (!producto) return <div>Cargando...</div>;
-  
+  if (!producto) return <div className="text-center">Cargando...</div>;
+
   return (
     <div className="col-12">
-      <div className='d-flex px-4 pt-5 justify-content-between align-self-start' style={{ backgroundColor: '#AB9680'}}>
-        <div className='d-flex'>
-          <Link to="/" className="btn btn-light ">
-              <i className="bi bi-arrow-left"></i> Volver
+      <div className=" px-4 pt-5 bg-sky-700 justify-between">
+        <div className="flex justify-between">
+          <Link to="/" className="bg-white text-black px-4 py-2 rounded">
+            <i className="bi bi-arrow-left"></i> Volver
           </Link>
+          <button className="bg-amber-400 px-4 py-2 rounded-2xl hover:bg-amber-300 transition-all">
+            Ver más Imagenes
+          </button>
         </div>
       </div>
-      <div className='col-12'>
-   
-        <div className='d-flex flex-column flex-md-row mb-2 p-4' style={{ backgroundColor: '#AB9680'}}>
-          <div className='mb-4 mb-md-0 flex-fill me-2'>
-            <div className="w-100 rounded-start-3 p-2 shadow bg-white" style={{height: '325px'}}>
-                  <img src={producto.imagenes[0]} className="h-100 w-100" alt={producto.nombre} style={{ objectFit: 'contain'}}/>
+      <div className="col-12">
+        <div className="flex justify-center gap-6 flex-col md:flex-row bg-sky-700 mb-2 p-4">
+          <div className="mb-4 flex">
+            <div className="w-full rounded-tl-md p-2 shadow-md bg-white h-[515px]">
+              <img
+                src={producto.imagenes[0]}
+                className="h-full w-full object-contain"
+                alt={producto.nombre}
+              />
             </div>
           </div>
 
-          <div className='flex-fill ms-2'>
-            <div className='row mb-4'>
-              <div className='col-6'>
-                <div className="w-100 p-2 shadow bg-white" style={{height: '150px'}}>
-                      <img src={producto.imagenes[1]} className="h-100 w-100" alt={producto.nombre} style={{ objectFit: 'contain'}}/>
+          <div className="flex flex-col md:flex-row ms-2">
+            <div className="w-full">
+              <div className="md:flex mb-4">
+                <div className="md:w-1/2 pr-2">
+                  <div className="w-full p-2 shadow bg-white h-[250px]">
+                    <img
+                      src={producto.imagenes[1]}
+                      className="h-full w-full object-contain"
+                      alt={producto.nombre}
+                    />
+                  </div>
+                </div>
+
+                <div className="md:w-1/2 pl-2">
+                  <div className="w-full rounded-tr-md p-2 shadow bg-white h-[250px]">
+                    <img
+                      src={producto.imagenes[2]}
+                      className="h-full w-full object-contain"
+                      alt={producto.nombre}
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className='col-6'>
-                <div className="w-100 rounded-end-3 p-2 shadow bg-white" style={{height: '150px'}}>
-                      <img src={producto.imagenes[2]} className="h-100 w-100" alt={producto.nombre} style={{ objectFit: 'contain'}}/>
+              <div className="md:flex">
+                <div className="md:w-1/2 pr-2">
+                  <div className="w-full p-2 shadow bg-white h-[250px]">
+                    <img
+                      src={producto.imagenes[3]}
+                      className="h-full w-full object-contain"
+                      alt={producto.nombre}
+                    />
+                  </div>
+                </div>
+
+                <div className="md:w-1/2 pl-2">
+                  <div className="w-full rounded-br-md p-2 shadow bg-white h-[250px]">
+                    <img
+                      src={producto.imagenes[4]}
+                      className="h-full w-full object-contain"
+                      alt={producto.nombre}
+                    />
+                  </div>
                 </div>
               </div>
-            
             </div>
-
-            <div className='row'>
-              <div className='col-6'>
-                <div className="w-100  p-2 shadow bg-white" style={{height: '150px'}}>
-                      <img src={producto.imagenes[3]} className="h-100 w-100" alt={producto.nombre} style={{ objectFit: 'contain'}}/>
-                </div>
-              </div>
-
-              <div className='col-6'>
-                <div className="w-100 rounded-end-3 p-2 shadow bg-white" style={{height: '150px'}}>
-                      <img src={producto.imagenes[4]} className="h-100 w-100" alt={producto.nombre} style={{ objectFit: 'contain'}}/>
-                </div>
-              </div>
-            </div>
-            <div className='d-flex justify-content-end mt-2 mb-4 px-4'>
-          <button className='btn btn-primary' style={{backgroundColor:'#F2AA1F', border: 'none'}}>Ver más</button>
-        </div>
           </div>
-
-          
         </div>
 
-        <div className='p-3 rounded-3' >
-          <div className="col-12 col-lg-6 d-flex flex-column justify-content-center">
+        <div className="py-12 px-4 rounded-3">
+          <div className="col-12 col-lg-6 d-flex flex-col justify-center">
             <div className="px-4">
-                <div className='d-flex align-items-center '>
-                  <h4 className='mb-1'>
-                    {producto.nombre}
-                  </h4>
-                  <span className="badge rounded-pill bg-warning text-dark mx-2">{producto.categoria}</span>
-                </div>
-                <p className=" text-dark">{producto.descripcion}</p>
-                <p className="fs-2 text-dark"><b>${producto.precio}</b></p>
+              <div className="flex items-center gap-2">
+                <h5 className="font-semibold text-xl">{producto.nombre}</h5>
+                <span className="rounded-full px-4 bg-amber-400 text-sm">
+                  {producto.categoria}
+                </span>
+              </div>
+              <p className="text-dark">{producto.descripcion}</p>
+              <p className="font-bold text-2xl text-slate-900">
+                <b>${producto.precio}</b>
+              </p>
             </div>
           </div>
         </div>
