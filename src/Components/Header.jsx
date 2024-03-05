@@ -1,33 +1,34 @@
-
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    return (
-        <header className="fixed top-0 left-0 w-full z-50 shadow-md bg-cyan-900">
-        <div className=" mx-auto px-1 px-mx-4 flex justify-between items-center h-16">
-            <Link to="/">
-                <img
-                    src="../../public/logo5.png"
-                    alt="logo"
-                    className="h-8"
-                />
-            </Link>
+  return (
+    <header className="fixed left-0 right-0 top-0 z-40 py-3 px-8 bg-sky-900 flex items-center justify-between">
+      <div className="flex items-center">
+        <Link to="/" className="text-gray-800">
+          <img
+            className="h-10 w-auto"
+            src="../../public/logo5.png"
+            alt="logo"
+          />
+        </Link>
+      </div>
 
-            <div>
-
-            <div>
-                <Link to="/registro" className="inline-block p-1 px-md-4 py-md-2 bg-amber-400 text-cyan-900 rounded hover:bg-amber-300">
-                    Crear cuenta
-                </Link>
-
-                <Link to="/iniciar-sesion" className="ml-4 inline-block p-1 px-md-4 py-md-2 bg-amber-400 text-cyan-900 rounded hover:bg-amber-300">
-                    Iniciar Sesión
-                </Link>
-            </div>
-            </div>
-        </div>
-        </header>
-    )
-}
+      <div className="flex gap-4">
+        <Link
+          to="/"
+          className="px-2 py-1 rounded-xl bg-amber-400 font-semibold"
+        >
+          Crear cuenta
+        </Link>
+        <Link
+          to="/"
+          className="px-2 py-1 rounded-xl bg-amber-400 font-semibold"
+        >
+          Iniciar Sesion
+        </Link>
+      </div>
+    </header>
+  );
+};
 
 export default Header;

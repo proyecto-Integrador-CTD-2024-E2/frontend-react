@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import ProductCard from "./ProductCard";
-import style from "../Styles/products.module.css";
 
 const Products = () => {
   const [productos, setProductos] = useState([]);
@@ -33,7 +32,7 @@ const Products = () => {
     };
     fetchData();
   }, []);
-  // Randomizar el orden de los productos
+
   const getRandomOrder = (array) => {
     return array.reduce((result, currentValue) => {
       const insertIndex = Math.round(Math.random() * result.length);
@@ -44,52 +43,53 @@ const Products = () => {
       ]);
     }, []);
   };
-  // Logica para la paginacion
+
   useEffect(() => {
     setStart((currentPage - 1) * pageSize);
   }, [currentPage]);
+
   const handleNextClick = () => {
     setCurrentPage((currentPage) =>
       Math.min(currentPage + 1, Math.ceil(productos.length / pageSize))
     );
   };
+
   const handlePrevClick = () => {
     setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
   };
 
   return (
-    <div className="p-3 rounded-3" style={{ backgroundColor: "#AB9680" }}>
-      <div className="row justify-content-center">
-        {productos.slice(start, start + pageSize).map((producto) => {
-          return (
-            <div key={producto.id} className="my-2 col-12 col-md-6">
-              <ProductCard producto={producto} />
-            </div>
-          );
-        })}
+    <div className="p-6 rounded-xl bg-sky-900">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+        {productos.slice(start, start + pageSize).map((producto) => (
+          <div key={producto.id}>
+            <ProductCard producto={producto} />
+          </div>
+        ))}
       </div>
-      <div className="d-flex justify-content-center align-items-center my-5 gap-2">
+      <div className="flex justify-center items-center mt-5 space-x-4">
         <button
-          onClick={() => handlePrevClick()}
+          onClick={handlePrevClick}
           disabled={currentPage === 1}
-          className={style.btn}
-          style={{ opacity: currentPage === 1 ? 0.6 : 1 }}
+          className={`bg-sky-600 text-white px-4 py-2 rounded-md ${
+            currentPage === 1 ? "opacity-60" : ""
+          }`}
         >
           <span aria-hidden="true">&laquo;</span>
         </button>
 
-        <button className={style.btn}>
+        <button className="bg-sky-600 text-white px-4 py-2 rounded-md">
           <u>{currentPage}</u>
         </button>
 
         <button
-          onClick={() => handleNextClick()}
+          onClick={handleNextClick}
           disabled={currentPage === Math.ceil(productos.length / pageSize)}
-          className={style.btn}
-          style={{
-            opacity:
-              currentPage === Math.ceil(productos.length / pageSize) ? 0.6 : 1,
-          }}
+          className={`bg-sky-600 text-white px-4 py-2 rounded-md ${
+            currentPage === Math.ceil(productos.length / pageSize)
+              ? "opacity-60"
+              : ""
+          }`}
         >
           <span aria-hidden="true">&raquo;</span>
         </button>
