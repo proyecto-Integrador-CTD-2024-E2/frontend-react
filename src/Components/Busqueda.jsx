@@ -1,6 +1,6 @@
 const Busqueda = () => {
   return (
-    <form className=" w-1/3 mx-auto m-[1em]">
+    <form className=" w-1/3 mx-auto m-[1em] mt-14">
       <label
         htmlFor="default-search"
         className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
