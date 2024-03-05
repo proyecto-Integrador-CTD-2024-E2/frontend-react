@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 
 const PanelAdmin = () => {
-  const isListarProductosActive = useMatch("/admin/listar-productos*");
-  const isAgregarProductoActive = useMatch("/admin/agregar-producto*");
-  const isListarUsuariosActive = useMatch("/admin/listar-usuarios*");
-  const isListarCategoriasActive = useMatch("/admin/listar-categorias*");
-  const isAgregarCategoriasActive = useMatch("/admin/agregar-categoria*");
+  const isListarProductosActive = useMatch("/admin/productos/listar/*");
+  const isAgregarProductoActive = useMatch("/admin/productos/agregar/*");
+  const isListarUsuariosActive = useMatch("/admin/usuarios/listar/*");
+  const isListarCategoriasActive = useMatch("/admin/categorias/listar/*");
+  const isAgregarCategoriasActive = useMatch("/admin/categorias/agregar/*");
 
   return (
     <nav className="p-8 shadow-lg mr-2 bg-sky-900 text-white text-nowrap">
@@ -18,7 +18,7 @@ const PanelAdmin = () => {
             className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
               isListarProductosActive ? "bg-sky-950" : ""
             }`}
-            to="/admin/listar-productos"
+            to="/admin/productos/listar"
           >
             <FontAwesomeIcon
               className="mr-2"
@@ -33,7 +33,7 @@ const PanelAdmin = () => {
             className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
               isAgregarProductoActive ? "bg-sky-950" : ""
             }`}
-            to="/admin/agregar-producto"
+            to="/admin/productos/agregar"
           >
             <FontAwesomeIcon
               className="mr-2"
@@ -48,7 +48,7 @@ const PanelAdmin = () => {
             className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
               isListarUsuariosActive ? "bg-sky-950" : ""
             }`}
-            to="/admin/listar-usuarios"
+            to="/admin/usuarios/listar"
           >
             <FontAwesomeIcon
               className="mr-2"
@@ -63,7 +63,7 @@ const PanelAdmin = () => {
             className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
               isListarCategoriasActive ? "bg-sky-950" : ""
             }`}
-            to="/admin/listar-categorias"
+            to="/admin/categorias/listar"
           >
             <FontAwesomeIcon
               className="mr-2"
@@ -78,7 +78,7 @@ const PanelAdmin = () => {
             className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
               isAgregarCategoriasActive ? "bg-sky-950" : ""
             }`}
-            to="/admin/agregar-categoria"
+            to="/admin/categorias/agregar"
           >
             <FontAwesomeIcon
               className="mr-2"
