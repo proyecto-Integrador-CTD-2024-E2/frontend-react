@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getIconByName } from "../utilities/icons";
 
 const ListarProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -54,7 +56,7 @@ const ListarProductos = () => {
   };
 
   return (
-    <table className="table w-full my-4">
+    <table className="table w-full my-4 ml-8">
       <thead className="text-left">
         <tr>
           <th scope="col">Id</th>
@@ -73,16 +75,16 @@ const ListarProductos = () => {
             <td className="py-2">{producto.marca}</td>
             <td className="py-2 flex gap-8">
               <button
-                className="bg-sky-600 hover:bg-sky-700 transition-all text-white px-2 py-1 rounded-lg"
+                className="bg-sky-900 hover:bg-sky-700 transition-all text-white px-2 py-1 rounded-lg"
                 onClick={() => handleEdit(producto.id)}
               >
-                <i className="bi bi-pencil-square"></i>
+                <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
               </button>
               <button
                 className="bg-red-500 hover:bg-red-700 transition-all text-white px-2 py-1 rounded-lg"
                 onClick={() => handleDelete(producto.id)}
               >
-                <i className="bi bi-trash"></i>
+                <FontAwesomeIcon icon={getIconByName("trash")} size="lg" />
               </button>
             </td>
           </tr>

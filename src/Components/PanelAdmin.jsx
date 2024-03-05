@@ -1,61 +1,92 @@
-import { Link } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getIconByName } from "../utilities/icons";
 
 const PanelAdmin = () => {
+  const isListarProductosActive = useMatch("/admin/listar-productos*");
+  const isAgregarProductoActive = useMatch("/admin/agregar-producto*");
+  const isListarUsuariosActive = useMatch("/admin/listar-usuarios*");
+  const isListarCategoriasActive = useMatch("/admin/listar-categorias*");
+  const isAgregarCategoriasActive = useMatch("/admin/agregar-categoria*");
+
   return (
-    <nav className="px-8 py-6 mr-8 bg-sky-900">
-      <h5 className="text-white mb-4 ">ADMIN</h5>
-      <ul className="navbar-nav">
-        <li className="nav-item w-full">
+    <nav className="p-8 shadow-lg mr-2 bg-sky-900 text-white text-nowrap">
+      <h5 className="mb-5 text-amber-400">Menu Admin</h5>
+      <ul>
+        <li className="my-4">
           <Link
-            className="nav-link text-white flex items-center gap-1 w-[12em] hover:bg-sky-700 py-2 px-2 rounded-lg"
-            to="/admin/listar"
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isListarProductosActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/listar-productos"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-list"
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M9 6l11 0" />
-              <path d="M9 12l11 0" />
-              <path d="M9 18l11 0" />
-              <path d="M5 6l0 .01" />
-              <path d="M5 12l0 .01" />
-              <path d="M5 18l0 .01" />
-            </svg>
-            Lista de Productos
-          </Link>{" "}
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("list")}
+              size="sm"
+            />
+            Listar Productos
+          </Link>
         </li>
-        <li className="nav-item w-full">
+        <li className="my-4">
           <Link
-            className="nav-link text-white flex items-center gap-1 w-[12em] hover:bg-sky-700 py-2 px-2 rounded-lg"
-            to="/admin/agregar"
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isAgregarProductoActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/agregar-producto"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-plus"
-              width="26"
-              height="26"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <path d="M12 5l0 14" />
-              <path d="M5 12l14 0" />
-            </svg>
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("plus")}
+              size="sm"
+            />
             Agregar Producto
-          </Link>{" "}
+          </Link>
+        </li>
+        <li className="my-4">
+          <Link
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isListarUsuariosActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/listar-usuarios"
+          >
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("user")}
+              size="sm"
+            />
+            Lista Usuarios
+          </Link>
+        </li>
+        <li className="my-4">
+          <Link
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isListarCategoriasActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/listar-categorias"
+          >
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("tableList")}
+              size="sm"
+            />
+            Listar categorías
+          </Link>
+        </li>
+        <li className="my-4">
+          <Link
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isAgregarCategoriasActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/agregar-categoria"
+          >
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("plus")}
+              size="sm"
+            />
+            Agregar categoría
+          </Link>
         </li>
       </ul>
     </nav>

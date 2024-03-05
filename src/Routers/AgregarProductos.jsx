@@ -211,10 +211,16 @@ const AgregarProductos = () => {
           </div>
         </div>
         <div className="flex justify-center gap-4 mt-4">
-          <button type="button" className="bg-red-700 px-8 py-2 rounded-md">
+          <button
+            type="button"
+            className="bg-red-500 text-white px-8 py-2 rounded-md"
+          >
             Descartar
           </button>
-          <button type="submit" className=" bg-amber-500 px-8 py-2 rounded-md">
+          <button
+            type="submit"
+            className=" bg-sky-900 text-white px-8 py-2 rounded-md"
+          >
             Agregar
           </button>
         </div>
