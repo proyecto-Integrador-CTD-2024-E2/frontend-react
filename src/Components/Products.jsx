@@ -5,7 +5,7 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
+  const pageSize = 12;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +60,7 @@ const Products = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {productos.slice(start, start + pageSize).map((producto) => (
           <div key={producto.id}>
             <ProductCard producto={producto} />

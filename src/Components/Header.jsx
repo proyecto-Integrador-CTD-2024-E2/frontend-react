@@ -16,13 +16,13 @@ const Header = () => {
       <div className="flex gap-2 md:gap-4">
         <Link
           to="/registro"
-          className="px-2 py-1 md:px-4 text-base rounded-full bg-colorPrimario text-white"
+          className="px-2 py-1 md:px-4 text-base rounded-full bg-colorPrimario text-white hover:bg-colorPrimarioHover transition-all"
         >
           Crear cuenta
         </Link>
         <Link
           to="/login"
-          className="px-2 py-1 md:px-4 text-base rounded-full bg-colorPrimario text-white"
+          className="px-2 py-1 md:px-4 text-base rounded-full bg-colorPrimario text-white hover:bg-colorPrimarioHover transition-all"
         >
           Iniciar Sesion
         </Link>

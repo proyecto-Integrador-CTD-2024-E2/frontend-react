@@ -2,41 +2,40 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 const ProductCard = ({ producto }) => {
   return (
-    <div className="card h-full bg-white p-6 rounded-2xl">
-      <div className="w-full row align-self-center" style={{ height: "150px" }}>
-        <img
-          src={producto.imagenes[1]}
-          className="h-full w-full"
-          alt={producto.nombre}
-          style={{ objectFit: "contain" }}
-        />
-      </div>
-      <div className="flex flex-col gap-2 justify-between">
-        <div>
-          <div className="flex items-center gap-2">
-            <h5 className="font-semibold text-xl">{producto.nombre}</h5>
-            <span className="rounded-full px-4 bg-colorSecundario text-colorClaro text-sm">
-              {producto.categoria}
-            </span>
+    <Link to={"/detail/" + producto.id}>
+      <div className="card h-full bg-white hover:bg-slate-100 transition-all p-6 rounded-2xl">
+        <div
+          className="w-full row align-self-center"
+          style={{ height: "150px" }}
+        >
+          <img
+            src={producto.imagenes[1]}
+            className="h-full w-full"
+            alt={producto.nombre}
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+        <div className="flex flex-col gap-2 justify-between">
+          <div>
+            <div className="flex items-center gap-2">
+              <h5 className="font-semibold text-xl">{producto.nombre}</h5>
+              <span className="rounded-full px-4 bg-colorSecundario text-colorClaro text-sm">
+                {producto.categoria}
+              </span>
+            </div>
+            <p className="fs-6 card-text text-secondary">
+              {producto.descripcion.substring(0, 100)}
+              {producto.descripcion.length > 30 ? "..." : ""}
+            </p>
           </div>
-          <p className="fs-6  card-text text-secondary">
-            {producto.descripcion.substring(0, 100)}
-            {producto.descripcion.length > 30 ? "..." : ""}
-          </p>
-        </div>
-        <div className="flex justify-between items-center gap-2">
-          <h2 className="font-bold text-2xl text-slate-900">
-            ${producto.precio}
-          </h2>
-          <Link
-            to={"/detail/" + producto.id}
-            className="bg-colorPrimario text-colorClaro px-4 py-2 rounded-full hover:bg-colorPrimarioHover transition-all"
-          >
-            Ver Detalles
-          </Link>
+          <div className="flex justify-between items-center gap-2">
+            <h2 className="font-bold text-2xl text-slate-900">
+              ${producto.precio}
+            </h2>
+          </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

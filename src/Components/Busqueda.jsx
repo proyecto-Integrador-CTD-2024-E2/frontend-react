@@ -29,7 +29,7 @@ const Busqueda = () => {
         />
         <button
           type="submit"
-          className="text-colorClaro bg-colorPrimario absolute right-2 bottom-2 hover:bg-colorPrimarioHover focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-6 py-1.5"
+          className="text-colorClaro bg-colorPrimario absolute right-2 bottom-2 hover:bg-colorPrimarioHover focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-6 py-1.5 transition-all"
         >
           Buscar
         </button>
