@@ -6,21 +6,31 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
-  const login = (userData) => {
+  const [ token, setToken ] = useState(null);
+  
+  const login = ({token, nombre, apellido, email, ciuidad }) => {
     localStorage.setItem('token' , token);
-    setUser({ token });
+    setUser({ 
+                
+                nombre,
+                apellido,
+                email,
+                ciuidad
+     });
+    setToken({token})
   };
 
   const logout = () => {
     localStorage.removeItem('token')
     setUser(null);
+    setToken(null)
   };
 
   const value = {
     user,
     login,
     logout,
+    token
   }
 
   return (

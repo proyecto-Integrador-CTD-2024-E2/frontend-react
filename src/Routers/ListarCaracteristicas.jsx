@@ -4,36 +4,40 @@ import { getIconByName } from '../utilities/icons';
 import { useEffect, useState } from 'react';
 
 const ListarCaracteristicas = () => {
-  const caracteristicas = [
-    {
-      id: 1,
-      nombre: "jardineria",
-      icono: "tree",
-    },
-    {
-      id: 2,
-      nombre: "construccion",
-      icono: "trash",
-    },
+  {/*const [ caracteristicas , setCaracteristicas ] = useState([]);
+  
+  useEffect(() => {
+    fetch("http://localhost:8080/Caracteristicas")
+      .then((res) => res.json())
+      .then((responseData) => {
+        const caracteristicas = responseData.map((caracteristica) => ({
+          id: caracteristica.id,
+          nombre: caracteristica.titulo,
+          icono: caracteristica.icono
+        }));
+
+        setCaracteristicas(caracteristicas);
+      });
+  }, []);*/}
+
+  const caracteristicas = [{
+    id: 1,
+    nombre: 'jardin',
+    icono: 'map'
+   },
+   {
+    id: 2,
+    nombre:' hogar',
+    icono: 'pencil'},
     {
       id: 3,
-      nombre: "sanitario",
-      icono: "batteryFull",
-    },
-    {
-      id: 4,
-      nombre: "hogar",
-      icono: "house",
-    },
-    {
-      id: 5,
-      nombre: "exterior",
-      icono: "mapPin",
-    },
-  ];
-
+      nombre: 'exterior',
+      icono: 'plug'},
+      
+  
+  
+  ]
   const handleDelete = (id) => {};
-
   return (
     <div className="relative overflow-x-auto shadow-md w-full rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -71,7 +75,7 @@ const ListarCaracteristicas = () => {
                 />
               </td>
               <td className="px-6 py-4 flex gap-x-2">
-                <Link to={`/admin/agregar-categoria/${caracteristica.id}`}>
+                <Link to={`/admin/caracteristicas/agregar/${caracteristica.id}`}>
                   <button className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
                     <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
                   </button>

@@ -12,7 +12,7 @@ const AgregarCaracteristica = () => {
 
   const [caracteristicaData, setCaracteristicaData] = useState({
     id: null,
-    nombre: '',
+    titulo: '',
     icono: '',
   });
 
@@ -25,7 +25,7 @@ const AgregarCaracteristica = () => {
           console.log(data)
           setCaracteristicaData({
             id: data.id,
-            nombre: data.nombre,
+            titulo: data.titulo,
             icono: data.icono,
         
           });
@@ -38,7 +38,7 @@ const AgregarCaracteristica = () => {
   }, [id]);
 
   const isFieldEmpty = (fieldName) => !caracteristicaData[fieldName];
-  const isAllFieldsNonEmpty = () => !(isFieldEmpty('nombre') || isFieldEmpty('icono'));
+  const isAllFieldsNonEmpty = () => !(isFieldEmpty('titulo') || isFieldEmpty('icono'));
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -71,7 +71,7 @@ const AgregarCaracteristica = () => {
           },
           body: JSON.stringify({
             id: caracteristicaData.id,
-            nombre: caracteristicaData.nombre,
+            titulo: caracteristicaData.titulo,
             icono: caracteristicaData.icono,
           }),
         });
@@ -101,7 +101,7 @@ const AgregarCaracteristica = () => {
           },
           body: JSON.stringify({
             id: caracteristicaData.id,
-            nombre: caracteristicaData.nombre,
+            titulo: caracteristicaData.titulo,
             icono: caracteristicaData.icono,
           }),
         });
@@ -129,13 +129,13 @@ const AgregarCaracteristica = () => {
     <form onSubmit={handleFormSubmit}>
       <div className="col">
           <div className="mb-6">
-              <label className="block text-gray-700 font-semibold mb-2" htmlFor="nombre">Nombre</label>
+              <label className="block text-gray-700 font-semibold mb-2" htmlFor="titulo">Nombre</label>
               <input
                   type="text"
-                  id="nombre"
+                  id="titulo"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-amber-400"
                   placeholder="Nombre de la categoria"
-                  value={caracteristicaData.nombre}
+                  value={caracteristicaData.titulo}
                   onChange={handleInputChange}
               />
           </div>

@@ -16,6 +16,7 @@ import AgregarCategoria from "./Routers/AgregarCategoria";
 import Login from "./Routers/Login";
 import ListarCaracteristicas from "./Routers/ListarCaracteristicas";
 import AgregarCaracteristica from "./Routers/AgregarCaracteristica";
+import { PrivateRoute } from "./Routers/PrivateRoute";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/registro" element={<Resgistro />} />
         <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route element={<PrivateRoute/>}>
         <Route path="/admin" element={<Admin />}>
           <Route index element={<Navigate replace to="productos/listar" />} />
           <Route path="productos/listar" element={<ListarProductos />} />
@@ -42,6 +44,8 @@ function App() {
           <Route path="caracteristicas/agregar" element={<AgregarCaracteristica />} />
           <Route path="caracteristicas/agregar/:id" element={<AgregarCaracteristica />} />
         </Route>
+        </Route>
+        
         <Route path="*" element={<h1>Page not found - Error 404</h1>} />
       </Routes>
       <Footer />

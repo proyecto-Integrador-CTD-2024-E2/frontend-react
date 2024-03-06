@@ -11,7 +11,15 @@ const Login = () => {
 
     const handleLogin = () => {
         const userData = {usermail, password};
+        login({
+            token:'dfdnheisfjselkd',
+            nombre:'leydi',
+            apellido: 'montero',
+            email: 'ejemplo@yohoo.com',
+            ciuidad: 'mosquera'
 
+        });
+            return
         fetch ( 'http://localhost:8080/auth/login' ,{
             method: 'POST',
             headers: {
@@ -27,7 +35,15 @@ const Login = () => {
             }
         })
         .then(data =>{
-            login(data.token);
+            login({
+                token: data.token,
+                nombre:'leydi',
+                apellido: 'montero',
+                email: 'ejemplo@yohoo.com',
+                ciuidad: 'mosquera'
+
+            });
+
         })
     
     }
@@ -43,7 +59,7 @@ const Login = () => {
                         icon={getIconByName("circleUser")}
                     />
                 </div>
-                    <form onSubmit={handleLogin} className="space-y-4 ">
+                    <form className="space-y-4 ">
                         <div>
                             <input
                                 type="text"
@@ -64,8 +80,9 @@ const Login = () => {
                         </div>
                         <div>
                         <button
-                            type="submit"
-                            className="w-full bg-cyan-900 text-white font-semibold py-2 px-4 rounded hover:bg-amber-400 focus:outline-none focus:bg-indigo-600"
+                            type="button" 
+                            onClick={handleLogin} 
+                            className="w-full bg-cyan-900 text-white font-semibold py-2 px-4 rounded hover:bg-amber-400 focus:outline-none focus:bg-amber-500"
                         >
                             Iniciar Sesión
                         </button>
