@@ -59,7 +59,7 @@ const Products = () => {
   };
 
   return (
-    <div className="p-6 rounded-xl bg-sky-900">
+    <div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
         {productos.slice(start, start + pageSize).map((producto) => (
           <div key={producto.id}>
@@ -71,21 +71,21 @@ const Products = () => {
         <button
           onClick={handlePrevClick}
           disabled={currentPage === 1}
-          className={`bg-sky-600 text-white px-4 py-2 rounded-md ${
+          className={`bg-colorSecundario text-white px-4 py-2 rounded-md ${
             currentPage === 1 ? "opacity-60" : ""
           }`}
         >
           <span aria-hidden="true">&laquo;</span>
         </button>
 
-        <button className="bg-sky-600 text-white px-4 py-2 rounded-md">
+        <button className="bg-colorSecundario text-white px-4 py-2 rounded-md">
           <u>{currentPage}</u>
         </button>
 
         <button
           onClick={handleNextClick}
           disabled={currentPage === Math.ceil(productos.length / pageSize)}
-          className={`bg-sky-600 text-white px-4 py-2 rounded-md ${
+          className={`bg-colorSecundario text-white px-4 py-2 rounded-md ${
             currentPage === Math.ceil(productos.length / pageSize)
               ? "opacity-60"
               : ""

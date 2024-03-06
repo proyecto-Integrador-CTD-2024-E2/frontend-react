@@ -1,10 +1,7 @@
 const Busqueda = () => {
   return (
-    <form className=" w-1/3 mx-auto m-[1em] mt-14">
-      <label
-        htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-      >
+    <form className="w-2/3 md:w-1/2 mx-auto mb-6">
+      <label htmlFor="default-search" className="sr-only">
         Buscar
       </label>
       <div className="relative">
@@ -25,14 +22,14 @@ const Busqueda = () => {
         <input
           type="search"
           id="default-search"
-          className="block w-full px-6 py-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-3xl bg-gray-50 focus:ring-amber-400 focus:border-amber-400"
+          className="block w-full px-6 py-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50  focus:border-colorPrimario"
           placeholder="Que estas buscando?"
           autoComplete="off"
           required
         />
         <button
           type="submit"
-          className="bg-amber-400 absolute right-2 bottom-2 hover:bg-amber-300 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-3xl text-sm px-6 py-1.5"
+          className="text-colorClaro bg-colorPrimario absolute right-2 bottom-2 hover:bg-colorPrimarioHover focus:ring-4 focus:outline-none font-medium rounded-full text-sm px-6 py-1.5"
         >
           Buscar
         </button>

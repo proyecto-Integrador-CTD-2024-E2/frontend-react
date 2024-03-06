@@ -15,7 +15,7 @@ const ProductCard = ({ producto }) => {
         <div>
           <div className="flex items-center gap-2">
             <h5 className="font-semibold text-xl">{producto.nombre}</h5>
-            <span className="rounded-full px-4 bg-amber-400 text-sm">
+            <span className="rounded-full px-4 bg-colorSecundario text-colorClaro text-sm">
               {producto.categoria}
             </span>
           </div>
@@ -30,7 +30,7 @@ const ProductCard = ({ producto }) => {
           </h2>
           <Link
             to={"/detail/" + producto.id}
-            className="bg-amber-400 px-4 py-2 rounded-full hover:bg-amber-300 transition-all"
+            className="bg-colorPrimario text-colorClaro px-4 py-2 rounded-full hover:bg-colorPrimarioHover transition-all"
           >
             Ver Detalles
           </Link>

@@ -75,7 +75,7 @@ const ListarProductos = () => {
             <td className="py-2">{producto.marca}</td>
             <td className="py-2 flex gap-8">
               <button
-                className="bg-sky-600 hover:bg-sky-700 transition-all text-white px-2 py-1 rounded-lg"
+                className="bg-colorPrimario hover:bg-colorPrimarioHover transition-all text-white px-2 py-1 rounded-lg"
                 onClick={() => handleEdit(producto.id)}
               >
                 <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
