@@ -28,18 +28,21 @@ const Detail = () => {
 
   return (
     <div className="col-12">
-      <div className=" px-4 pt-5 bg-sky-700 justify-between">
+      <div className=" px-4 pt-5 justify-between">
         <div className="flex justify-between">
-          <Link to="/" className="bg-white text-black px-4 py-2 rounded">
+          <Link
+            to="/"
+            className="text-colorPrimario underline px-4 py-2 rounded"
+          >
             <i className="bi bi-arrow-left"></i> Volver
           </Link>
-          <button className="bg-amber-400 px-4 py-2 rounded-2xl hover:bg-amber-300 transition-all">
+          <button className="border-2 text-colorPrimario border-colorPrimario  px-4 py-2 rounded-2xl hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
             Ver más Imagenes
           </button>
         </div>
       </div>
       <div className="col-12">
-        <div className="flex justify-center gap-6 flex-col md:flex-row bg-sky-700 mb-2 p-4">
+        <div className="flex justify-center gap-6 flex-col md:flex-row mb-2 p-4">
           <div className="mb-4 flex">
             <div className="w-full rounded-tl-md p-2 shadow-md bg-white h-[515px]">
               <img
@@ -104,7 +107,7 @@ const Detail = () => {
             <div className="px-4">
               <div className="flex items-center gap-2">
                 <h5 className="font-semibold text-xl">{producto.nombre}</h5>
-                <span className="rounded-full px-4 bg-amber-400 text-sm">
+                <span className="rounded-full px-4 bg-colorSecundario text-white text-sm">
                   {producto.categoria}
                 </span>
               </div>

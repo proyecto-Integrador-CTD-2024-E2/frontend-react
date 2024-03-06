@@ -13,17 +13,16 @@ import ListarUsuarios from "./Routers/ListarUsuarios";
 import Resgistro from "./Routers/Registro";
 import ListarCategorias from "./Routers/ListarCategorias";
 import AgregarCategoria from "./Routers/AgregarCategoria";
+import Login from "./Routers/Login";
 
 function App() {
   return (
-    <div
-      className="pt-16 flex flex-col min-h-screen"
-      style={{ backgroundColor: "FFF9E1" }}
-    >
+    <div className="pt-16 flex flex-col min-h-screen bg-colorClaro">
       <Header />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/registro" element={<Resgistro />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/admin" element={<Admin />}>
           <Route index element={<Navigate replace to="productos/listar" />} />

@@ -2,17 +2,17 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-sky-900">
+    <footer>
       <div className="flex flex-col items-center p-4 sm:p-12 md:flex-row">
         <div className="flex flex-col items-center gap-8 md:gap-6 md:flex-row">
           <a href="#" className="flex font-semibold items-center text-gray-800">
             <img
               className="w-auto h-8 md:h-10"
-              src="../../public/logo5.png"
+              src="../../public/logoSVG.svg"
               alt=""
             />
           </a>
-          <p className="m-0 p-2 text-lg leading-5 font-light text-white">
+          <p className="m-0 p-2 text-lg leading-5 font-medium text-colorSecundario">
             ©️ 2024 Tools House.
           </p>
         </div>

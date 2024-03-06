@@ -10,13 +10,15 @@ const PanelAdmin = () => {
   const isAgregarCategoriasActive = useMatch("/admin/categorias/agregar/*");
 
   return (
-    <nav className="p-8 shadow-lg mr-2 bg-sky-900 text-white text-nowrap">
-      <h5 className="mb-5 text-amber-400">Menu Admin</h5>
+    <nav className="p-8 shadow-md mr-2 bg-colorClaro text-colorSecundario text-nowrap">
+      <h5 className="mb-5 text-black font-semibold">Menu Admin</h5>
       <ul>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isListarProductosActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isListarProductosActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/productos/listar"
           >
@@ -30,8 +32,10 @@ const PanelAdmin = () => {
         </li>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isAgregarProductoActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isAgregarProductoActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/productos/agregar"
           >
@@ -45,8 +49,10 @@ const PanelAdmin = () => {
         </li>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isListarUsuariosActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isListarUsuariosActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/usuarios/listar"
           >
@@ -60,8 +66,10 @@ const PanelAdmin = () => {
         </li>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isListarCategoriasActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isListarCategoriasActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/categorias/listar"
           >
@@ -75,8 +83,10 @@ const PanelAdmin = () => {
         </li>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isAgregarCategoriasActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isAgregarCategoriasActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/categorias/agregar"
           >

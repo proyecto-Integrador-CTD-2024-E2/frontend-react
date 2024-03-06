@@ -63,7 +63,7 @@ const ListarCategorias = () => {
                 {categoria.id}
               </th>
               <td className="px-6 py-4">{categoria.nombre}</td>
-              <td className="px-6 py-4 text-cyan-900">
+              <td className="px-6 py-4 text-colorPrimario">
                 <FontAwesomeIcon
                   icon={getIconByName(categoria.icono)}
                   size="lg"
@@ -71,13 +71,13 @@ const ListarCategorias = () => {
               </td>
               <td className="px-6 py-4 flex gap-x-2">
                 <Link to={`/admin/agregar-categoria/${categoria.id}`}>
-                  <button className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
+                  <button className="px-4 py-2 bg-colorPrimario text-white rounded hover:bg-colorPrimarioHover transition-all">
                     <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
                   </button>
                 </Link>
 
                 <button
-                  className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800"
+                  className="px-4 py-2 bg-colorPrimario text-white rounded hover:bg-colorPrimarioHover transition-all"
                   onClick={() => handleDelete(categoria.id)}
                 >
                   <FontAwesomeIcon icon={getIconByName("trash")} size="lg" />

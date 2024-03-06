@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Resgistro = () => {
+const Login = () => {
   const [formulario, setFormulario] = useState({
     nombre: "",
     apellido: "",
@@ -55,65 +55,13 @@ const Resgistro = () => {
     }
   };
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/2 ">
-        <img
-          src="https://media.istockphoto.com/id/119479420/es/foto/en-construcci%C3%B3n.jpg?s=612x612&w=0&k=20&c=ER3-UaQV7AJ2evNr7_KQw5RElC8mPVgSjqch4Fi1Aro="
-          alt="Imagen de Registro"
-          className="hidden md:block w-full h-full object-cover"
-        />
-      </div>
-
-      <div className="md:w-1/2 p-6">
+    <div>
+      <div className="w-3/4 md:w-1/2 mx-auto my-24 p-6rounded-md ">
         <h2 className="text-2xl font-bold mb-4 text-center">
-          <b>Crear Cuenta</b>
+          <b>Inicia Sesion</b>
         </h2>
         {errorGeneral && <p className="text-red-500 mb-4">{errorGeneral}</p>}
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="nombre"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Nombre
-            </label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={formulario.nombre}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario ${
-                errores.nombre ? "border-red-500" : ""
-              }`}
-              required
-            />
-            {errores.nombre && (
-              <p className="text-red-500 mt-1">{errores.nombre}</p>
-            )}
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="apellido"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Apellido
-            </label>
-            <input
-              type="text"
-              id="apellido"
-              name="apellido"
-              value={formulario.apellido}
-              onChange={handleChange}
-              className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario ${
-                errores.apellido ? "border-red-500" : ""
-              }`}
-              required
-            />
-            {errores.apellido && (
-              <p className="text-red-500 mt-1">{errores.apellido}</p>
-            )}
-          </div>
           <div className="mb-4">
             <label
               htmlFor="correo"
@@ -135,22 +83,6 @@ const Resgistro = () => {
             {errores.correo && (
               <p className="text-red-500 mt-1">{errores.correo}</p>
             )}
-          </div>
-          <div className="mb-4">
-            <label
-              htmlFor="ciudad"
-              className="block text-gray-700 font-semibold mb-2"
-            >
-              Ciudad
-            </label>
-            <input
-              type="text"
-              id="ciudad"
-              name="ciudad"
-              value={formulario.ciudad}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario"
-            />
           </div>
           <div className="mb-4">
             <label
@@ -178,15 +110,15 @@ const Resgistro = () => {
           <div className="grid justify-items-center ">
             <button
               type="submit"
-              className="w-full text-white font-semibold px-4 py-2 rounded-md bg-colorPrimario hover:bg-colorPrimarioHover transition duration-300"
+              className="w-full text-white font-semibold px-4 py-2 rounded-md bg-colorPrimario hover:bg-colorPrimarioHover transition duration-300 "
             >
-              Registrarse
+              Iniciar Sesion
             </button>
             <Link
-              to="/login"
+              to="/registro"
               className="px-2 py-1 md:px-4 text-base rounded-full text-colorPrimario underline"
             >
-              Tenes ya una cuenta? Inicia Sesion
+              No tenes una cuenta? Registrate
             </Link>
           </div>
         </form>
@@ -195,4 +127,4 @@ const Resgistro = () => {
   );
 };
 
-export default Resgistro;
+export default Login;
