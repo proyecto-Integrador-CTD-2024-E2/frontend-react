@@ -8,6 +8,8 @@ const PanelAdmin = () => {
   const isListarUsuariosActive = useMatch("/admin/usuarios/listar/*");
   const isListarCategoriasActive = useMatch("/admin/categorias/listar/*");
   const isAgregarCategoriasActive = useMatch("/admin/categorias/agregar/*");
+  const isListarCaracteristicasActive = useMatch("/admin/caracteristicas/listar/*")
+  const isAgregarcaracteristicasActive = useMatch("/admin/caracteristicas/agregar/*")
 
   return (
     <nav className="p-8 shadow-md mr-2 bg-colorClaro text-colorSecundario text-nowrap">
@@ -96,6 +98,36 @@ const PanelAdmin = () => {
               size="sm"
             />
             Agregar categoría
+          </Link>
+        </li>
+        <li className="my-4">
+          <Link
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isListarCaracteristicasActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/caracteristicas/listar"
+          >
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("tableList")}
+              size="sm"
+            />
+            Listar características
+          </Link>
+        </li>
+        <li className="my-4">
+          <Link
+            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
+              isAgregarcaracteristicasActive ? "bg-sky-950" : ""
+            }`}
+            to="/admin/caracteristicas/agregar"
+          >
+            <FontAwesomeIcon
+              className="mr-2"
+              icon={getIconByName("plus")}
+              size="sm"
+            />
+            Agregar Característica
           </Link>
         </li>
       </ul>

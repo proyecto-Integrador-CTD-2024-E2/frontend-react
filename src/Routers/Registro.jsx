@@ -47,13 +47,30 @@ const Resgistro = () => {
     }
 
     if (Object.keys(erroresValidacion).length === 0) {
-      // se envia a la base de datos si el usuario completo todos los campos requeridos... FALTA LOGICA
+      fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: {
+          "Contect-Type": "application/json",
+        },
+        body: JSON.stringify(formulario),
+      }).catch((error) => {
+        console.log("Error al registrar al usuario:", error);
+        setErrorGeneral("Hubo un error al registar al usuario");
+      });
       console.log("Datos del formulario:", formulario);
     } else {
       setErrores(erroresValidacion);
       setErrorGeneral("verifica los campos marcados en rojo.");
     }
   };
+
+  if (Object.keys(erroresValidacion).length === 0) {
+    // se envia a la base de datos si el usuario completo todos los campos requeridos... FALTA LOGICA
+    console.log("Datos del formulario:", formulario);
+  } else {
+    setErrores(erroresValidacion);
+    setErrorGeneral("verifica los campos marcados en rojo.");
+  }
   return (
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/2 ">

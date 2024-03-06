@@ -110,6 +110,17 @@ const AgregarCategoria = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
+<<<<<<< HEAD
+=======
+  
+        const responseData = await response.json();
+      console.log('Success:', responseData);
+      toast.success('Se ha agregado exitosamente la categoria!');
+    } catch (error) {
+      console.error('Error:', error.message);
+      toast.error('Ha ocurrido un problema al crear la nueva categoria.' , error.message);
+    }
+>>>>>>> develop
 
         const responseData = await response.json();
         console.log("Success:", responseData);
