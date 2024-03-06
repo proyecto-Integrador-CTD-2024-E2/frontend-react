@@ -5,9 +5,9 @@ const Resgistro = () => {
   const [formulario, setFormulario] = useState({
     nombre: "",
     apellido: "",
-    correo: "",
+    email: "",
     ciudad: "",
-    contrasena: "",
+    password: "",
   });
   const [errores, setErrores] = useState({});
   const [errorGeneral, setErrorGeneral] = useState("");
@@ -29,21 +29,21 @@ const Resgistro = () => {
     if (formulario.apellido.trim().length === 0) {
       erroresValidacion.apellido = "El apellido es requerido";
     }
-    if (!formulario.correo.trim()) {
-      erroresValidacion.correo = "El correo electrónico es requerido";
+    if (!formulario.email.trim()) {
+      erroresValidacion.email = "El email electrónico es requerido";
     } else if (
-      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formulario.correo)
+      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(formulario.email)
     ) {
-      erroresValidacion.correo = "El correo electrónico ingresado no es válido";
+      erroresValidacion.email = "El email electrónico ingresado no es válido";
     }
-    if (formulario.contrasena.trim().length < 8) {
-      erroresValidacion.contrasena =
-        "La contraseña debe tener al menos 8 caracteres";
+    if (formulario.password.trim().length < 8) {
+      erroresValidacion.password =
+        "La password debe tener al menos 8 caracteres";
     } else if (
-      !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(formulario.contrasena)
+      !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)/.test(formulario.password)
     ) {
-      erroresValidacion.contrasena =
-        "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial";
+      erroresValidacion.password =
+        "La password debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial";
     }
 
     if (Object.keys(erroresValidacion).length === 0) {
@@ -53,7 +53,17 @@ const Resgistro = () => {
           "Contect-Type": "application/json",
         },
         body: JSON.stringify(formulario),
-      }).catch((error) => {
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error ('Hubo un problema al regitrar al usuario');
+        }
+        return response.json();
+      })
+      .then(data => {
+          console.log('Registro exitoso:', data);
+      })
+      .catch((error) => {
         console.log("Error al registrar al usuario:", error);
         setErrorGeneral("Hubo un error al registar al usuario");
       });
@@ -64,13 +74,9 @@ const Resgistro = () => {
     }
   };
 
-  if (Object.keys(erroresValidacion).length === 0) {
-    // se envia a la base de datos si el usuario completo todos los campos requeridos... FALTA LOGICA
-    console.log("Datos del formulario:", formulario);
-  } else {
-    setErrores(erroresValidacion);
-    setErrorGeneral("verifica los campos marcados en rojo.");
-  }
+
+  
+  
   return (
     <div className="flex flex-col md:flex-row">
       <div className="md:w-1/2 ">
@@ -133,24 +139,24 @@ const Resgistro = () => {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="correo"
+              htmlFor="email"
               className="block text-gray-700 font-semibold mb-2"
             >
               Correo Electrónico
             </label>
             <input
               type="email"
-              id="correo"
-              name="correo"
-              value={formulario.correo}
+              id="email"
+              name="email"
+              value={formulario.email}
               onChange={handleChange}
               className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario ${
-                errores.correo ? "border-red-500" : ""
+                errores.email ? "border-red-500" : ""
               }`}
               required
             />
-            {errores.correo && (
-              <p className="text-red-500 mt-1">{errores.correo}</p>
+            {errores.email && (
+              <p className="text-red-500 mt-1">{errores.email}</p>
             )}
           </div>
           <div className="mb-4">
@@ -171,24 +177,24 @@ const Resgistro = () => {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="contrasena"
+              htmlFor="password"
               className="block text-gray-700 font-semibold mb-2"
             >
               Contraseña
             </label>
             <input
               type="password"
-              id="contrasena"
-              name="contrasena"
-              value={formulario.contrasena}
+              id="password"
+              name="password"
+              value={formulario.password}
               onChange={handleChange}
               className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario ${
-                errores.contrasena ? "border-red-500" : ""
+                errores.password ? "border-red-500" : ""
               }`}
               required
             />
-            {errores.contrasena && (
-              <p className="text-red-500 mt-1">{errores.contrasena}</p>
+            {errores.password && (
+              <p className="text-red-500 mt-1">{errores.password}</p>
             )}
           </div>
 
@@ -201,9 +207,10 @@ const Resgistro = () => {
             </button>
             <Link
               to="/login"
-              className="px-2 py-1 md:px-4 text-base rounded-full text-colorPrimario underline"
-            >
-              Tenes ya una cuenta? Inicia Sesion
+              className="px-2 py-1 md:px-4 text-base rounded-full text-colorPrimario underline"> 
+            <h3>
+                Tenes ya una cuenta? Inicia Sesion
+            </h3>
             </Link>
           </div>
         </form>
