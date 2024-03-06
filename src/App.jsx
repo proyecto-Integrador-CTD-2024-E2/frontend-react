@@ -13,6 +13,10 @@ import ListarUsuarios from "./Routers/ListarUsuarios";
 import Resgistro from "./Routers/Registro";
 import ListarCategorias from "./Routers/ListarCategorias";
 import AgregarCategoria from "./Routers/AgregarCategoria";
+import Login from "./Routers/Login";
+import ListarCaracteristicas from "./Routers/ListarCaracteristicas";
+import AgregarCaracteristica from "./Routers/AgregarCaracteristica";
+import { PrivateRoute } from "./Routers/PrivateRoute";
 
 function App() {
   return (
@@ -24,7 +28,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/registro" element={<Resgistro />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route element={<PrivateRoute/>}>
         <Route path="/admin" element={<Admin />}>
           <Route index element={<Navigate replace to="productos/listar" />} />
           <Route path="productos/listar" element={<ListarProductos />} />
@@ -34,7 +40,12 @@ function App() {
           <Route path="categorias/listar" element={<ListarCategorias />} />
           <Route path="categorias/agregar" element={<AgregarCategoria />} />
           <Route path="categorias/agregar/:id" element={<AgregarCategoria />} />
+          <Route path="caracteristicas/listar" element={<ListarCaracteristicas />} />
+          <Route path="caracteristicas/agregar" element={<AgregarCaracteristica />} />
+          <Route path="caracteristicas/agregar/:id" element={<AgregarCaracteristica />} />
         </Route>
+        </Route>
+        
         <Route path="*" element={<h1>Page not found - Error 404</h1>} />
       </Routes>
       <Footer />

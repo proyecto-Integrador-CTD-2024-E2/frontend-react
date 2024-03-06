@@ -3,44 +3,41 @@ import { Link } from 'react-router-dom';
 import { getIconByName } from '../utilities/icons';
 import { useEffect, useState } from 'react';
 
-const ListarCategorias = () => {
-
- {/* const [ categorias, setCategorias ] = useState([]);
+const ListarCaracteristicas = () => {
+  {/*const [ caracteristicas , setCaracteristicas ] = useState([]);
   
   useEffect(() => {
-    fetch("http://localhost:8080/Categoria")
+    fetch("http://localhost:8080/Caracteristicas")
       .then((res) => res.json())
       .then((responseData) => {
-        const categorias = responseData.map((categoria) => ({
-          id: categoria.id,
-          nombre: categoria.titulo,
-          descripcion: categoria.descripcion,
-          icono: categoria.icono
+        const caracteristicas = responseData.map((caracteristica) => ({
+          id: caracteristica.id,
+          nombre: caracteristica.titulo,
+          icono: caracteristica.icono
         }));
 
-        setCategorias(categorias);
+        setCaracteristicas(caracteristicas);
       });
-  }, []); */}
+  }, []);*/}
 
-   const categorias = [{
+  const caracteristicas = [{
     id: 1,
     nombre: 'jardin',
-    icono: 'brush'
+    icono: 'map'
    },
    {
     id: 2,
     nombre:' hogar',
-    icono: 'water'},
+    icono: 'pencil'},
     {
       id: 3,
       nombre: 'exterior',
-      icono: 'fire'},
+      icono: 'plug'},
       
   
   
   ]
   const handleDelete = (id) => {};
-
   return (
     <div className="relative overflow-x-auto shadow-md w-full rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
@@ -59,26 +56,26 @@ const ListarCategorias = () => {
           </tr>
         </thead>
         <tbody>
-          {categorias.map((categoria) => (
+          {caracteristicas.map((caracteristica) => (
             <tr
-              key={categoria.id}
+              key={caracteristica.id}
               className={`odd:bg-white even:bg-gray-50 border-b`}
             >
               <th
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
               >
-                {categoria.id}
+                {caracteristica.id}
               </th>
-              <td className="px-6 py-4">{categoria.nombre}</td>
+              <td className="px-6 py-4">{caracteristica.nombre}</td>
               <td className="px-6 py-4 text-cyan-900">
                 <FontAwesomeIcon
-                  icon={getIconByName(categoria.icono)}
+                  icon={getIconByName(caracteristica.icono)}
                   size="lg"
                 />
               </td>
               <td className="px-6 py-4 flex gap-x-2">
-                <Link to={`/admin/categorias/agregar/${categoria.id}`}>
+                <Link to={`/admin/caracteristicas/agregar/${caracteristica.id}`}>
                   <button className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
                     <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
                   </button>
@@ -86,7 +83,7 @@ const ListarCategorias = () => {
 
                 <button
                   className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800"
-                  onClick={() => handleDelete(categoria.id)}
+                  onClick={() => handleDelete(caracteristica.id)}
                 >
                   <FontAwesomeIcon icon={getIconByName("trash")} size="lg" />
                 </button>
@@ -99,4 +96,4 @@ const ListarCategorias = () => {
   );
 };
 
-export default ListarCategorias;
+export default ListarCaracteristicas;
