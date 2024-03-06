@@ -17,7 +17,7 @@ const AgregarCategoria = () => {
 
   useEffect(() => {
     if (id) {
-      // return;
+       return;
       fetch(`http://localhost:8080/Categorias/${id}`)
         .then((res) => res.json())
         .then((data) => {
@@ -64,7 +64,7 @@ const AgregarCategoria = () => {
       console.log(id);
       try {
         console.log(categoryData);
-        // return;
+         return;
         const response = await fetch(`http://localhost:8080/Categorias`, {
           method: "PUT",
           headers: {
@@ -94,7 +94,7 @@ const AgregarCategoria = () => {
     } else {
       try {
         console.log(categoryData);
-        // return;
+         return;
         const response = await fetch("http://localhost:8080/Categorias", {
           method: "POST",
           headers: {
