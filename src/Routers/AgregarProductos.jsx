@@ -103,11 +103,11 @@ const AgregarProductos = () => {
       {/* <h3>Agregar Producto</h3> */}
       <form onSubmit={handleFormSubmit} className="w-full">
         <div className="flex flex-row justify-around gap-8">
-          <div className="bg-sky-900 rounded-xl p-8 w-1/2">
+          <div className="bg-colorPrimario rounded-xl p-8 w-1/2">
             <h5 className="text-white text-lg font-semibold mb-2">
               Informacion del Producto
             </h5>
-            <div className="bg-sky-700 text-white rounded-xl p-4">
+            <div className="bg-colorSecundario text-white rounded-xl p-4">
               <label htmlFor="nombre">Nombre</label>
               <input
                 type="text"
@@ -131,7 +131,7 @@ const AgregarProductos = () => {
             <h5 className="text-white text-lg font-semibold mb-2">
               Informacion Adicional
             </h5>
-            <div className="bg-sky-700 text-white rounded-xl p-4">
+            <div className="bg-colorSecundario text-white rounded-xl p-4">
               <label htmlFor="stock">Stock</label>
               <input
                 type="number"
@@ -153,9 +153,9 @@ const AgregarProductos = () => {
             </div>
           </div>
 
-          <div className="bg-sky-900 rounded-xl p-8 w-1/2">
+          <div className="bg-colorPrimario rounded-xl p-8 w-1/2">
             <h5 className="text-white text-lg font-semibold mb-2">Categoria</h5>
-            <div className="bg-sky-700 text-white rounded-xl p-4">
+            <div className="bg-colorSecundario text-white rounded-xl p-4">
               <label htmlFor="categoria">Categoria del producto</label>
               <select
                 className="p-2 rounded-lg my-2 w-full text-black"
@@ -172,7 +172,7 @@ const AgregarProductos = () => {
             </div>
             <br />
             <h5 className="text-white text-lg font-semibold mb-2">Imagenes</h5>
-            <div className="bg-sky-700 text-white rounded-xl p-4">
+            <div className="bg-colorSecundario text-white rounded-xl p-4">
               {productData.imageUrls.map((imgObj, index) => (
                 <div key={index} className="flex flex-row items-center gap-4">
                   <input
@@ -203,7 +203,7 @@ const AgregarProductos = () => {
               <button
                 type="button"
                 onClick={handleAddImageUrl}
-                className="border-1 bg-sky-900 border-gray-400 p-2 text-sm rounded-md w-full mt-2"
+                className="border-1 bg-colorPrimario border-gray-400 p-2 text-sm rounded-md w-full mt-2"
               >
                 + Agregar Nueva URL de Imagen
               </button>
@@ -219,7 +219,7 @@ const AgregarProductos = () => {
           </button>
           <button
             type="submit"
-            className=" bg-sky-900 text-white px-8 py-2 rounded-md"
+            className=" bg-colorPrimario text-white px-8 py-2 rounded-md"
           >
             Agregar
           </button>

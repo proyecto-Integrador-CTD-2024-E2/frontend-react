@@ -21,10 +21,7 @@ const Categories = () => {
       {categories.map((category) => (
         // TODO: Falta pasar en vez de imagen de categoria, icono de categoria.
 
-        <p key={category.id}>
-          falta el icono
-          <p>{category.name}</p>
-        </p>
+        <p key={category.id}>{/* <p>{category.name}</p> */}</p>
       ))}
     </div>
   );
