@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../Context/AuthContext";
 
 const ListarUsuarios = () => {
     const [users, setUsers] = useState([]);
-    
+    const { isLogged, token } = useAuth();
     useEffect(() => {
-        fetch("http://localhost:8080/auth/users") 
+        fetch("http://localhost:8080/auth/users", {
+            method: 'GET',
+            headers:{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }) 
             .then((res) => res.json())
             .then((responseData) => {
                 const userList = responseData.map((user) => ({
@@ -26,6 +33,7 @@ const ListarUsuarios = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
+
             },
             body: JSON.stringify({ role: newRole })
         })

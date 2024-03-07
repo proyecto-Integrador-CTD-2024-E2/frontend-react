@@ -2,13 +2,20 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 import { useState, useEffect } from "react";
-// import { useEffect, useState } from 'react';
+import { useAuth } from "../Context/AuthContext";
+
 
 const ListarCaracteristicas = () => {
   const [ caracteristicas , setCaracteristicas ] = useState([]);
-  
+  const { isLogged, token } = useAuth();
   useEffect(() => {
-    fetch("http://localhost:8080/Caracteristicas")
+    fetch("http://localhost:8080/Caracteristicas", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((responseData) => {
         const caracteristicas = responseData.map((caracteristica) => ({

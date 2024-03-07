@@ -2,13 +2,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { getIconByName } from "../utilities/icons";
 import { useEffect, useState } from "react";
-// import { useEffect, useState } from 'react';
+import { useAuth } from "../Context/AuthContext";
 
 const ListarCategorias = () => {
   const [ categorias, setCategorias ] = useState([]);
-  
+  const { isLogged, token } = useAuth();
   useEffect(() => {
-    fetch("http://localhost:8080/Categorias")
+    fetch("http://localhost:8080/Categorias", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
       .then((res) => res.json())
       .then((responseData) => {
         const categorias = responseData.map((categoria) => ({

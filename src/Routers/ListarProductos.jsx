@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
+import { useAuth } from "../Context/AuthContext";
 
 
 const ListarProductos = () => {
   const [productos, setProductos] = useState([]);
-
+  const { isLogged, token } = useAuth();
   useEffect(() => {
     const fetchListarProducto = async () => {
       try{
-          const token = localStorage.getItem('token');
+          
           const response = await fetch('http://localhost:8080/Herramientas', {
           method: 'GET',
           headers: {
