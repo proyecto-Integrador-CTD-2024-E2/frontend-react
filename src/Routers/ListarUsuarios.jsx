@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const ListarUsuarios = () => {
     const [users, setUsers] = useState([]);
-
+    
     useEffect(() => {
         fetch("http://localhost:8080/auth/users") 
             .then((res) => res.json())

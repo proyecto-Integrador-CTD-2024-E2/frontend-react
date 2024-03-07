@@ -1,14 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { getIconByName } from "../utilities/icons";
+import { useEffect, useState } from "react";
 // import { useEffect, useState } from 'react';
 
 const ListarCategorias = () => {
-  {
-    /* const [ categorias, setCategorias ] = useState([]);
+  const [ categorias, setCategorias ] = useState([]);
   
   useEffect(() => {
-    fetch("http://localhost:8080/Categoria")
+    fetch("http://localhost:8080/Categorias")
       .then((res) => res.json())
       .then((responseData) => {
         const categorias = responseData.map((categoria) => ({
@@ -20,10 +20,10 @@ const ListarCategorias = () => {
 
         setCategorias(categorias);
       });
-  }, []); */
-  }
+  }, []); 
 
-  const categorias = [
+  {
+    /*  const categorias = [
     {
       id: 1,
       nombre: "jardin",
@@ -40,8 +40,8 @@ const ListarCategorias = () => {
       icono: 'fire'},
       
   
-  
-  ]
+  ]*/
+  }
   const handleDelete = async (id) => {
     if (window.confirm("¿Estás seguro que queres eliminar esta categoria?")) {
       try {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 
+
 const ListarProductos = () => {
   const [productos, setProductos] = useState([]);
 
@@ -25,7 +26,7 @@ const ListarProductos = () => {
           nombre: producto.nombre,
           descripcion: producto.descripcion,
           precio: producto.precio,
-          categoria: producto.categoria,
+          categoria: producto.categoria.titulo,
           marca: producto.marca,
           imagenes: producto.imagenes ? producto.imagenes.map((imagen) => imagen.url) : [],
         })));
@@ -89,7 +90,7 @@ const ListarProductos = () => {
           <tr key={producto.id}>
             <td className="py-2">{producto.id}</td>
             <td className="py-2">{producto.nombre}</td>
-            <td className="py-2">{producto.categoria}</td>
+            <td className="py-2">{producto.categoria.titulo}</td>
             <td className="py-2">{producto.marca}</td>
             <td className="py-2 flex gap-8">
               <button

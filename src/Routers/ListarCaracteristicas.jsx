@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
+import { useState, useEffect } from "react";
 // import { useEffect, useState } from 'react';
 
 const ListarCaracteristicas = () => {
-  {
-    /*const [ caracteristicas , setCaracteristicas ] = useState([]);
+  const [ caracteristicas , setCaracteristicas ] = useState([]);
   
   useEffect(() => {
     fetch("http://localhost:8080/Caracteristicas")
@@ -13,16 +13,16 @@ const ListarCaracteristicas = () => {
       .then((responseData) => {
         const caracteristicas = responseData.map((caracteristica) => ({
           id: caracteristica.id,
-          nombre: caracteristica.titulo,
+          titulo: caracteristica.titulo,
           icono: caracteristica.icono
         }));
 
         setCaracteristicas(caracteristicas);
       });
-  }, []);*/
-  }
+  }, []);
 
-  const caracteristicas = [
+  {
+    /*const caracteristicas = [
     {
       id: 1,
       nombre: "jardin",
@@ -39,8 +39,8 @@ const ListarCaracteristicas = () => {
       icono: 'plug'},
       
   
-  
-  ]
+  ]*/
+  }
   const handleDelete = async (id) => {
     if (window.confirm("¿Estás seguro que queres eliminar esta característica?")) {
       try {
