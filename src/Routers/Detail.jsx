@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
+import { useAuth } from '../Context/AuthContext'; 
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
@@ -26,13 +27,14 @@ const Detail = () => {
           throw new Error('Error al obtener la Herramienta');
         }
         const responseData = await response.json();
+        const imagenes = responseData.imagenes ? responseData.imagenes.map((imagen) => imagen.url) : [];
         const productoData = {
           id: responseData.id,
           nombre: responseData.nombre,
           descripcion: responseData.descripcion,
           precio: responseData.precio,
           categoria: responseData.categoria,
-          imagenes: responseData.imagenes.map((imagen) => imagen.url),
+          imagenes: imagenes,
         };
         setProducto(productoData);
       } catch (error) {
@@ -125,7 +127,7 @@ const Detail = () => {
             <div className="flex items-center gap-2">
               <h5 className="font-semibold text-3xl">{producto.nombre}</h5>
               <span className="rounded-full px-4 bg-colorSecundario text-white text-sm">
-                {producto.categoria}
+                {producto.categoria.titulo}
               </span>
             </div>
             <p className="text-lg">{producto.descripcion}</p>

@@ -12,24 +12,24 @@ const Products = () => {
       try {
         const response = await fetch("http://localhost:8080/Herramientas", {
           method: 'GET',
-          // headers: {
-          //   'Content-Type': 'application/json'
-          // }
+           headers: {
+             'Content-Type': 'application/json'
+           }
         });
         
         if (!response.ok) throw Error("Error loading data");
 
         const responseData = await response.json();
 
-        const productosApiFake = responseData.map((producto) => ({
+        const productosApiFake = Array.isArray(responseData) ? responseData.map((producto) => ({
           id: producto.id,
           nombre: producto.nombre,
           descripcion: producto.descripcion,
           precio: producto.precio,
           categoria: producto.categoria,
           imagenes: producto.imagenes.map((imagen) => imagen.url),
-        }));
-
+        })) :[]
+        
         const ordenRandom = getRandomOrder(productosApiFake);
         setProductos(ordenRandom);
       } catch (error) {

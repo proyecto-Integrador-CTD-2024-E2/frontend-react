@@ -20,16 +20,17 @@ const ListarProductos = () => {
           throw new Error('Error al obtener las Herramientas')
         }
         const responseData = await response.json();
-        const productoData = {
-          id: responseData.id,
-          nombre: responseData.nombre,
-          descripcion: responseData.descripcion,
-          precio: responseData.precio,
-          categoria: responseData.categoria,
-          marca: responseData.marca,
-          imagenes: responseData.imagenes.map((imagen) => imagen.url),
-        }
-        setProductos(productoData);
+        setProductos(responseData.map((producto) => ({
+          id: producto.id,
+          nombre: producto.nombre,
+          descripcion: producto.descripcion,
+          precio: producto.precio,
+          categoria: producto.categoria,
+          marca: producto.marca,
+          imagenes: producto.imagenes ? producto.imagenes.map((imagen) => imagen.url) : [],
+        })));
+      
+        
       }catch (error) {
         console.log('Error haciendo el fetch:', error);
       }

@@ -20,7 +20,7 @@ const ProductCard = ({ producto }) => {
             <div className="flex items-center gap-2">
               <h5 className="font-semibold text-xl">{producto.nombre}</h5>
               <span className="rounded-full px-4 bg-colorSecundario text-colorClaro text-sm">
-                {producto.categoria}
+                {producto.categoria.titulo}
               </span>
             </div>
             <p className="fs-6 card-text text-secondary">
@@ -45,7 +45,9 @@ ProductCard.propTypes = {
     nombre: PropTypes.string.isRequired,
     descripcion: PropTypes.string.isRequired,
     precio: PropTypes.number.isRequired,
-    categoria: PropTypes.string.isRequired,
+    categoria: PropTypes.shape({
+      titulo: PropTypes.string.isRequired
+    }).isRequired,
     imagenes: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };

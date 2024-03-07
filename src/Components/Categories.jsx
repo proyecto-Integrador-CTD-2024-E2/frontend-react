@@ -9,7 +9,7 @@ const Categories = () => {
       .then((categorias) => {
         const categoriasApiFake = categorias.map((categoria) => ({
           id: categoria.id,
-          name: categoria.nombre,
+          titulo: categoria.titulo,
         }));
         setCategories(categoriasApiFake);
       })
@@ -21,7 +21,7 @@ const Categories = () => {
       {categories.map((category) => (
         // TODO: Falta pasar en vez de imagen de categoria, icono de categoria.
 
-        <p key={category.id}>{/* <p>{category.name}</p> */}</p>
+        <p key={category.id}>{category.id}</p> 
       ))}
     </div>
   );
