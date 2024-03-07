@@ -4,44 +4,41 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 import { Link } from "react-router-dom";
 
+
 const Login = () => {
-  const { login } = useAuth();
-  const [usermail, setUsermail] = useState("");
+  const { login, isLogged } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    const userData = { usermail, password };
-    login({
-      token: "dfdnheisfjselkd",
-      nombre: "leydi",
-      apellido: "montero",
-      email: "ejemplo@yohoo.com",
-      ciuidad: "mosquera",
-    });
+    
     fetch("http://localhost:8080/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
     })
       .then((response) => {
         if (response.ok) {
           return response.json();
+
         } else {
           throw new Error("Error de autentificacion");
         }
       })
       .then((data) => {
-        login({
-          token: data.token,
-          nombre: "leydi",
-          apellido: "montero",
-          email: "ejemplo@yohoo.com",
-          ciuidad: "mosquera",
-        });
-      });
-  };
+        
+        login( data.token,);
+       
+      })
+     .catch((error) => {
+        console.log("Error de autenticación:", error);
+     })
+    }
 
   return (
     <div className="flex flex-col md:flex-row mt-4">
@@ -75,8 +72,8 @@ const Login = () => {
               type="text"
               id="correo"
               placeholder="Correo"
-              value={usermail}
-              onChange={(e) => setUsermail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-colorSecundario"
             />
           </div>

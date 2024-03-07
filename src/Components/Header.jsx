@@ -1,6 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import {  useAuth } from "../Context/AuthContext";
 
 const Header = () => {
+  const { isLogged } = useAuth();
+  console.log(isLogged);
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage

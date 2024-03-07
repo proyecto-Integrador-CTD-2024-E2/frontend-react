@@ -6,22 +6,40 @@ const ListarProductos = () => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/Herramientas")
-      .then((res) => res.json())
-      .then((responseData) => {
-        const productosApiFake = responseData.map((producto) => ({
+    const fetchListarProducto = async () => {
+      try{
+          const token = localStorage.getItem('token');
+          const response = await fetch('http://localhost:8080/Herramientas', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        if (!response.ok) {
+          throw new Error('Error al obtener las Herramientas')
+        }
+        const responseData = await response.json();
+        setProductos(responseData.map((producto) => ({
           id: producto.id,
           nombre: producto.nombre,
           descripcion: producto.descripcion,
           precio: producto.precio,
           categoria: producto.categoria,
           marca: producto.marca,
-          imagenes: producto.imagenes.map((imagen) => imagen.url),
-        }));
-
-        setProductos(productosApiFake);
-      });
+          imagenes: producto.imagenes ? producto.imagenes.map((imagen) => imagen.url) : [],
+        })));
+      
+        
+      }catch (error) {
+        console.log('Error haciendo el fetch:', error);
+      }
+      
+    }
+    fetchListarProducto();
   }, []);
+    
+     
 
   const handleEdit = (id) => {
     console.log(`Editar producto con id ${id}`);

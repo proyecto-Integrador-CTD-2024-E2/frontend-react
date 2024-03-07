@@ -1,4 +1,4 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+
 import "animate.css/animate.min.css";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Routers/Home";

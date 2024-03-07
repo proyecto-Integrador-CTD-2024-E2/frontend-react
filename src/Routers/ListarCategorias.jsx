@@ -36,13 +36,38 @@ const ListarCategorias = () => {
     },
     {
       id: 3,
-      nombre: "exterior",
-      icono: "fire",
-    },
-  ];
+      nombre: 'exterior',
+      icono: 'fire'},
+      
+  
+  
+  ]
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro que queres eliminar esta categoria?")) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/Categorias/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
 
-  const handleDelete = (id) => {
-    console.log(`Categoria eliminada con id: ${id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        setProductos((prevProductos) =>
+          prevProductos.filter((prod) => prod.id !== id)
+        );
+
+        alert("La categoria se eliminó correctamente.");
+      } catch (error) {
+        console.error("Error:", error.message);
+        alert("Hubo un problema al eliminar la categoria.");
+      }
+    } else {
+      alert("Eliminacion cancelada.");
+    }
   };
 
   return (
@@ -75,7 +100,7 @@ const ListarCategorias = () => {
                 {categoria.id}
               </th>
               <td className="px-6 py-4">{categoria.nombre}</td>
-              <td className="px-6 py-4 text-colorPrimario">
+              <td className="px-6 py-4 text-cyan-900">
                 <FontAwesomeIcon
                   icon={getIconByName(categoria.icono)}
                   size="lg"

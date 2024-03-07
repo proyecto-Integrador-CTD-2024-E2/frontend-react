@@ -35,13 +35,41 @@ const ListarCaracteristicas = () => {
     },
     {
       id: 3,
-      nombre: "exterior",
-      icono: "plug",
-    },
-  ];
-  const handleDelete = (id) => {
-    console.log(`Eliminar Caracteristica con id ${id}`);
+      nombre: 'exterior',
+      icono: 'plug'},
+      
+  
+  
+  ]
+  const handleDelete = async (id) => {
+    if (window.confirm("¿Estás seguro que queres eliminar esta característica?")) {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/Caracteristicas/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+
+        setProductos((prevProductos) =>
+          prevProductos.filter((prod) => prod.id !== id)
+        );
+
+        alert("La característica se eliminó correctamente.");
+      } catch (error) {
+        console.error("Error:", error.message);
+        alert("Hubo un problema al eliminar la característica.");
+      }
+    } else {
+      alert("Eliminacion cancelada.");
+    }
   };
+  
+
   return (
     <div className="relative overflow-x-auto shadow-md w-full rounded-lg">
       <table className="w-full text-sm text-left text-gray-500">
