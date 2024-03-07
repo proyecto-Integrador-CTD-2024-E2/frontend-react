@@ -47,7 +47,7 @@ const ListarProductos = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("¿Estás seguro que queres eliminar este producto?")) {
+    if (window.confirm("¿Estás seguro que quieres eliminar este producto?")) {
       try {
         const response = await fetch(
           `http://localhost:8080/Herramientas/${id}`,
