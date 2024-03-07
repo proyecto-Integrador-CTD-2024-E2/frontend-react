@@ -8,15 +8,9 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [ token, setToken ] = useState(null);
   
-  const login = ({token, nombre, apellido, email, ciuidad }) => {
+  const login = ({token }) => {
     localStorage.setItem('token' , token);
-    setUser({ 
-                
-                nombre,
-                apellido,
-                email,
-                ciuidad
-     });
+   
     setToken({token})
   };
 

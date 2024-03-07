@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    const userData = { usermail, password };
+    {/*const userData = { usermail, password };
     login({
       token: "dfdnheisfjselkd",
       nombre: "leydi",
@@ -17,13 +17,14 @@ const Login = () => {
       email: "ejemplo@yohoo.com",
       ciuidad: "mosquera",
     });
-    return;
+    console.log(token);
+//return;*/}
     fetch("http://localhost:8080/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(),
     })
       .then((response) => {
         if (response.ok) {
@@ -33,13 +34,11 @@ const Login = () => {
         }
       })
       .then((data) => {
-        login({
-          token: data.token,
-          nombre: "leydi",
-          apellido: "montero",
-          email: "ejemplo@yohoo.com",
-          ciuidad: "mosquera",
-        });
+        login(
+            data.token,
+           
+          
+        );
       });
   };
 
