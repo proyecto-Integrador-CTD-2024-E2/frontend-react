@@ -5,25 +5,31 @@ const Products = () => {
   const [productos, setProductos] = useState([]);
   const [start, setStart] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 10;
+  const pageSize = 12;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/Herramientas");
+        const response = await fetch("http://localhost:8080/Herramientas", {
+          method: 'GET',
+           headers: {
+             'Content-Type': 'application/json'
+           }
+        });
+        
         if (!response.ok) throw Error("Error loading data");
 
         const responseData = await response.json();
 
-        const productosApiFake = responseData.map((producto) => ({
+        const productosApiFake = Array.isArray(responseData) ? responseData.map((producto) => ({
           id: producto.id,
           nombre: producto.nombre,
           descripcion: producto.descripcion,
           precio: producto.precio,
           categoria: producto.categoria,
           imagenes: producto.imagenes.map((imagen) => imagen.url),
-        }));
-
+        })) :[]
+        
         const ordenRandom = getRandomOrder(productosApiFake);
         setProductos(ordenRandom);
       } catch (error) {
@@ -60,9 +66,9 @@ const Products = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {productos.slice(start, start + pageSize).map((producto) => (
-          <div key={producto.id}>
+          <div key={producto.id} className="tarjetaProducto transition-all">
             <ProductCard producto={producto} />
           </div>
         ))}

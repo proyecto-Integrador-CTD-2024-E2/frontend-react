@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import {  useAuth } from "../Context/AuthContext";
 import Avatar from "./Avatar";
 
+
 const Header = () => {
+  const { isLogged } = useAuth();
+  console.log(isLogged);
+  const location = useLocation();
+  const isDetailPage = location.pathname.includes("/detail");
+  const col12Classes = isDetailPage
+    ? "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200 lg:!px-[20em]"
+    : "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200";
 
-
-  const [token, setToken] = useState(null);
+    const [token, setToken] = useState(null);
 
   useEffect(() => {
     // Aquí tomamos el token que está almacenado en localStorage
@@ -18,7 +26,7 @@ const Header = () => {
 
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between">
+    <header className={col12Classes}>
       <div className="flex items-center">
         <Link to="/" className="text-gray-800">
           <img
