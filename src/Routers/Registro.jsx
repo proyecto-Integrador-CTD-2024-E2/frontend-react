@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Login from "./Login";
 import { useAuth } from "../Context/AuthContext";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getIconByName } from "../utilities/icons";
 const Resgistro = () => {
   const { login } = useAuth();
   const [formulario, setFormulario] = useState({
@@ -82,16 +84,22 @@ const Resgistro = () => {
   
   
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="md:w-1/2 ">
+    <div className="flex flex-col md:flex-row mt-4">
+      <div className="md:w-1/2">
         <img
           src="https://media.istockphoto.com/id/119479420/es/foto/en-construcci%C3%B3n.jpg?s=612x612&w=0&k=20&c=ER3-UaQV7AJ2evNr7_KQw5RElC8mPVgSjqch4Fi1Aro="
           alt="Imagen de Registro"
-          className="hidden md:block w-full h-full object-cover"
+          className="hidden md:block w-full h-full object-cover rounded-r-3xl"
         />
       </div>
 
-      <div className="md:w-1/2 p-6">
+      <div className="md:w-1/2 px-16 my-auto">
+        <div className="flex items-center justify-center mb-8">
+          <FontAwesomeIcon
+            className="text-6xl text-colorPrimario"
+            icon={getIconByName("circleUser")}
+          />
+        </div>
         <h2 className="text-2xl font-bold mb-4 text-center">
           <b>Crear Cuenta</b>
         </h2>

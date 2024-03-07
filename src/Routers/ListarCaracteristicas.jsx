@@ -1,10 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import { getIconByName } from '../utilities/icons';
-import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getIconByName } from "../utilities/icons";
+// import { useEffect, useState } from 'react';
 
 const ListarCaracteristicas = () => {
-  {/*const [ caracteristicas , setCaracteristicas ] = useState([]);
+  {
+    /*const [ caracteristicas , setCaracteristicas ] = useState([]);
   
   useEffect(() => {
     fetch("http://localhost:8080/Caracteristicas")
@@ -18,17 +19,20 @@ const ListarCaracteristicas = () => {
 
         setCaracteristicas(caracteristicas);
       });
-  }, []);*/}
+  }, []);*/
+  }
 
-  const caracteristicas = [{
-    id: 1,
-    nombre: 'jardin',
-    icono: 'map'
-   },
-   {
-    id: 2,
-    nombre:' hogar',
-    icono: 'pencil'},
+  const caracteristicas = [
+    {
+      id: 1,
+      nombre: "jardin",
+      icono: "map",
+    },
+    {
+      id: 2,
+      nombre: " hogar",
+      icono: "pencil",
+    },
     {
       id: 3,
       nombre: 'exterior',
@@ -96,21 +100,23 @@ const ListarCaracteristicas = () => {
                 {caracteristica.id}
               </th>
               <td className="px-6 py-4">{caracteristica.nombre}</td>
-              <td className="px-6 py-4 text-cyan-900">
+              <td className="px-6 py-4 text-colorPrimario">
                 <FontAwesomeIcon
                   icon={getIconByName(caracteristica.icono)}
                   size="lg"
                 />
               </td>
               <td className="px-6 py-4 flex gap-x-2">
-                <Link to={`/admin/caracteristicas/agregar/${caracteristica.id}`}>
-                  <button className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800">
+                <Link
+                  to={`/admin/caracteristicas/agregar/${caracteristica.id}`}
+                >
+                  <button className="px-4 py-2 bg-colorPrimario text-white rounded hover:bg-colorPrimarioHover">
                     <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
                   </button>
                 </Link>
 
                 <button
-                  className="px-4 py-2 bg-cyan-900 text-white rounded hover:bg-cyan-800"
+                  className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-400"
                   onClick={() => handleDelete(caracteristica.id)}
                 >
                   <FontAwesomeIcon icon={getIconByName("trash")} size="lg" />

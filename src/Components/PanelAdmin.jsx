@@ -8,8 +8,12 @@ const PanelAdmin = () => {
   const isListarUsuariosActive = useMatch("/admin/usuarios/listar/*");
   const isListarCategoriasActive = useMatch("/admin/categorias/listar/*");
   const isAgregarCategoriasActive = useMatch("/admin/categorias/agregar/*");
-  const isListarCaracteristicasActive = useMatch("/admin/caracteristicas/listar/*")
-  const isAgregarcaracteristicasActive = useMatch("/admin/caracteristicas/agregar/*")
+  const isListarCaracteristicasActive = useMatch(
+    "/admin/caracteristicas/listar/*"
+  );
+  const isAgregarCaracteristicasActive = useMatch(
+    "/admin/caracteristicas/agregar/*"
+  );
 
   return (
     <nav className="p-8 shadow-md mr-2 bg-colorClaro text-colorSecundario text-nowrap">
@@ -102,8 +106,10 @@ const PanelAdmin = () => {
         </li>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isListarCaracteristicasActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isListarCaracteristicasActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/caracteristicas/listar"
           >
@@ -117,8 +123,10 @@ const PanelAdmin = () => {
         </li>
         <li className="my-4">
           <Link
-            className={`text-white hover:bg-sky-950 px-6 py-2 rounded-xl transition-all ${
-              isAgregarcaracteristicasActive ? "bg-sky-950" : ""
+            className={`text-black hover:bg-colorSecundario hover:text-colorClaro px-6 py-2 rounded-xl transition-all ${
+              isAgregarCaracteristicasActive
+                ? "bg-colorPrimario text-colorClaro btnActivo"
+                : ""
             }`}
             to="/admin/caracteristicas/agregar"
           >
