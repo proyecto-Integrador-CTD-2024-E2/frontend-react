@@ -34,11 +34,8 @@ const Detail = () => {
     <div className={col12Classes}>
       <div className=" px-4 pt-5 justify-between">
         <div className="flex justify-between">
-          <Link
-            to="/"
-            className="text-colorPrimario underline px-4 py-2 rounded"
-          >
-            <i className="bi bi-arrow-left"></i> Volver
+          <Link to="/" className="text-colorPrimario px-4 py-2 rounded">
+            <FontAwesomeIcon icon={getIconByName("back")} size="lg" /> Volver
           </Link>
         </div>
       </div>
@@ -46,13 +43,14 @@ const Detail = () => {
       <div className="col-12">
         {/* Imagenes */}
         <div className="flex justify-center gap-6 flex-col md:flex-row mb-2 p-4">
-          <div className="!rounded-l-3xl shadow w-full bg-white h-[515px]">
-            <img
-              src={producto.imagenes[0]}
-              className="h-full w-full object-contain"
-              alt={producto.nombre}
-            />
-          </div>
+          <div
+            className="!rounded-l-3xl shadow w-full h-[515px]"
+            style={{
+              backgroundImage: `url(${producto.imagenes[0]})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
 
           <div className="flex flex-col md:flex-row ms-2">
             <div className="w-full relative">

@@ -36,3 +36,8 @@ header {
 .btnActivo:hover {
   background-color: var(--colorPrimario) !important;
 }
+
+button:active,
+.tarjetaProducto:active {
+  transform: scale(0.96) !important;
+}

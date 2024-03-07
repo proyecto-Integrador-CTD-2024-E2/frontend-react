@@ -1,5 +1,6 @@
 import {
   faImages,
+  faChevronLeft,
   faList,
   faTableList,
   faPlus,
@@ -44,6 +45,7 @@ import {
 
 const iconMap = {
   wrench: faWrench,
+  back: faChevronLeft,
   images: faImages,
   car: faCar,
   user: faUser,
