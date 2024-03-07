@@ -5,11 +5,23 @@ import { Link } from "react-router-dom";
 const Detail = () => {
   const [producto, setProducto] = useState(null);
   const { id } = useParams();
+  const { isLogged, token } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/Herramientas/${id}`)
-      .then((res) => res.json())
-      .then((responseData) => {
+    const fetchProducto = async () => {
+      try {
+        
+        const response = await fetch(`http://localhost:8080/Herramientas/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+             //'Authorization': `Bearer ${token}` 
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Error al obtener la Herramienta');
+        }
+        const responseData = await response.json();
         const productoData = {
           id: responseData.id,
           nombre: responseData.nombre,
@@ -18,10 +30,13 @@ const Detail = () => {
           categoria: responseData.categoria,
           imagenes: responseData.imagenes.map((imagen) => imagen.url),
         };
-
         setProducto(productoData);
-      })
-      .catch((error) => console.error("Error haciendo el fetch:", error));
+      } catch (error) {
+        console.error('Error haciendo el fetch:', error);
+      }
+    };
+  
+    fetchProducto();
   }, [id]);
 
   if (!producto) return <div className="text-center">Cargando...</div>;

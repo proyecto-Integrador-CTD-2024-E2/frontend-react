@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import {  useAuth } from "../Context/AuthContext";
 
 const Header = () => {
+  const { isLogged } = useAuth();
+  console.log(isLogged);
   return (
     <header className="fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between">
       <div className="flex items-center">

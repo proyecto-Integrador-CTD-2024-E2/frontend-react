@@ -22,7 +22,7 @@ const ListarUsuarios = () => {
 
     const handleChangeRole = (userId, newRole) => {
         
-        fetch(`http://localhost:8080/admin/users`, {
+        fetch(`http://localhost:8080/admin/users`, { //preguntar al back como edita el rol de user 
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

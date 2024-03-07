@@ -3,44 +3,41 @@ import { useAuth } from "../Context/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 
+
 const Login = () => {
-  const { login } = useAuth();
-  const [usermail, setUsermail] = useState("");
+  const { login, isLogged } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = () => {
-    {/*const userData = { usermail, password };
-    login({
-      token: "dfdnheisfjselkd",
-      nombre: "leydi",
-      apellido: "montero",
-      email: "ejemplo@yohoo.com",
-      ciuidad: "mosquera",
-    });
-    console.log(token);
-//return;*/}
+    
     fetch("http://localhost:8080/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(),
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
     })
       .then((response) => {
         if (response.ok) {
           return response.json();
+
         } else {
           throw new Error("Error de autentificacion");
         }
       })
       .then((data) => {
-        login(
-            data.token,
-           
-          
-        );
-      });
-  };
+        
+        login( data.token,);
+       
+      })
+     .catch((error) => {
+        console.log("Error de autenticación:", error);
+     })
+    }
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100 ">
@@ -56,8 +53,8 @@ const Login = () => {
             <input
               type="text"
               placeholder="Correo"
-              value={usermail}
-              onChange={(e) => setUsermail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full border border-gray-300 rounded py-2 px-3 focus:outline-none focus:border-amber-400"
             />
           </div>

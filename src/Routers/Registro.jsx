@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Login from "./Login";
+import { useAuth } from "../Context/AuthContext";
 
 const Resgistro = () => {
+  const { login } = useAuth();
   const [formulario, setFormulario] = useState({
     nombre: "",
     apellido: "",
@@ -50,7 +53,7 @@ const Resgistro = () => {
       fetch("http://localhost:8080/auth/register", {
         method: "POST",
         headers: {
-          "Contect-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formulario),
       })
@@ -61,6 +64,7 @@ const Resgistro = () => {
         return response.json();
       })
       .then(data => {
+          login(data.token)
           console.log('Registro exitoso:', data);
       })
       .catch((error) => {

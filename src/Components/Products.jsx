@@ -10,7 +10,13 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/Herramientas");
+        const response = await fetch("http://localhost:8080/Herramientas", {
+          method: 'GET',
+          // headers: {
+          //   'Content-Type': 'application/json'
+          // }
+        });
+        
         if (!response.ok) throw Error("Error loading data");
 
         const responseData = await response.json();
