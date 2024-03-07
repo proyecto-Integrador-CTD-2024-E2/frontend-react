@@ -93,7 +93,7 @@ const Avatar = () => {
                     type="button"
                 >
                     <div className="flex flex-row items-center gap-2">
-                        <div className="flex items-center justify-center w-10 h-10  bg-[#01A9D6] rounded-full">
+                        <div className="flex items-center justify-center w-10 h-10  bg-colorPrimario rounded-full">
                             {data && <span className="font-light text-base text-white ">{firstLetterFirstName + firstLetterLastName}</span>}
                         </div>
                         <div className="font-light text-base text-black">
