@@ -28,26 +28,7 @@ const ListarCaracteristicas = () => {
       });
   }, []);
 
-  {
-    /*const caracteristicas = [
-    {
-      id: 1,
-      nombre: "jardin",
-      icono: "map",
-    },
-    {
-      id: 2,
-      nombre: " hogar",
-      icono: "pencil",
-    },
-    {
-      id: 3,
-      nombre: 'exterior',
-      icono: 'plug'},
-      
   
-  ]*/
-  }
   const handleDelete = async (id) => {
     if (window.confirm("¿Estás seguro que queres eliminar esta característica?")) {
       try {
@@ -108,10 +89,13 @@ const ListarCaracteristicas = () => {
               </th>
               <td className="px-6 py-4">{caracteristica.nombre}</td>
               <td className="px-6 py-4 text-colorPrimario">
-                <FontAwesomeIcon
-                  icon={getIconByName(caracteristica.icono)}
-                  size="lg"
-                />
+                {caracteristica.icono && (
+                    <FontAwesomeIcon
+                    icon={getIconByName(caracteristica.icono)}
+                    size="lg"
+                  />
+                )}
+                
               </td>
               <td className="px-6 py-4 flex gap-x-2">
                 <Link

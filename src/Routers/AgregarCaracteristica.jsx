@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "./../utilities/icons";
+import { useAuth } from "../Context/AuthContext";
 
 const iconNames = ["wrench", "car", "user", "hammer", "ruler", "trowel"];
 
@@ -14,10 +15,16 @@ const AgregarCaracteristica = () => {
     titulo: "",
     icono: "",
   });
-
+  const { isLogged, token } = useAuth();
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:8080/Categorias/${id}`)
+      fetch(`http://localhost:8080/Categorias/${id}`,{
+        method: 'GET',
+        header: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -67,6 +74,7 @@ const AgregarCaracteristica = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             id: caracteristicaData.id,
@@ -96,6 +104,7 @@ const AgregarCaracteristica = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             id: caracteristicaData.id,

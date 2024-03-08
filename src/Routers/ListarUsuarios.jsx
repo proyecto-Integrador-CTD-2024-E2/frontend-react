@@ -5,9 +5,9 @@ const ListarUsuarios = () => {
     const [users, setUsers] = useState([]);
     const { isLogged, token } = useAuth();
     useEffect(() => {
-        fetch("http://localhost:8080/users", {
+        fetch("http://localhost:8080/user", {
             method: 'GET',
-            headers:{
+            headers:{ 
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
@@ -29,7 +29,7 @@ const ListarUsuarios = () => {
 
     const handleChangeRole = (userId, newRole) => {
         
-        fetch(`http://localhost:8080/users`, { //preguntar al back como edita el rol de user 
+        fetch(`http://localhost:8080/user`, { 
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,27 +54,7 @@ const ListarUsuarios = () => {
             console.error('Error al cambiar el rol del usuario:', error);
         });
     };
-    {/*const [usuarios, setUsuarios] = useState([
-        { id: 1, nombre: 'julian', apellido: 'ospina', rol: { id: 2, nombre: 'Administrador' }},
-        { id: 2, nombre: 'santiago', apellido: 'giraldo', rol: { id: 3, nombre: 'Cliente' }},
-        { id: 3, nombre: 'doris', apellido: 'montero', rol: { id: 3, nombre: 'Cliente' }},
-        { id: 4, nombre: 'mateo', apellido: 'montero', rol: { id: 3, nombre: 'Cliente' }}
-    ]);
-
-  const roles = [
-    { id: 2, nombre: "Administrador" },
-    { id: 3, nombre: "Cliente" },
-  ];
-
-    const handleRolChange = (usuarioId, nuevoRolId) => {
-        const nuevosUsuarios = usuarios.map(usuario => {
-            if (usuario.id === usuarioId) {
-                return { ...usuario, rol: roles.find(rol => rol.id === parseInt(nuevoRolId)) };
-            }
-            return usuario;
-        });
-        setUsuarios(nuevosUsuarios);
-    };*/}
+    
 
     return (
         <div className="relative overflow-x-auto shadow-md w-full rounded-lg">
@@ -101,11 +81,6 @@ const ListarUsuarios = () => {
                                 >
                                     <option value="cliente">Cliente</option>
                                     <option value="admin">Administrador</option>
-                                    {/*{roles.map(rol => (
-                                        <option key={rol.id} value={rol.id}>
-                                            {rol.nombre}
-                                    </option>
-                                    ))}*/}
                                 </select>
                             </td>
                         </tr>
