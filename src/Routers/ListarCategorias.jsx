@@ -28,26 +28,7 @@ const ListarCategorias = () => {
       });
   }, []); 
 
-  {
-    /*  const categorias = [
-    {
-      id: 1,
-      nombre: "jardin",
-      icono: "brush",
-    },
-    {
-      id: 2,
-      nombre: " hogar",
-      icono: "water",
-    },
-    {
-      id: 3,
-      nombre: 'exterior',
-      icono: 'fire'},
-      
   
-  ]*/
-  }
   const handleDelete = async (id) => {
     if (window.confirm("¿Estás seguro que queres eliminar esta categoria?")) {
       try {
@@ -107,10 +88,13 @@ const ListarCategorias = () => {
               </th>
               <td className="px-6 py-4">{categoria.nombre}</td>
               <td className="px-6 py-4 text-cyan-900">
-                <FontAwesomeIcon
-                  icon={getIconByName(categoria.icono)}
-                  size="lg"
-                />
+                {categoria.icono && (
+                    <FontAwesomeIcon
+                    icon={getIconByName(categoria.icono)}
+                    size="lg"
+                  />
+                )}
+                
               </td>
               <td className="px-6 py-4 flex gap-x-2">
                 <Link to={`/admin/categorias/agregar/${categoria.id}`}>
