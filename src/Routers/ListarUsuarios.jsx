@@ -5,7 +5,7 @@ const ListarUsuarios = () => {
     const [users, setUsers] = useState([]);
     const { isLogged, token } = useAuth();
     useEffect(() => {
-        fetch("http://localhost:8080/auth/users", {
+        fetch("http://localhost:8080/users", {
             method: 'GET',
             headers:{
                 'Content-Type': 'application/json',
@@ -29,11 +29,11 @@ const ListarUsuarios = () => {
 
     const handleChangeRole = (userId, newRole) => {
         
-        fetch(`http://localhost:8080/admin/users`, { //preguntar al back como edita el rol de user 
+        fetch(`http://localhost:8080/users`, { //preguntar al back como edita el rol de user 
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
-
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({ role: newRole })
         })
