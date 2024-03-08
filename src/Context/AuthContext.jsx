@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext,  } from 'react';
 
 const AuthContext = createContext();
 
@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isLogged, setIsLogged] = useState(!!localStorage.getItem('token'));
   
+ 
   
  
   const login = (token ) => {
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
    
     setToken(token)
     setIsLogged(true)
-    // logica para redireccionar al home cuando se loguee 
+    window.location.href = "/";
   };
 
   const logout = () => {
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setToken(null)
     setIsLogged(false)
+    window.location.href = "/login";
   };
 
   const value = {

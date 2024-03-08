@@ -12,6 +12,42 @@ const Detail = () => {
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage ? "col-12 lg:!px-[20em]" : "col-12";
 
+  const caracteristicas = [
+    {
+      id: 1,
+      titulo: 'Electrico',
+      icono: 'bucket'
+    },
+    {
+      id: 2,
+      titulo: 'Manual',
+      icono: 'hammer'
+    },
+    {
+      id: 3,
+      titulo: 'Carga rapida',
+      icono: 'carBattery'
+    }, 
+    {
+      id: 4,
+      titulo: 'Repuestos',
+      icono: 'paintBrush'
+    },
+    {
+      id: 5,
+      titulo: 'Facil agarre',
+      icono: 'trowel'
+    },
+    {
+      id: 6,
+      titulo: 'facil Armado',
+      icono: 'powerOff'
+    }
+
+      
+    
+]
+
   useEffect(() => {
     const fetchProducto = async () => {
       try {
@@ -35,6 +71,7 @@ const Detail = () => {
           precio: responseData.precio,
           categoria: responseData.categoria,
           imagenes: imagenes,
+          caracteristicas: caracteristicas
         };
         setProducto(productoData);
       } catch (error) {
@@ -139,6 +176,15 @@ const Detail = () => {
             <div className="flex items-center gap-2">
               <h5 className="font-semibold text-3xl">Caracteristicas</h5>
             </div>
+            <ul>
+              {producto.caracteristicas.map((caracteristica) => (
+              <li key={caracteristica.id}>
+                
+                <FontAwesomeIcon icon={getIconByName(caracteristica.icono)} /> 
+                <span>{caracteristica.titulo}</span>
+              </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
