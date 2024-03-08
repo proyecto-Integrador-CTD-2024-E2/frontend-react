@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
-import { useAuth } from '../Context/AuthContext'; 
+import { useAuth } from "../Context/AuthContext";
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
@@ -10,24 +10,28 @@ const Detail = () => {
   const { isLogged, token } = useAuth();
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
-  const col12Classes = isDetailPage ? "col-12 lg:!px-[20em]" : "col-12";
+  const col12Classes = isDetailPage ? "col-12 lg:!px-[18em] " : "col-12";
 
   useEffect(() => {
     const fetchProducto = async () => {
       try {
-        
-        const response = await fetch(`http://localhost:8080/Herramientas/${id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-             //'Authorization': `Bearer ${token}` 
+        const response = await fetch(
+          `http://localhost:8080/Herramientas/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              //'Authorization': `Bearer ${token}`
+            },
           }
-        });
+        );
         if (!response.ok) {
-          throw new Error('Error al obtener la Herramienta');
+          throw new Error("Error al obtener la Herramienta");
         }
         const responseData = await response.json();
-        const imagenes = responseData.imagenes ? responseData.imagenes.map((imagen) => imagen.url) : [];
+        const imagenes = responseData.imagenes
+          ? responseData.imagenes.map((imagen) => imagen.url)
+          : [];
         const productoData = {
           id: responseData.id,
           nombre: responseData.nombre,
@@ -38,10 +42,10 @@ const Detail = () => {
         };
         setProducto(productoData);
       } catch (error) {
-        console.error('Error haciendo el fetch:', error);
+        console.error("Error haciendo el fetch:", error);
       }
     };
-  
+
     fetchProducto();
   }, [id]);
 
@@ -60,17 +64,22 @@ const Detail = () => {
       <div className="col-12">
         {/* Imagenes */}
         <div className="flex justify-center gap-6 flex-col md:flex-row mb-2 p-4">
-          <div
-            className="!rounded-l-3xl shadow w-full h-[515px]"
-            style={{
-              backgroundImage: `url(${producto.imagenes[0]})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></div>
+          <div className="!rounded-l-3xl shadow w-full h-[515px]">
+            {" "}
+            <img
+              src={producto.imagenes[0]}
+              className="h-full w-full object-contain"
+              alt={producto.nombre}
+            />
+          </div>
 
-          <div className="flex flex-col md:flex-row ms-2">
-            <div className="w-full relative">
+          {/* <div className="w-full flex md:w-full relative">
+              <div className="md:flex mb-4">
+                <div className="md:w-1/2 pr-2">
+                  <div className=" w-full p-2 shadow bg-white h-[250px]"></div> */}
+
+          <div className="flex m-0 md:ms-2 w-full">
+            <div className="w-full flex md:flex-col md:w-full relative">
               <div className="md:flex mb-4">
                 <div className="md:w-1/2 pr-2">
                   <div className=" w-full p-2 shadow bg-white h-[250px]">

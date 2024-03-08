@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 const Footer = () => {
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
-  const col12Classes = isDetailPage ? "lg:!px-[20em]" : "";
+  const col12Classes = isDetailPage ? "lg:!px-[18em]" : "";
   return (
     <footer className={col12Classes}>
       <div className="flex flex-col items-center p-4 sm:p-12 md:flex-row">

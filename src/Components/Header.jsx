@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import {  useAuth } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 
 const Header = () => {
   const { isLogged } = useAuth();
@@ -7,7 +7,7 @@ const Header = () => {
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage
-    ? "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200 lg:!px-[20em]"
+    ? "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200 lg:!px-[18em]"
     : "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200";
 
   return (
