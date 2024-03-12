@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { useAuth } from "../Context/AuthContext";
+
 
 const AgregarProductos = () => {
   const [productData, setProductData] = useState({
@@ -98,6 +100,31 @@ const AgregarProductos = () => {
     }
   };
 
+  const { isLogged, token } = useAuth();
+  const [categorias, setCategorias] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:8080/Categorias", {
+      method: "GET",
+
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((responseData) => {
+        console.log(responseData + "Respuesta del back");
+        const categorias = responseData.map((categoria) => ({
+          id: categoria.id,
+          titulo: categoria.titulo,
+          descripcion: categoria.descripcion,
+          icono: categoria.icono,
+        }));
+
+        setCategorias(categorias);
+      });
+  }, []);
+
   return (
     <div className="mx-auto p-8 w-full">
       {/* <h3>Agregar Producto</h3> */}
@@ -164,10 +191,9 @@ const AgregarProductos = () => {
                 onChange={handleInputChange}
               >
                 <option hidden>Seleccionar...</option>
-                <option value="Construccion">Construcción</option>
-                <option value="Jardineria">Jardinería</option>
-                <option value="Hogar">Hogar</option>
-                <option value="Sanitario">Sanitario</option>
+                {categorias.map((categoria) => (
+              <option key={categoria.id} value={categoria.titulo}>{categoria.titulo}</option>
+                 ))}
               </select>
             </div>
             <br />

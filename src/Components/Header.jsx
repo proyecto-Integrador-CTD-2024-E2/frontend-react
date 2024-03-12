@@ -1,8 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {  useAuth } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import Avatar from "./Avatar";
-
 
 const Header = () => {
   const { isLogged } = useAuth();
@@ -10,20 +9,19 @@ const Header = () => {
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage
-    ? "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200 lg:!px-[20em]"
+    ? "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200 lg:!px-[18em]"
     : "fixed left-0 right-0 top-0 z-40 py-4 px-5 md:px-8 bg-colorClaro flex items-center justify-between shadow-md shadow-slate-200";
 
-    const [token, setToken] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     // Aquí tomamos el token que está almacenado en localStorage
-    const storedToken = localStorage.getItem('token');
+    const storedToken = localStorage.getItem("token");
 
     if (storedToken) {
       setToken(storedToken);
     }
   }, []);
-
 
   return (
     <header className={col12Classes}>
@@ -38,8 +36,6 @@ const Header = () => {
       </div>
 
       <div className="flex gap-2 md:gap-4">
-
-
         {token ? (
           <Avatar />
         ) : (
@@ -58,10 +54,7 @@ const Header = () => {
             </Link>
           </>
         )}
-
-
       </div>
-
     </header>
   );
 };
