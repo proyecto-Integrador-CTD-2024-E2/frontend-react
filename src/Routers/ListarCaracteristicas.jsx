@@ -87,7 +87,7 @@ const ListarCaracteristicas = () => {
               >
                 {caracteristica.id}
               </th>
-              <td className="px-6 py-4">{caracteristica.nombre}</td>
+              <td className="px-6 py-4">{caracteristica.titulo}</td>
               <td className="px-6 py-4 text-colorPrimario">
                 {caracteristica.icono && (
                     <FontAwesomeIcon
