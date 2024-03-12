@@ -2,15 +2,48 @@ import { useEffect, useState } from "react";
 import { useParams, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
-import { useAuth } from "../Context/AuthContext";
+// import { useAuth } from "../Context/AuthContext";
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
   const { id } = useParams();
-  const { isLogged, token } = useAuth();
+  // const { isLogged, token } = useAuth();
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage ? "col-12 lg:!px-[18em] " : "col-12";
+
+  const caracteristicas = [
+    {
+      id: 1,
+      titulo: "Electrico",
+      icono: "bucket",
+    },
+    {
+      id: 2,
+      titulo: "Manual",
+      icono: "hammer",
+    },
+    {
+      id: 3,
+      titulo: "Carga rapida",
+      icono: "carBattery",
+    },
+    {
+      id: 4,
+      titulo: "Repuestos",
+      icono: "paintBrush",
+    },
+    {
+      id: 5,
+      titulo: "Facil agarre",
+      icono: "trowel",
+    },
+    {
+      id: 6,
+      titulo: "facil Armado",
+      icono: "powerOff",
+    },
+  ];
 
   useEffect(() => {
     const fetchProducto = async () => {
@@ -39,6 +72,7 @@ const Detail = () => {
           precio: responseData.precio,
           categoria: responseData.categoria,
           imagenes: imagenes,
+          caracteristicas: caracteristicas,
         };
         setProducto(productoData);
       } catch (error) {
@@ -148,6 +182,14 @@ const Detail = () => {
             <div className="flex items-center gap-2">
               <h5 className="font-semibold text-3xl">Caracteristicas</h5>
             </div>
+            <ul>
+              {producto.caracteristicas.map((caracteristica) => (
+                <li key={caracteristica.id}>
+                  <FontAwesomeIcon icon={getIconByName(caracteristica.icono)} />
+                  <span>{caracteristica.titulo}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

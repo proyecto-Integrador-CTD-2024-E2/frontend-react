@@ -1,4 +1,5 @@
 import {
+  faArrowRightFromBracket,
   faImages,
   faChevronLeft,
   faList,
@@ -45,6 +46,7 @@ import {
 
 const iconMap = {
   wrench: faWrench,
+  signOut: faArrowRightFromBracket,
   back: faChevronLeft,
   images: faImages,
   car: faCar,
