@@ -5,6 +5,7 @@ import { useAuth } from "../Context/AuthContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
+
 const Resgistro = () => {
   const { login } = useAuth();
   const [formulario, setFormulario] = useState({
@@ -59,20 +60,20 @@ const Resgistro = () => {
         },
         body: JSON.stringify(formulario),
       })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error ('Hubo un problema al regitrar al usuario');
-        }
-        return response.json();
-      })
-      .then(data => {
-          login(data.token)
-          console.log('Registro exitoso:', data);
-      })
-      .catch((error) => {
-        console.log("Error al registrar al usuario:", error);
-        setErrorGeneral("Hubo un error al registar al usuario");
-      });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Hubo un problema al regitrar al usuario");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          login(data.token);
+          console.log("Registro exitoso:", data);
+        })
+        .catch((error) => {
+          console.log("Error al registrar al usuario:", error);
+          setErrorGeneral("Hubo un error al registar al usuario");
+        });
       console.log("Datos del formulario:", formulario);
     } else {
       setErrores(erroresValidacion);
@@ -80,9 +81,6 @@ const Resgistro = () => {
     }
   };
 
-
-  
-  
   return (
     <div className="flex flex-col md:flex-row mt-4">
       <div className="md:w-1/2">
@@ -219,10 +217,9 @@ const Resgistro = () => {
             </button>
             <Link
               to="/login"
-              className="px-2 py-1 md:px-4 text-base rounded-full text-colorPrimario underline"> 
-            <h3>
-                Tenes ya una cuenta? Inicia Sesion
-            </h3>
+              className="px-2 py-1 md:px-4 text-base rounded-full text-colorPrimario underline"
+            >
+              <h3>Tenes ya una cuenta? Inicia Sesion</h3>
             </Link>
           </div>
         </form>

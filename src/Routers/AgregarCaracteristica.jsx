@@ -18,12 +18,12 @@ const AgregarCaracteristica = () => {
   const { isLogged, token } = useAuth();
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:8080/Categorias/${id}`,{
-        method: 'GET',
+      fetch(`http://localhost:8080/Caracteristicas/${id}`, {
+        method: "GET",
         header: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -74,7 +74,7 @@ const AgregarCaracteristica = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             id: caracteristicaData.id,
@@ -104,7 +104,7 @@ const AgregarCaracteristica = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             id: caracteristicaData.id,

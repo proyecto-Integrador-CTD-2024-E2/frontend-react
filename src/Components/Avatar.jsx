@@ -1,27 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getIconByName } from "../utilities/icons";
 
 const Avatar = () => {
-
     const [data, setData] = useState(null);
-    const [isDropdownOpen, setDropdownOpen] = useState(false);
-
-    const toggleDropdown = () => {
-        setDropdownOpen(!isDropdownOpen);
-    };
-
-    const navigate = useNavigate()
-
-    // Verificar si data y data.name existen antes de dividir el nombre
-    const firstName = data?.name ? data.name.split(' ')[0] : '';
-    const lastName = data?.username ? data.username.split(' ')[0] : '';
-
-    // Obtener la primera letra del nombre y del apellido
-    const firstLetterFirstName = firstName ? firstName.charAt(0) : '';
-    const firstLetterLastName = lastName ? lastName.charAt(0) : '';
-
     const [token, setToken] = useState(null);
+    const navigate = useNavigate()
 
     useEffect(() => {
         // Aquí tomamos el token que está almacenado en localStorage
@@ -36,7 +21,7 @@ const Avatar = () => {
         const fetchData = async () => {
             try {
                 if (token) {
-                    const response = await fetch('https://jsonplaceholder.typicode.com/users/5', {
+                    const response = await fetch(`http://localhost:8080/user`, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }
@@ -57,62 +42,41 @@ const Avatar = () => {
         fetchData();
     }, [token]);
 
+    // Verificar si data y data.name existen antes de dividir el nombre
+    const firstName = data?.name ? data.name.split(' ')[0] : '';
+    const lastName = data?.username ? data.username.split(' ')[0] : '';
 
-    // Agregar un evento al documento para cerrar el menú cuando se hace clic fuera de él
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            const dropdownButton = document.getElementById("dropdownHoverButton");
-            if (dropdownButton && !dropdownButton.contains(event.target)) {
-                setDropdownOpen(false);
-            }
-        };
-        // Agregar el escuchador de eventos al documento
-        document.addEventListener("click", handleOutsideClick);
-        // Limpiar el escuchador de eventos cuando el componente se desmonta
-        return () => {
-            document.removeEventListener("click", handleOutsideClick);
-        };
-    }, []);
+    // Obtener la primera letra del nombre y del apellido
+    const firstLetterFirstName = firstName ? firstName.charAt(0) : '';
+    const firstLetterLastName = lastName ? lastName.charAt(0) : '';
 
     const handleLogout = () => {
         // Eliminar el token del localStorage
         localStorage.removeItem("token");
         // Redirigir a la página de inicio o a donde desees
         navigate('/');
+        window.location.reload();
     };
 
     return (
         <>
-            <div className="relative">
-                <button
-                    onClick={toggleDropdown}
-                    id="dropdownHoverButton"
-                    data-dropdown-toggle="dropdownHover"
-                    data-dropdown-trigger="click"
-                    className="focus:outline-none flex flex-row items-center"
-                    type="button"
-                >
-                    <div className="flex flex-row items-center gap-2">
-                        <div className="flex items-center justify-center w-10 h-10  bg-colorPrimario rounded-full">
-                            {data && <span className="font-light text-base text-white ">{firstLetterFirstName + firstLetterLastName}</span>}
-                        </div>
-                        <div className="font-light text-base text-black">
-                            {data && <p>{firstName} {lastName}</p>}
-                        </div>
-                    </div>
-                    <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" fill="none" viewBox="0 0 10 6">
-                        <path stroke="#000000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
+            <div className="flex items-center flex-row gap-4">
+             <Link to={`/admin`}>
+                  <button className="px-4 py-2 bg-colorPrimario text-white rounded hover:bg-colorPrimarioHover flex items-center gap-2">
+                    <FontAwesomeIcon icon={getIconByName("user")} size="sm" />
+                    Panel Admin
+                  </button>
+                </Link>
 
-                <div id="dropdownHover" className={`z-10 ${isDropdownOpen ? 'absolute' : 'hidden'} right-0 bg-white rounded-lg shadow-md w-full`}>
-                    <ul className="" aria-labelledby="dropdownHover">
-                      
-                        <li>
-                            {/* Cambiar la etiqueta 'a' por 'Link' para la opción 'Cerrar sesión' */}
-                            <Link to="/login" onClick={handleLogout} className="block px-4 py-2 text-base font-light text-black hover:bg-gray-100 rounded-lg">Cerrar sesión</Link>
-                        </li>
-                    </ul>
+                <div className="flex items-center justify-center w-10 h-10  bg-[#01A9D6] rounded-full">
+                    <span className="font-light text-base text-white ">{firstLetterFirstName + firstLetterLastName}</span>
+                </div>
+                <div className="flex flex-col items-start gap-0">
+                    <h1 className="text-base font-medium text-black">{firstName} {lastName}</h1>
+                       <button onClick={handleLogout} className="text-sm text-gray-500 flex items-center gap-2">
+                        <FontAwesomeIcon icon={getIconByName("signOut")} size="sm" />
+                        Cerrar sesión
+                        </button>
                 </div>
             </div>
         </>
@@ -120,5 +84,4 @@ const Avatar = () => {
 };
 
 export default Avatar;
-
 
