@@ -9,7 +9,7 @@ const ListarCaracteristicas = () => {
   const [ caracteristicas , setCaracteristicas ] = useState([]);
   const { isLogged, token } = useAuth();
   useEffect(() => {
-    fetch("http://localhost:8080/Caracteristicas", {
+    fetch("http://localhost:8080/Herramientas", {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
