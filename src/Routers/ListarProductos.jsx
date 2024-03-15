@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 import { useAuth } from "../Context/AuthContext";
+import { Link } from "react-router-dom";
 
 const ListarProductos = () => {
   const [productos, setProductos] = useState([]);
@@ -26,10 +27,12 @@ const ListarProductos = () => {
             descripcion: producto.descripcion,
             precio: producto.precio,
             categoria: producto.categoria?.titulo, 
+            caracteristicas: producto.caracteristicas ? producto.caracteristicas.map((caracteristica) => caracteristica.titulo) :[],
             imagenes: producto.imagenes ? producto.imagenes.map((imagen) => imagen.url) : [],
         }));
   
         setProductos(productosMapped);
+        console.log(productosMapped);
       } catch (error) {
         console.log("Error haciendo el fetch:", error);
       }
@@ -37,10 +40,7 @@ const ListarProductos = () => {
     fetchListarProducto();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log(`Editar producto con id ${id}`);
-  };
-
+  
   const handleDelete = async (id) => {
     if (window.confirm("¿Estás seguro que quieres eliminar este producto?")) {
       try {
@@ -86,12 +86,15 @@ const ListarProductos = () => {
             <td className="py-2">{producto.nombre}</td>
             <td className="py-2">{producto.categoria}</td>
             <td className="py-2 flex gap-8">
+              <Link to={`/admin/productos/agregar/${producto.id}`}>
               <button
                 className="bg-colorPrimario hover:bg-colorPrimarioHover transition-all text-white px-2 py-1 rounded-lg"
-                onClick={() => handleEdit(producto.id)}
+                
               >
                 <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
               </button>
+              </Link>
+              
               <button
                 className="bg-red-500 hover:bg-red-700 transition-all text-white px-2 py-1 rounded-lg"
                 onClick={() => handleDelete(producto.id)}

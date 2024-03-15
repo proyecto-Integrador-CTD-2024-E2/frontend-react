@@ -88,7 +88,7 @@ const AgregarCategoria = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const responseData = await response.json();
+        const responseData = await response.text(); // cambio  de json() por text(), porque salia un error "Unexpected si not valid JSON" ya no sale el error actualiza la categoria pero no se renderiza la actualizacion en la lista.
         console.log(responseData);
         console.log("Success:", responseData);
         toast.success("Categoria actualizada con éxito!");
@@ -141,13 +141,13 @@ const AgregarCategoria = () => {
               className="block text-gray-700 font-semibold mb-2"
               htmlFor="titulo"
             >
-              titulo
+              Nombre
             </label>
             <input
               type="text"
               id="titulo"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario"
-              placeholder="titulo de la categoria"
+              placeholder="Nombre de la categoria"
               value={categoryData.titulo}
               onChange={handleInputChange}
             />
