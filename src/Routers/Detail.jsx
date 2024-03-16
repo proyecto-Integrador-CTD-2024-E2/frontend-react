@@ -3,6 +3,7 @@ import { useParams, Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 import Politicas from "../Components/Politicas";
+import Reseñas from "../Components/Reseñas";
 // import { useAuth } from "../Context/AuthContext";
 
 const Detail = () => {
@@ -55,6 +56,14 @@ const Detail = () => {
     },
   ];
 
+  const reseñas = [
+    { id: 1, usuario: 'Freddie Mercury', puntuacion: 4, comentario: 'Buena experiencia, producto de calidad.' },
+    { id:2, usuario: 'Shakira', puntuacion: 5, comentario: '¡Excelente servicio al cliente y envío rápido!' },
+    { id:3, usuario: 'Gustavo Cerati', puntuacion: 3, comentario: 'El producto llegó tarde, pero en buenas condiciones.' },
+    { id:4, usuario: 'Bruno Mars', puntuacion: 2, comentario: 'Mala calidad, no recomendaría este producto.' },
+    
+  ];
+
   useEffect(() => {
     const fetchProducto = async () => {
       try {
@@ -105,7 +114,7 @@ const Detail = () => {
         </div>
       </div>
 
-      <div className="col-12">
+      <div className="col-12 px-2">
         {/* Imagenes */}
         <div className="flex justify-center gap-6 flex-col md:flex-row mb-2 p-4">
   
@@ -190,29 +199,6 @@ const Detail = () => {
               ${producto.precio}
             </p>
           </div>
-          <div class="flex gap-4">
-            <div class="relative">
-              <label for="fechaInicio" class="block text-sm font-medium text-dark pt-6 px-6">Fecha de inicio</label>
-                <input 
-                type="date" 
-                id="fechaInicio" 
-                name="fechaInicio" 
-                class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
-                placeholder="Seleccione la fecha de inicio"/>
-              </div>
-      
-              <div class="relative">
-                <label for="fechaFin" class="block text-sm font-medium text-dark pt-6 px-6">Fecha de fin</label>
-                <input 
-                type="date" 
-                id="fechaFin" 
-                name="fechaFin" 
-                class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
-                placeholder="Seleccione la fecha de fin"/>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col md:flex-row justify-arroud py-4 px-10 ">
           <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
             <ul className="grid grid-cols-3 gap-4">
               {producto.caracteristicas.map((caracteristica) => (
@@ -223,16 +209,45 @@ const Detail = () => {
               ))}
             </ul>
           </div>
-          <div className="pl-14 py-12 ">
-            <button className=" justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
+        </div>
+        <div className="flex flex-col md:flex-row justify-arroud py-4 px-10 gap-10 ">
+        <div className="flex gap-4 px-4">
+            <div className="relative">
+              <label htmlFor="fechaInicio" className="block text-sm font-medium text-dark pt-6 px-6 ">Fecha de inicio</label>
+                <input 
+                type="date" 
+                id="fechaInicio" 
+                name="fechaInicio" 
+                className=" mt-1 p-2 block w-full rounded-md border-gray-300 shadow-lg focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
+                placeholder="Seleccione la fecha de inicio"/>
+              </div>
+      
+              <div className="relative">
+                <label htmlFor="fechaFin" className="block text-sm font-medium text-dark pt-6 px-6">Fecha de fin</label>
+                <input 
+                type="date" 
+                id="fechaFin" 
+                name="fechaFin" 
+                className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-lg focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
+                placeholder="Seleccione la fecha de fin"/>
+            </div>
+          </div>
+   
+          <div className="flex flex-col md:flex-row gap-4 pt-6 px-4">
+            
+            <button 
+            className="block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
+            onClick={openPolicy}>Políticas</button>
+            {isPolicyOpen && <Politicas onClose={closePolicy} />}
+            <button className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
               Reserva
             </button>
           </div>
-          <div>
-          <button onClick={openPolicy}>Políticas de Reserva</button>
-          {isPolicyOpen && <Politicas onClose={closePolicy} />}
-
-          </div>
+         
+        </div>
+        <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
+          
+          <Reseñas  reseñas={reseñas}/>
         </div>
        
 
