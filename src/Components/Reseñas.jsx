@@ -1,4 +1,6 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { getIconByName } from '../utilities/icons';
 
 const Reseñas = ({ reseñas }) => {
 
@@ -8,7 +10,21 @@ const Reseñas = ({ reseñas }) => {
           {reseñas.map((reseña) => (
             <div key={reseña.id} className="bg-white rounded-lg p-4 shadow-md">
               <h3 className="text-lg font-semibold">{reseña.usuario}</h3>
-              <p>Puntuación: {reseña.puntuacion}</p>
+              <div className='flex flex-row'>
+                {[...Array(5)].map((_, i) => {
+                  const ratingValue = i + 1;
+                return(
+                      <div key={'star-'+ ratingValue + 'reseña-'+ reseña.id}>
+                        <FontAwesomeIcon
+                            icon={getIconByName('starS')}
+                            color={ratingValue <= (reseña.puntuacion) ? "#ffc107" : "#e4e5e9"}
+                            size={'xl'}
+                        />
+                      </div>
+                        
+                  )
+                })}
+              </div>
               <p>{reseña.comentario}</p>
             </div>
           ))}

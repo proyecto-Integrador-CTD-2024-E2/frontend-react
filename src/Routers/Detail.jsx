@@ -4,7 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 import Politicas from "../Components/Politicas";
 import Reseñas from "../Components/Reseñas";
+import StarRating from "../Components/StarRating";
 // import { useAuth } from "../Context/AuthContext";
+const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+const minFechaInicio = yesterday.toISOString().split('T')[0];
+const fechaInicioAlquiler = '2024-04-10'
+const fechaFinalAlquiler = '2024-04-16'
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
@@ -14,7 +20,33 @@ const Detail = () => {
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage ? "col-12 lg:!px-[18em] " : "col-12";
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
+  const [ minFechaFin, setMinFechaFin] = useState(minFechaInicio)
+  const [ maxFechaFin, setMaxFechaFin] = useState(null);
+  const [ maxFechaInicio, setMaxFechaInicio ] = useState(null);
+  
+  
+  const handleFechaInicio = (evento) => {
+    console.log(evento);
+    
+      if(evento?.target?.value){
+        setMinFechaFin(evento?.target?.value)
+        
+      }else{
+        setMinFechaFin(minFechaInicio)
+      }
+    
+   
+  }
 
+  const hadleFechaFin = (evento) => {
+    if (evento?.target?.value) {
+      setMaxFechaInicio(evento?.target?.value)
+    }else{
+      setMaxFechaInicio(null)
+    }
+  }
+  
+  console.log(minFechaInicio);
   const openPolicy = () => {
     setIsPolicyOpen(true)
   }
@@ -24,36 +56,12 @@ const Detail = () => {
 
 
   const caracteristicas = [
-    {
-      id: 1,
-      titulo: "Electrico",
-      icono: "bucket",
-    },
-    {
-      id: 2,
-      titulo: "Manual",
-      icono: "hammer",
-    },
-    {
-      id: 3,
-      titulo: "Carga rapida",
-      icono: "carBattery",
-    },
-    {
-      id: 4,
-      titulo: "Repuestos",
-      icono: "paintBrush",
-    },
-    {
-      id: 5,
-      titulo: "Facil agarre",
-      icono: "trowel",
-    },
-    {
-      id: 6,
-      titulo: "facil Armado",
-      icono: "powerOff",
-    },
+    { id: 1, titulo: "Electrico", icono: "bucket",},
+    {id: 2, titulo: "Manual",icono: "hammer",},
+    { id: 3, titulo: "Carga rapida",icono: "carBattery",},
+    {id: 4,titulo: "Repuestos",icono: "paintBrush",},
+    { id: 5, titulo: "Facil agarre",icono: "trowel",},
+    {id: 6, titulo: "facil Armado",icono: "powerOff",},
   ];
 
   const reseñas = [
@@ -215,6 +223,9 @@ const Detail = () => {
             <div className="relative">
               <label htmlFor="fechaInicio" className="block text-sm font-medium text-dark pt-6 px-6 ">Fecha de inicio</label>
                 <input 
+                min={minFechaInicio}
+                max={maxFechaInicio}
+                onChange={handleFechaInicio}
                 type="date" 
                 id="fechaInicio" 
                 name="fechaInicio" 
@@ -224,14 +235,17 @@ const Detail = () => {
       
               <div className="relative">
                 <label htmlFor="fechaFin" className="block text-sm font-medium text-dark pt-6 px-6">Fecha de fin</label>
-                <input 
+                <input
+                min={minFechaFin} 
+                max={maxFechaFin}
+                onChange={hadleFechaFin}
                 type="date" 
                 id="fechaFin" 
                 name="fechaFin" 
                 className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-lg focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
                 placeholder="Seleccione la fecha de fin"/>
             </div>
-          </div>
+        </div>
    
           <div className="flex flex-col md:flex-row gap-4 pt-6 px-4">
             
@@ -243,13 +257,15 @@ const Detail = () => {
               Reserva
             </button>
           </div>
-         
+          <div>
+            <StarRating/>
+          </div>
         </div>
         <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
           
           <Reseñas  reseñas={reseñas}/>
         </div>
-       
+               
 
        
       </div>
