@@ -10,19 +10,17 @@ const ListarCategorias = () => {
   useEffect(() => {
     fetch("http://localhost:8080/Categorias", {
       method: "GET",
-
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Authorization' : `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData + "Respuesta del back");
+        
         const categorias = responseData.map((categoria) => ({
           id: categoria.id,
           titulo: categoria.titulo,
-          descripcion: categoria.descripcion,
           icono: categoria.icono,
         }));
 
@@ -31,18 +29,23 @@ const ListarCategorias = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("¿Estás seguro que queres eliminar esta categoria?")) {
+    if (window.confirm("¿Estás seguro que queres eliminar esta categoria y los productos asociados a la misma?")) {
       try {
         const response = await fetch(`http://localhost:8080/Categorias/${id}`, {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization' : `Bearer ${token}`,
+          },
+
         });
 
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }
 
-        setProductos((prevProductos) =>
-          prevProductos.filter((prod) => prod.id !== id)
+        setCategorias((prevCategorias) =>
+          prevCategorias.filter((prod) => prod.id !== id)
         );
 
         alert("La categoria se eliminó correctamente.");
