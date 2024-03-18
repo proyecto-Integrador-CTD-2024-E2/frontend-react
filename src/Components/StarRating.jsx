@@ -9,12 +9,12 @@ const StarRating = () => {
     const [hover, setHover] = useState(null);
 
     // useEffect(){
-
+            // cuando cambie el rating ejecute un output es uan funcion que le va a avisar al detalle 
     // ,[]}
     return (
         <div>
 
-            {[...Array(5)].map((starS, i) => {
+            {[...Array(5)].map((_, i) => {
                 const ratingValue = i + 1;
                 return(
                     <label key={i} className='cursor-pointer'>
@@ -26,7 +26,7 @@ const StarRating = () => {
                             onClick={() => setRating(ratingValue)}
                         />
                         <FontAwesomeIcon
-                            icon={getIconByName('starS')}
+                            icon={getIconByName('star')}
                             color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
                             size={'xl'}
                             onMouseEnter={() => setHover(ratingValue)}

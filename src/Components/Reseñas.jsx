@@ -16,7 +16,7 @@ const Reseñas = ({ reseñas }) => {
                 return(
                       <div key={'star-'+ ratingValue + 'reseña-'+ reseña.id}>
                         <FontAwesomeIcon
-                            icon={getIconByName('starS')}
+                            icon={getIconByName('star')}
                             color={ratingValue <= (reseña.puntuacion) ? "#ffc107" : "#e4e5e9"}
                             size={'xl'}
                         />

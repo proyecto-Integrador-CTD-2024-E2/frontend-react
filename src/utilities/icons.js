@@ -46,13 +46,12 @@ import {
   faStar
   } from "@fortawesome/free-solid-svg-icons";
 
-  import { faStar as regularStar, faHeart as regularHeart } from "@fortawesome/free-regular-svg-icons";
+  
 
 const iconMap = {
-  heart: regularHeart,
-  hearS: faHeart,
-  starS: faStar,
-  star: regularStar,
+  
+  heart: faHeart,
+  star: faStar,
   wrench: faWrench,
   signOut: faArrowRightFromBracket,
   back: faChevronLeft,

@@ -6,11 +6,10 @@ import Politicas from "../Components/Politicas";
 import Reseñas from "../Components/Reseñas";
 import StarRating from "../Components/StarRating";
 // import { useAuth } from "../Context/AuthContext";
-const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-const minFechaInicio = yesterday.toISOString().split('T')[0];
-const fechaInicioAlquiler = '2024-04-10'
-const fechaFinalAlquiler = '2024-04-16'
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
@@ -20,33 +19,48 @@ const Detail = () => {
   const isDetailPage = location.pathname.includes("/detail");
   const col12Classes = isDetailPage ? "col-12 lg:!px-[18em] " : "col-12";
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
-  const [ minFechaFin, setMinFechaFin] = useState(minFechaInicio)
-  const [ maxFechaFin, setMaxFechaFin] = useState(null);
-  const [ maxFechaInicio, setMaxFechaInicio ] = useState(null);
+  const [startDate, setStartDate] = useState(new Date()); // Por defecto empieza en el día de hoy
+  const [endDate, setEndDate] = useState(null);
+  const [blockedDates, setBlockedDates] = useState([]);
   
   
-  const handleFechaInicio = (evento) => {
-    console.log(evento);
-    
-      if(evento?.target?.value){
-        setMinFechaFin(evento?.target?.value)
-        
-      }else{
-        setMinFechaFin(minFechaInicio)
-      }
-    
-   
+  
+const generateBlockedDates = (inicioReserva, finReserva) => {
+  const datesInRange = [];
+  const currentDate = new Date(inicioReserva);
+  const endDate = new Date(finReserva);
+  endDate.setDate(endDate.getDate() + 1);
+  while (currentDate < endDate) {
+    datesInRange.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
   }
+  return datesInRange;
+};
 
-  const hadleFechaFin = (evento) => {
-    if (evento?.target?.value) {
-      setMaxFechaInicio(evento?.target?.value)
-    }else{
-      setMaxFechaInicio(null)
-    }
+  
+ const handleStartDateChange = (date) => {
+  setStartDate(date);
+  if (endDate && endDate.getTime() < date.getTime()) {
+    setEndDate(null);
   }
   
-  console.log(minFechaInicio);
+  if (blockedDates.length > 0 && date < blockedDates[0]) {
+    let lastValidDate = new Date(blockedDates[0]);
+    lastValidDate.setDate(lastValidDate.getDate() - 1);
+    if (lastValidDate < date) {
+      setEndDate(lastValidDate);
+    } else {
+      setEndDate(null);
+    }
+    }
+    };
+  
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  };
+
+  
+
   const openPolicy = () => {
     setIsPolicyOpen(true)
   }
@@ -100,8 +114,15 @@ const Detail = () => {
           categoria: responseData.categoria,
           imagenes: imagenes,
           caracteristicas: caracteristicas,
+          fechaInicioReserva: '2024-04-10',
+          fechaFinalReserva: '2024-04-16'
         };
         setProducto(productoData);
+        if (productoData.fechaInicioReserva && productoData.fechaFinalReserva) {
+          const blocked = generateBlockedDates(productoData.fechaInicioReserva, productoData.fechaFinalReserva);
+          console.log(blocked);
+          setBlockedDates(blocked);
+      }
       } catch (error) {
         console.error("Error haciendo el fetch:", error);
       }
@@ -218,36 +239,33 @@ const Detail = () => {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-arroud py-4 px-10 gap-10 ">
-        <div className="flex gap-4 px-4">
-            <div className="relative">
-              <label htmlFor="fechaInicio" className="block text-sm font-medium text-dark pt-6 px-6 ">Fecha de inicio</label>
-                <input 
-                min={minFechaInicio}
-                max={maxFechaInicio}
-                onChange={handleFechaInicio}
-                type="date" 
-                id="fechaInicio" 
-                name="fechaInicio" 
-                className=" mt-1 p-2 block w-full rounded-md border-gray-300 shadow-lg focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
-                placeholder="Seleccione la fecha de inicio"/>
-              </div>
-      
-              <div className="relative">
-                <label htmlFor="fechaFin" className="block text-sm font-medium text-dark pt-6 px-6">Fecha de fin</label>
-                <input
-                min={minFechaFin} 
-                max={maxFechaFin}
-                onChange={hadleFechaFin}
-                type="date" 
-                id="fechaFin" 
-                name="fechaFin" 
-                className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-lg focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" 
-                placeholder="Seleccione la fecha de fin"/>
-            </div>
-        </div>
-   
-          <div className="flex flex-col md:flex-row gap-4 pt-6 px-4">
+        <div className="flex flex-col  justify-center md:flex-row justify-arroud py-4 px-10 gap-10 ">
+          <div>
+              <DatePicker
+              selected={startDate}
+              onChange={handleStartDateChange}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              minDate={new Date()} 
+              placeholderText="Fecha de inicio"
+              excludeDates={blockedDates} 
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={handleEndDateChange}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              maxDate={blockedDates.length > 0 && startDate < blockedDates[0] ? blockedDates[0] : null} 
+              placeholderText="Fecha de fin"
+              excludeDates={blockedDates} 
+            />
+
+
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 px-4">
             
             <button 
             className="block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
@@ -257,19 +275,26 @@ const Detail = () => {
               Reserva
             </button>
           </div>
-          <div>
-            <StarRating/>
+        </div>
+   
+        <div className="flex flex-row gap-4  px-4">
+            <div>
+              <StarRating/> {/*aqui debni llamar a la funcion output */}
+            </div>
+            <div>
+              <label htmlFor="
+              ">
+                <input type="text" />
+              </label>
+            </div>
           </div>
         </div>
-        <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
+      <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
           
           <Reseñas  reseñas={reseñas}/>
-        </div>
-               
-
-       
       </div>
     </div>
+  
   );
 };
 
