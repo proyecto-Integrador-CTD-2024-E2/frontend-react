@@ -1,19 +1,57 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { useAuth } from "../Context/AuthContext";
+import { useParams } from "react-router-dom";
 
 
 const AgregarProductos = () => {
   const [productData, setProductData] = useState({
     nombre: "",
     descripcion: "",
-    stock: "",
-    precio: "",
+    stock: 0,
+    precio: 0,
     categoria: "",
     disponibilidad: "",
+    caracteristicas: Array(1).fill({ tirulo: ""}),
     imageUrls: Array(1).fill({ url: "" }),
   });
+  const { isLogged, token } = useAuth();
+  const { id } = useParams();
+  const [categorias, setCategorias] = useState([]);
 
+  useEffect(() => {
+    if(id) {
+      fetch(`http://localhost:8080/Herramientas/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setProductData({
+          nombre: data.nombre,
+          descripcion: data.descripcion,
+          stock: data.stock,
+          precio: data.precio,
+          categoria: data.categoria ? data.categoria.titulo || "" : "",
+          caracteristicas: data.caracteristicas ? data.caracteristicas.titulo : "",
+          imageUrls: data.imageUrls || [] 
+          
+        })
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
+        toast.error(
+          `Ha ocurrido un problema al obtener la categoria. ${error.message}`
+        );
+      })
+      
+      
+    }
+  }, [id]) // realice este useEffect para poder actualizar el producto por id 
   const isFieldEmpty = (fieldName) => !productData[fieldName];
   const isAllFieldsNonEmpty = () =>
     !(
@@ -65,43 +103,80 @@ const AgregarProductos = () => {
       );
       return;
     }
-
-    try {
-      const response = await fetch("http://localhost:8080/Herramientas", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          categoria: productData.categoria,
-          stock: productData.stock,
-          precio: productData.precio,
-          disponibilidad: true,
-          nombre: productData.nombre,
-          marca: "Y",
-          descripcion: productData.descripcion,
-          imagenes: productData.imageUrls.filter((url) => url !== ""),
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+    if( id ) {
+      console.log(id);
+      try {
+        const response = await fetch("http://localhost:8080/Herramientas", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            categoria: productData.categoria,
+            stock: productData.stock,
+            precio: productData.precio,
+            disponibilidad: true,
+            nombre: productData.nombre,
+            descripcion: productData.descripcion,
+            imagenes: productData.imageUrls.filter((url) => url !== ""),
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const responseData = await response.json();
+        console.log("Success:", responseData);
+        toast.success("Se ha agregado exitosamente el producto!");
+      } catch (error) {
+        console.error("Error:", error.message);
+        toast.error(
+          "Ha ocurrido un problema al actualizar el producto.",
+          error.message
+        );
       }
-
-      const responseData = await response.json();
-      console.log("Success:", responseData);
-      toast.success("Se ha agregado exitosamente el producto!");
-    } catch (error) {
-      console.error("Error:", error.message);
-      toast.error(
-        "Ha ocurrido un problema al crear el nuevo producto.",
-        error.message
-      );
+    }else {
+      try {
+        const response = await fetch("http://localhost:8080/Herramientas", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            categoria: productData.categoria,
+            stock: productData.stock,
+            precio: productData.precio,
+            disponibilidad: true,
+            nombre: productData.nombre,
+            descripcion: productData.descripcion,
+            imagenes: productData.imageUrls.filter((url) => url !== ""),
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const responseData = await response.json();
+        console.log("Success:", responseData);
+        toast.success("Se ha agregado exitosamente el producto!");
+      } catch (error) {
+        console.error("Error:", error.message);
+        toast.error(
+          "Ha ocurrido un problema al crear el nuevo producto.",
+          error.message
+        );
+      }
     }
+
+    
   };
 
-  const { isLogged, token } = useAuth();
-  const [categorias, setCategorias] = useState([]);
+  
+ 
   useEffect(() => {
     fetch("http://localhost:8080/Categorias", {
       method: "GET",
@@ -113,7 +188,7 @@ const AgregarProductos = () => {
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData + "Respuesta del back");
+       
         const categorias = responseData.map((categoria) => ({
           id: categoria.id,
           titulo: categoria.titulo,
@@ -245,9 +320,9 @@ const AgregarProductos = () => {
           </button>
           <button
             type="submit"
-            className=" bg-colorPrimario text-white px-8 py-2 rounded-md"
+            className="px-4 py-2 bg-colorPrimario text-white rounded hover:colorPrimarioHover"
           >
-            Agregar
+            {id ? "Actualizar" : "Agregar"}
           </button>
         </div>
       </form>

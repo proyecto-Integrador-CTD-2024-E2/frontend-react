@@ -18,7 +18,7 @@ const ListarCaracteristicas = () => {
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData + "Respuesta del back");
+        
         const Caracteristicas = responseData.map((caracteristica) => ({
           id: caracteristica.id,
           titulo: caracteristica.titulo,

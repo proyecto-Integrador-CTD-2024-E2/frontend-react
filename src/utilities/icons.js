@@ -42,9 +42,16 @@ import {
   faLightbulb,
   faPowerOff,
   faCircleUser,
-} from "@fortawesome/free-solid-svg-icons";
+  faHeart,
+  faStar
+  } from "@fortawesome/free-solid-svg-icons";
+
+  
 
 const iconMap = {
+  
+  heart: faHeart,
+  star: faStar,
   wrench: faWrench,
   signOut: faArrowRightFromBracket,
   back: faChevronLeft,
