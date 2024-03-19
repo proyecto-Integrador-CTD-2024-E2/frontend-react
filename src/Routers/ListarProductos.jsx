@@ -3,45 +3,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "../utilities/icons";
 import { useAuth } from "../Context/AuthContext";
 
-
 const ListarProductos = () => {
   const [productos, setProductos] = useState([]);
   const { isLogged, token } = useAuth();
   useEffect(() => {
     const fetchListarProducto = async () => {
-      try{
-          
-          const response = await fetch('http://localhost:8080/Herramientas', {
-          method: 'GET',
+      try {
+        const response = await fetch("http://localhost:8080/Herramientas", {
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        })
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (!response.ok) {
-          throw new Error('Error al obtener las Herramientas')
+          throw new Error("Error al obtener las Herramientas");
         }
         const responseData = await response.json();
-        setProductos(responseData.map((producto) => ({
-          id: producto.id,
-          nombre: producto.nombre,
-          descripcion: producto.descripcion,
-          precio: producto.precio,
-          categoria: producto.categoria.titulo,
-          marca: producto.marca,
-          imagenes: producto.imagenes ? producto.imagenes.map((imagen) => imagen.url) : [],
-        })));
-      
-        
-      }catch (error) {
-        console.log('Error haciendo el fetch:', error);
+        const productosMapped = responseData.map((producto) => ({
+            id: producto.id,
+            nombre: producto.nombre,
+            descripcion: producto.descripcion,
+            precio: producto.precio,
+            categoria: producto.categoria?.titulo, 
+            imagenes: producto.imagenes ? producto.imagenes.map((imagen) => imagen.url) : [],
+        }));
+  
+        setProductos(productosMapped);
+      } catch (error) {
+        console.log("Error haciendo el fetch:", error);
       }
-      
-    }
+    };
     fetchListarProducto();
   }, []);
-    
-     
 
   const handleEdit = (id) => {
     console.log(`Editar producto con id ${id}`);
@@ -82,7 +76,6 @@ const ListarProductos = () => {
           <th scope="col">Id</th>
           <th scope="col">Nombre</th>
           <th scope="col">Categoría</th>
-          <th scope="col">Marca</th>
           <th scope="col">Acciones</th>
         </tr>
       </thead>
@@ -91,8 +84,7 @@ const ListarProductos = () => {
           <tr key={producto.id}>
             <td className="py-2">{producto.id}</td>
             <td className="py-2">{producto.nombre}</td>
-            <td className="py-2">{producto.categoria.titulo}</td>
-            <td className="py-2">{producto.marca}</td>
+            <td className="py-2">{producto.categoria}</td>
             <td className="py-2 flex gap-8">
               <button
                 className="bg-colorPrimario hover:bg-colorPrimarioHover transition-all text-white px-2 py-1 rounded-lg"

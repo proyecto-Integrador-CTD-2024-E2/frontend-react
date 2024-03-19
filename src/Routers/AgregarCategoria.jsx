@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getIconByName } from "./../utilities/icons";
+import { useAuth } from "../Context/AuthContext";
 
 const iconNames = ["wrench", "car", "user", "hammer", "ruler", "trowel"];
 
@@ -11,19 +12,26 @@ const AgregarCategoria = () => {
 
   const [categoryData, setCategoryData] = useState({
     id: null,
-    nombre: "",
+    titulo: "",
     icono: "",
   });
+  const { isLogged, token } = useAuth();
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:8080/Categorias/${id}`)
+      fetch(`http://localhost:8080/Categorias/${id}`,{
+        method: 'GET',
+        headers:{
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           setCategoryData({
             id: data.id,
-            nombre: data.nombre,
+            titulo: data.titulo,
             icono: data.icono,
           });
         })
@@ -38,7 +46,7 @@ const AgregarCategoria = () => {
 
   const isFieldEmpty = (fieldName) => !categoryData[fieldName];
   const isAllFieldsNonEmpty = () =>
-    !(isFieldEmpty("nombre") || isFieldEmpty("icono"));
+    !(isFieldEmpty("titulo") || isFieldEmpty("icono"));
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -67,10 +75,11 @@ const AgregarCategoria = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             id: categoryData.id,
-            nombre: categoryData.nombre,
+            titulo: categoryData.titulo,
             icono: categoryData.icono,
           }),
         });
@@ -96,10 +105,11 @@ const AgregarCategoria = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
             id: categoryData.id,
-            nombre: categoryData.nombre,
+            titulo: categoryData.titulo,
             icono: categoryData.icono,
           }),
         });
@@ -129,16 +139,16 @@ const AgregarCategoria = () => {
           <div className="mb-6">
             <label
               className="block text-gray-700 font-semibold mb-2"
-              htmlFor="nombre"
+              htmlFor="titulo"
             >
-              Nombre
+              titulo
             </label>
             <input
               type="text"
-              id="nombre"
+              id="titulo"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario"
-              placeholder="Nombre de la categoria"
-              value={categoryData.nombre}
+              placeholder="titulo de la categoria"
+              value={categoryData.titulo}
               onChange={handleInputChange}
             />
           </div>

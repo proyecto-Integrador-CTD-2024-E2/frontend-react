@@ -6,60 +6,37 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 
 const ListarCategorias = () => {
-  const [ categorias, setCategorias ] = useState([]);
+  const [categorias, setCategorias] = useState([]);
   const { isLogged, token } = useAuth();
   useEffect(() => {
     fetch("http://localhost:8080/Categorias", {
-      method: 'GET',
-      
+      method: "GET",
+
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => res.json())
       .then((responseData) => {
-        console.log(responseData + "Respuesta del back")
+        console.log(responseData + "Respuesta del back");
         const categorias = responseData.map((categoria) => ({
           id: categoria.id,
-          nombre: categoria.titulo,
+          titulo: categoria.titulo,
           descripcion: categoria.descripcion,
-          icono: categoria.icono
+          icono: categoria.icono,
         }));
 
         setCategorias(categorias);
       });
-  }, []); 
+  }, []);
 
-  {
-    /*  const categorias = [
-    {
-      id: 1,
-      nombre: "jardin",
-      icono: "brush",
-    },
-    {
-      id: 2,
-      nombre: " hogar",
-      icono: "water",
-    },
-    {
-      id: 3,
-      nombre: 'exterior',
-      icono: 'fire'},
-      
-  
-  ]*/
-  }
   const handleDelete = async (id) => {
     if (window.confirm("¿Estás seguro que queres eliminar esta categoria?")) {
       try {
-        const response = await fetch(
-          `http://localhost:8080/Categorias/${id}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`http://localhost:8080/Categorias/${id}`, {
+          method: "DELETE",
+        });
 
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
@@ -88,7 +65,7 @@ const ListarCategorias = () => {
               Id
             </th>
             <th scope="col" className="px-6 py-3">
-              Nombre
+              titulo
             </th>
             <th scope="col" className="px-6 py-3">
               Icono
@@ -108,7 +85,7 @@ const ListarCategorias = () => {
               >
                 {categoria.id}
               </th>
-              <td className="px-6 py-4">{categoria.nombre}</td>
+              <td className="px-6 py-4">{categoria.titulo}</td>
               <td className="px-6 py-4 text-cyan-900">
                 <FontAwesomeIcon
                   icon={getIconByName(categoria.icono)}
