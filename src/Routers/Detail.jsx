@@ -22,10 +22,49 @@ const Detail = () => {
   const [startDate, setStartDate] = useState(new Date()); // Por defecto empieza en el día de hoy
   const [endDate, setEndDate] = useState(null);
   const [blockedDates, setBlockedDates] = useState([]);
+  const [showRating, setShowRating] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [opinion, setOpinion] = useState('');
+  const [reseñas, setReseñas] = useState([
+    { id: 1, fecha: '10-04-2024', usuario: 'Freddie Mercury', puntuacion: 4, comentario: 'Buena experiencia, producto de calidad.' },
+    { id: 2, fecha: '16-04-2024', usuario: 'Shakira', puntuacion: 5, comentario: '¡Excelente servicio al cliente y envío rápido!' },
+    { id: 3, fecha: '04-03-2024', usuario: 'Gustavo Cerati', puntuacion: 3, comentario: 'El producto llegó tarde, pero en buenas condiciones.' },
+    { id: 4, fecha: '25-06-2023', usuario: 'Bruno Mars', puntuacion: 2, comentario: 'Mala calidad, no recomendaría este producto.' },
+  ]);
+
+  const handleReserveClick = () => {
+    setShowRating(true);
+  };
+
+  const handleRatingChange = (value) => {
+    setRating(value);
+  };
+
+  const handleOpinionChange = (event) => {
+    setOpinion(event.target.value);
+  };
+  
+  const handleSendReview = () => {
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
+    const newReview = {
+      id: reseñas.length + 1, // un nuevo ID a la reseña
+      fecha: formattedDate,
+      usuario: 'Usuario', //  establecer el nombre del usuario, cuando venga del endpoint
+      puntuacion: rating,
+      comentario: opinion
+    };
+    setReseñas([...reseñas, newReview]);
+   
+    setRating(0);
+    setOpinion('');
+    setShowRating(false);
+  };
+
+
   
   
-  
-const generateBlockedDates = (inicioReserva, finReserva) => {
+  const generateBlockedDates = (inicioReserva, finReserva) => {
   const datesInRange = [];
   const currentDate = new Date(inicioReserva);
   const endDate = new Date(finReserva);
@@ -78,13 +117,7 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
     {id: 6, titulo: "facil Armado",icono: "powerOff",},
   ];
 
-  const reseñas = [
-    { id: 1, usuario: 'Freddie Mercury', puntuacion: 4, comentario: 'Buena experiencia, producto de calidad.' },
-    { id:2, usuario: 'Shakira', puntuacion: 5, comentario: '¡Excelente servicio al cliente y envío rápido!' },
-    { id:3, usuario: 'Gustavo Cerati', puntuacion: 3, comentario: 'El producto llegó tarde, pero en buenas condiciones.' },
-    { id:4, usuario: 'Bruno Mars', puntuacion: 2, comentario: 'Mala calidad, no recomendaría este producto.' },
-    
-  ];
+  
 
   useEffect(() => {
     const fetchProducto = async () => {
@@ -240,7 +273,7 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
           </div>
         </div>
         <div className="flex flex-col  justify-center md:flex-row justify-arroud py-4 px-10 gap-10 ">
-          <div>
+          <div >
               <DatePicker
               selected={startDate}
               onChange={handleStartDateChange}
@@ -250,6 +283,7 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
               minDate={new Date()} 
               placeholderText="Fecha de inicio"
               excludeDates={blockedDates} 
+              className="my-2 border mx-2 border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:border-blue-500"
             />
             <DatePicker
               selected={endDate}
@@ -260,7 +294,8 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
               minDate={startDate}
               maxDate={blockedDates.length > 0 && startDate < blockedDates[0] ? blockedDates[0] : null} 
               placeholderText="Fecha de fin"
-              excludeDates={blockedDates} 
+              excludeDates={blockedDates}
+              className="my-2 mx-2 border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:border-blue-500"
             />
 
 
@@ -271,27 +306,39 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
             className="block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
             onClick={openPolicy}>Políticas</button>
             {isPolicyOpen && <Politicas onClose={closePolicy} />}
-            <button className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
+            <button 
+            onClick={handleReserveClick}
+            className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
               Reserva
             </button>
+            {showRating && (
+                <div className="flex flex-col gap-4 px-4">
+                  <div className="bg-white p-4 rounded-lg shadow-md ">
+                      <h2 className="text-lg font-bold mb-4">Danos tu opinión</h2>
+                      <div className="flex items-center">
+                        <StarRating value={rating} onChange={handleRatingChange}/> 
+                      </div>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                      <div>
+                        <label htmlFor="opinion" className="block text-sm font-medium ">
+                          Opinión:
+                        </label>
+                        <input type="text" id="opinion" value={opinion} onChange={handleOpinionChange} className=" my-2 border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:border-blue-500" />
+                      </div>
+                    </div>
+                    <button 
+                      onClick={handleSendReview}
+                      className="bg-colorPrimario text-white px-4 py-2 rounded-lg mt-4 md:mt-0 hover:bg-colorPrimarioHover focus:outline-none focus:bg-colorPrimarioHover transition-all">Enviar</button>
+                  </div>
+                </div>
+            )}
           </div>
         </div>
-   
-        <div className="flex flex-row gap-4  px-4">
-            <div>
-              <StarRating/> {/*aqui debni llamar a la funcion output */}
-            </div>
-            <div>
-              <label htmlFor="
-              ">
-                <input type="text" />
-              </label>
-            </div>
-          </div>
         </div>
+      
       <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
           
-          <Reseñas  reseñas={reseñas}/>
+          <Reseñas  reseñas={reseñas} puntuación={rating}/>
       </div>
     </div>
   
