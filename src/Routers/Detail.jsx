@@ -86,6 +86,7 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
     
   ];
 
+
   useEffect(() => {
     const fetchProducto = async () => {
       try {
@@ -215,6 +216,8 @@ const generateBlockedDates = (inicioReserva, finReserva) => {
     </div>
   </div>
 </div>
+
+
 
         <div className="flex flex-col md:flex-row justify-arround py-6 px-10 gap-8">
           <div className="md:w-6/12 d-flex flex-col justify-center mr-6">
