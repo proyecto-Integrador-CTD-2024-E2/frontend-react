@@ -4,7 +4,7 @@ import { getIconByName } from '../utilities/icons';
 
 
 
-const StarRating = () => {
+const StarRating = ({ value, onChange }) => {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
 
@@ -23,11 +23,11 @@ const StarRating = () => {
                             type='radio'
                             name='ratig'
                             value={ratingValue}
-                            onClick={() => setRating(ratingValue)}
+                            onClick={() => onChange(ratingValue)}
                         />
                         <FontAwesomeIcon
                             icon={getIconByName('star')}
-                            color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                            color={ratingValue <= (hover || value ) ? "#ffc107" : "#e4e5e9"}
                             size={'xl'}
                             onMouseEnter={() => setHover(ratingValue)}
                             onMouseLeave={() => setHover(null)}

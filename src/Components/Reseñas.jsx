@@ -4,11 +4,11 @@ import { getIconByName } from '../utilities/icons';
 
 const Reseñas = ({ reseñas }) => {
 
-    
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {reseñas.map((reseña) => (
             <div key={reseña.id} className="bg-white rounded-lg p-4 shadow-md">
+              <p>{reseña.fecha}</p>
               <h3 className="text-lg font-semibold">{reseña.usuario}</h3>
               <div className='flex flex-row'>
                 {[...Array(5)].map((_, i) => {
