@@ -70,7 +70,7 @@ const AgregarCaracteristica = () => {
       console.log(id);
       try {
         console.log(caracteristicaData);
-        const response = await fetch(`http://localhost:8080/Categorias`, {
+        const response = await fetch(`http://localhost:8080/Caracteristicas`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const AgregarCaracteristica = () => {
     } else {
       try {
         console.log(caracteristicaData);
-        const response = await fetch("http://localhost:8080/Categorias", {
+        const response = await fetch("http://localhost:8080/Caracteristicas", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

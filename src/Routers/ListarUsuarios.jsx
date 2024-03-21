@@ -21,10 +21,13 @@ const ListarUsuarios = () => {
 
     const handleChange = (event) => {
       setSelectedRole(event.target.value);
+      
     };
 
     const updateRole = async (userId, newRole) => {
       try {
+        console.log("userId:", userId);
+        console.log("newRole:", newRole);
         await fetch(`http://localhost:8080/user/${userId}/usuarioRole`, {
           method: 'PUT',
           headers: {
@@ -33,10 +36,20 @@ const ListarUsuarios = () => {
           },
           body: JSON.stringify({ usuarioRole: newRole }),
         });
-        alert(`The role of user with ID ${userId} has been changed to ${newRole}.`);
+        console.log("Update successful!");
+        const updatedUsers = users.map(user => {
+          if (user.id === userId) {
+            return { ...user, newRole: selectedRole };
+          } else {
+            return user;
+          }
+        });
+        console.log("updatedUsers:", updatedUsers);
+        setUsers(updatedUsers);
+        alert(`El usuario con ID ${userId} ha sido actualizado con el rol ${newRole}.`);
       } catch (error) {
         console.error(error);
-        alert(`Failed to change the role of user with ID ${userId}. Please check the server logs.`);
+        alert(`No se puede cambiar el rol del usuario con ID ${userId}. Por favor, revisa los registros del servidor.`);
       }
     };
 
@@ -69,8 +82,10 @@ const ListarUsuarios = () => {
                    </tr>
                  </thead>
                  <tbody className="bg-white divide-y divide-gray-200">
-                 {users && users.map((user)=>(
-                   <tr key={user.id}>
+                 {users.length > 0 && users.map((user)=>{
+                  if (user.id !== 1){
+                    return (
+                      <tr key={user.id}>
                      <td className="px-6 py-4 whitespace-nowrap">
                        <div className="flex items-center">
                            <div className="ml-4">
@@ -84,22 +99,31 @@ const ListarUsuarios = () => {
                        <div className="text-sm text-gray-900">{user.apellido}</div>
                      </td>
                      <td className="px-6 py-4 whitespace-nowrap">
-                       <div className="text-sm text-gray-900">{user.email}</div>
+                       <div className="text-sm text-gray-900">{user.username}</div>
                      </td>
                      <td className="px-6 py-4 whitespace-normal">
                        <form className="inline-block mr-2">
                            <label htmlFor="roles" className="mr-2">Rol:</label>
-                           <select name="roles" onChange={handleChange} >
-                               <option value="" disabled hidden>{user.rolNombre}</option>
-                               <option value="ROLE_USER">USER</option>
-                               <option value="ROLE_ADMIN">ADMIN</option>
-                               <option value="ROLE_SUPERADMIN">SUPERADMIN</option>
+                           <select name="roles" value={selectedRole} onChange={handleChange} >
+                               <option value="" disabled hidden>{user.usuarioRole}</option>
+                               <option value="USER">USER</option>
+                               <option value="ADMIN">ADMIN</option>
+                               
                            </select>
                        </form>
-                       <button type="submit" onClick={() => updateRole(user.id, selectedRole)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Role</button>
+                       <button 
+                       type="submit" 
+                       onClick={() => updateRole(user.id, selectedRole)} 
+                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        Update Role
+                        </button>
                      </td>
                    </tr>
-                 ))}
+                    )
+                  }
+                 }
+                   
+                )}
                  </tbody>
                </table>
              </div>
