@@ -1,8 +1,28 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { getIconByName } from '../utilities/icons';
 
-const Reseñas = ({ reseñas }) => {
+const Reseñas = ({reseñasProp}) => {
+  const [ reseñas, setReseñas ] = useState([])
+
+  useEffect(() => {
+    const fetchReseñas = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/Reseñas');
+        if (!response.ok) {
+          throw new Error('Error al obtener las reseñas');
+        }
+        const data = await response.json();
+        setReseñas(data);
+      } catch (error) {
+        console.error('Error al obtener las reseñas:', error);
+      }
+    };
+
+    fetchReseñas();
+  }, []); 
+
+  
 
       return (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

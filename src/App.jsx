@@ -18,6 +18,7 @@ import AgregarCaracteristica from "./Routers/AgregarCaracteristica";
 import { PrivateRoute } from "./Routers/PrivateRoute";
 
 function App() {
+ 
   return (
     <div className="pt-16 flex flex-col min-h-screen bg-colorClaro">
       <Header />

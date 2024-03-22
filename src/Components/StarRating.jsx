@@ -5,12 +5,10 @@ import { getIconByName } from '../utilities/icons';
 
 
 const StarRating = ({ value, onChange }) => {
-    const [rating, setRating] = useState(null);
+    
     const [hover, setHover] = useState(null);
 
-    // useEffect(){
-            // cuando cambie el rating ejecute un output es uan funcion que le va a avisar al detalle 
-    // ,[]}
+   
     return (
         <div>
 

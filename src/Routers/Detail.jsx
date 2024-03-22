@@ -5,19 +5,18 @@ import { getIconByName } from "../utilities/icons";
 import Politicas from "../Components/Politicas";
 import Reseñas from "../Components/Reseñas";
 import StarRating from "../Components/StarRating";
-// import { useAuth } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
 
-const Detail = () => {
+const Detail = ({reseñasProp}) => {
   const [producto, setProducto] = useState(null);
   const { id } = useParams();
-  // const { isLogged, token } = useAuth();
+  const { isLogged, token } = useAuth();
   const location = useLocation();
   const isDetailPage = location.pathname.includes("/detail");
-  const col12Classes = isDetailPage ? "col-12 lg:!px-[18em] " : "col-12";
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date()); // Por defecto empieza en el día de hoy
   const [endDate, setEndDate] = useState(null);
@@ -25,12 +24,11 @@ const Detail = () => {
   const [showRating, setShowRating] = useState(false);
   const [rating, setRating] = useState(0);
   const [opinion, setOpinion] = useState('');
-  const [reseñas, setReseñas] = useState([
-    { id: 1, fecha: '10-04-2024', usuario: 'Freddie Mercury', puntuacion: 4, comentario: 'Buena experiencia, producto de calidad.' },
-    { id: 2, fecha: '16-04-2024', usuario: 'Shakira', puntuacion: 5, comentario: '¡Excelente servicio al cliente y envío rápido!' },
-    { id: 3, fecha: '04-03-2024', usuario: 'Gustavo Cerati', puntuacion: 3, comentario: 'El producto llegó tarde, pero en buenas condiciones.' },
-    { id: 4, fecha: '25-06-2023', usuario: 'Bruno Mars', puntuacion: 2, comentario: 'Mala calidad, no recomendaría este producto.' },
-  ]);
+ const [reseñas, setReseñas] = useState([])
+  
+
+ 
+  
 
   const handleReserveClick = () => {
     setShowRating(true);
@@ -44,25 +42,52 @@ const Detail = () => {
     setOpinion(event.target.value);
   };
   
-  const handleSendReview = () => {
+
+
+  const handleSendReview = async () => {
     const currentDate = new Date();
-    const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`;
+    console.log('fecha actual:', currentDate);
     const newReview = {
-      id: reseñas.length + 1, // un nuevo ID a la reseña
-      fecha: formattedDate,
-      usuario: 'Usuario', //  establecer el nombre del usuario, cuando venga del endpoint
-      puntuacion: rating,
+      fecha: currentDate,
+      usuario: 'Usuario', 
+      raiting: rating,
       comentario: opinion
     };
-    setReseñas([...reseñas, newReview]);
-   
-    setRating(0);
-    setOpinion('');
-    setShowRating(false);
+    console.log('Nueva reseña:', newReview);
+    try {
+      const response = await fetch('http://localhost:8080/Reseñas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(newReview),
+      });
+      console.log('Respuesta del servidor al agregar la reseña:', response);
+      if (!response.ok) {
+        throw new Error('Error al agregar la reseña');
+      }
+  
+      const updatedResponse = await fetch('http://localhost:8080/Reseñas');
+      console.log('Respuesta del servidor al obtener las reseñas actualizadas:', updatedResponse);
+  
+      if (!updatedResponse.ok) {
+        throw new Error('Error al obtener las reseñas actualizadas');
+      }
+      const updatedData = await updatedResponse.json();
+      console.log('Reseñas actualizadas:', updatedData);
+      setReseñas(updatedData);
+  
+      // Limpiamos los campos de opinión y calificación
+      setRating(0);
+      setOpinion('');
+      setShowRating(false);
+    } catch (error) {
+      console.error('Error al enviar la reseña:', error);
+      // Manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
+    }
   };
 
-
-  
   
   const generateBlockedDates = (inicioReserva, finReserva) => {
   const datesInRange = [];
@@ -144,7 +169,7 @@ const Detail = () => {
           nombre: responseData.nombre,
           descripcion: responseData.descripcion,
           precio: responseData.precio,
-          categoria: responseData.categoria,
+          categoria: responseData.categoria.id,
           imagenes: imagenes,
           caracteristicas: caracteristicas,
           fechaInicioReserva: '2024-04-10',
@@ -153,7 +178,7 @@ const Detail = () => {
         setProducto(productoData);
         if (productoData.fechaInicioReserva && productoData.fechaFinalReserva) {
           const blocked = generateBlockedDates(productoData.fechaInicioReserva, productoData.fechaFinalReserva);
-          console.log(blocked);
+          // console.log(blocked);
           setBlockedDates(blocked);
       }
       } catch (error) {
@@ -338,7 +363,7 @@ const Detail = () => {
       
       <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
           
-          <Reseñas  reseñas={reseñas} puntuación={rating}/>
+          <Reseñas  reseñasProp={reseñasProp} />
       </div>
     </div>
   
