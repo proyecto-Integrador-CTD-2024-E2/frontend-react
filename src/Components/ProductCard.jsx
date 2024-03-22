@@ -46,7 +46,7 @@ ProductCard.propTypes = {
     descripcion: PropTypes.string.isRequired,
     precio: PropTypes.number.isRequired,
     categoria: PropTypes.shape({
-      titulo: PropTypes.string.isRequired
+      titulo: PropTypes.string.isRequired,
     }).isRequired,
     imagenes: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
