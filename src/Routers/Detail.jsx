@@ -11,12 +11,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 
-const Detail = ({reseñasProp}) => {
+const Detail = () => {
   const [producto, setProducto] = useState(null);
   const { id } = useParams();
   const { isLogged, token } = useAuth();
-  const location = useLocation();
-  const isDetailPage = location.pathname.includes("/detail");
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date()); // Por defecto empieza en el día de hoy
   const [endDate, setEndDate] = useState(null);
@@ -24,7 +22,9 @@ const Detail = ({reseñasProp}) => {
   const [showRating, setShowRating] = useState(false);
   const [rating, setRating] = useState(0);
   const [opinion, setOpinion] = useState('');
- const [reseñas, setReseñas] = useState([])
+  const [reseñas, setReseñas] = useState([])
+  
+
   
 
  
@@ -51,7 +51,8 @@ const Detail = ({reseñasProp}) => {
       fecha: currentDate,
       usuario: 'Usuario', 
       raiting: rating,
-      comentario: opinion
+      comentario: opinion,
+      herramienta_id: id
     };
     console.log('Nueva reseña:', newReview);
     try {
@@ -59,7 +60,7 @@ const Detail = ({reseñasProp}) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+          
         },
         body: JSON.stringify(newReview),
       });
@@ -78,14 +79,15 @@ const Detail = ({reseñasProp}) => {
       console.log('Reseñas actualizadas:', updatedData);
       setReseñas(updatedData);
   
-      // Limpiamos los campos de opinión y calificación
+      
       setRating(0);
       setOpinion('');
       setShowRating(false);
     } catch (error) {
       console.error('Error al enviar la reseña:', error);
-      // Manejar el error adecuadamente, por ejemplo, mostrando un mensaje al usuario
+      
     }
+    
   };
 
   
@@ -185,7 +187,19 @@ const Detail = ({reseñasProp}) => {
         console.error("Error haciendo el fetch:", error);
       }
     };
-
+    const fetchReseñas = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/Reseñas');
+        if (!response.ok) {
+          throw new Error('Error al obtener las reseñas');
+        }
+        const data = await response.json();
+        setReseñas(data);
+      } catch (error) {
+        console.error('Error al obtener las reseñas:', error);
+      }
+    };
+    fetchReseñas();
     fetchProducto();
   }, [id]);
 
@@ -363,7 +377,7 @@ const Detail = ({reseñasProp}) => {
       
       <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
           
-          <Reseñas  reseñasProp={reseñasProp} />
+          <Reseñas  reseñasProp={reseñas} />
       </div>
     </div>
   
