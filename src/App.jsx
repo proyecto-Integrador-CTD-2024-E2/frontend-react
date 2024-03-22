@@ -16,6 +16,8 @@ import Login from "./Routers/Login";
 import ListarCaracteristicas from "./Routers/ListarCaracteristicas";
 import AgregarCaracteristica from "./Routers/AgregarCaracteristica";
 import { PrivateRoute } from "./Routers/PrivateRoute";
+import Favs from "./Components/Favs";
+import ListarFavorito from "./Routers/ListarFavorito"
 
 function App() {
  
@@ -53,7 +55,12 @@ function App() {
         </Route>
 
         <Route path="*" element={<h1>Page not found - Error 404</h1>} />
-      </Routes>
+        <Route path="Fav" element={<Favs/>}/>
+        <Route path="ListarFavoritos" element={<ListarFavorito/>}/>
+      
+        </Routes>
+
+        
       <Footer />
     </div>
   );

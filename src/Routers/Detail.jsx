@@ -5,14 +5,14 @@ import { getIconByName } from "../utilities/icons";
 import Politicas from "../Components/Politicas";
 import Reseñas from "../Components/Reseñas";
 import StarRating from "../Components/StarRating";
-import { useAuth } from "../Context/AuthContext";
+// import { useAuth } from "../Context/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Favs from "../Components/Favs";
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
   const { id } = useParams();
-  const { isLogged, token } = useAuth();
   const [isPolicyOpen, setIsPolicyOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date()); // Por defecto empieza en el día de hoy
   const [endDate, setEndDate] = useState(null);
@@ -69,7 +69,7 @@ const Detail = () => {
       }
       const updatedData = await updatedResponse.json();
       console.log("Reseñas actualizadas:", updatedData);
-      setReseñas(updatedData);
+      setReseñas([...reseñas, newReview]);
 
       setRating(0);
       setOpinion("");
@@ -78,7 +78,6 @@ const Detail = () => {
       console.error("Error al enviar la reseña:", error);
     }
   };
-
   const generateBlockedDates = (inicioReserva, finReserva) => {
     const datesInRange = [];
     const currentDate = new Date(inicioReserva);
@@ -257,10 +256,14 @@ const Detail = () => {
                 </div>
               </div>
 
-              <button className="flex justify-center items-center gap-2 absolute bottom-6 right-6 border text-black border-black bg-white px-4 py-2 rounded-2xl hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
-                <FontAwesomeIcon icon={getIconByName("images")} size="lg" />
-                <span className="font-semibold">Ver más</span>
-              </button>
+              <div className="flex">
+                <button className="flex justify-center items-center gap-2 absolute bottom-6 right-6 border text-black border-black bg-white px-4 py-2 rounded-2xl hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all">
+                  <FontAwesomeIcon icon={getIconByName("images")} size="lg" />
+                  <span className="font-semibold">Ver más</span>
+                </button>
+
+                <Favs></Favs>
+              </div>
             </div>
           </div>
         </div>
@@ -375,7 +378,7 @@ const Detail = () => {
       </div>
 
       <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
-        <Reseñas reseñasProp={reseñas} />
+        <Reseñas reseñas={reseñas} puntuación={rating} />
       </div>
     </div>
   );
