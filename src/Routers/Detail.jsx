@@ -45,10 +45,16 @@ const Detail = () => {
 
 
   const handleSendReview = async () => {
+    
     const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); 
+    const day = String(currentDate.getDate()).padStart(2, '0'); 
+    
+    const formattedDate = `${year}-${month}-${day}`;
     console.log('fecha actual:', currentDate);
     const newReview = {
-      fecha: currentDate,
+      fecha: formattedDate,
       usuario: 'Usuario', 
       raiting: rating,
       comentario: opinion,
@@ -175,7 +181,9 @@ const Detail = () => {
           imagenes: imagenes,
           caracteristicas: caracteristicas,
           fechaInicioReserva: '2024-04-10',
-          fechaFinalReserva: '2024-04-16'
+          fechaFinalReserva: '2024-04-16',
+          
+          
         };
         setProducto(productoData);
         if (productoData.fechaInicioReserva && productoData.fechaFinalReserva) {
@@ -377,7 +385,7 @@ const Detail = () => {
       
       <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
           
-          <Reseñas  reseñasProp={reseñas} />
+          <Reseñas  reseñasProp={reseñas} raiting={rating}/>
       </div>
     </div>
   
