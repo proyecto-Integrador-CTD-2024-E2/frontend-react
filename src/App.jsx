@@ -20,6 +20,7 @@ import Favs from "./Components/Favs";
 import ListarFavorito from "./Routers/ListarFavorito"
 
 function App() {
+ 
   return (
     <div className="pt-16 flex flex-col min-h-screen bg-colorClaro">
       <Header />

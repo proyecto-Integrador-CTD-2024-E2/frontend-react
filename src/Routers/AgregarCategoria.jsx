@@ -88,7 +88,7 @@ const AgregarCategoria = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const responseData = await response.text(); // cambio  de json() por text(), porque salia un error "Unexpected si not valid JSON" ya no sale el error actualiza la categoria pero no se renderiza la actualizacion en la lista.
+        const responseData = await response.text(); 
         console.log(responseData);
         console.log("Success:", responseData);
         toast.success("Categoria actualizada con éxito!");
