@@ -12,12 +12,13 @@ const AgregarProductos = () => {
     precio: 0,
     categoria: "",
     disponibilidad: "",
-    caracteristicas: Array(1).fill({ tirulo: ""}),
+    caracteristicas:[],
     imageUrls: Array(1).fill({ url: "" }),
   });
   const { isLogged, token } = useAuth();
   const { id } = useParams();
   const [categorias, setCategorias] = useState([]);
+  const [caracteristicas, setCaracteristicas] =useState([])
 
   useEffect(() => {
     if(id) {
@@ -49,9 +50,11 @@ const AgregarProductos = () => {
         );
       })
       
-      
     }
-  }, [id]) // realice este useEffect para poder actualizar el producto por id 
+  }, [id]) 
+
+   
+
   const isFieldEmpty = (fieldName) => !productData[fieldName];
   const isAllFieldsNonEmpty = () =>
     !(
@@ -63,10 +66,59 @@ const AgregarProductos = () => {
     );
 
   const handleInputChange = (e) => {
-    const { id, value } = e.target;
-    setProductData((prevData) => ({ ...prevData, [id]: value }));
+      const { id, value } = e.target;
+      setProductData((prevData) => ({ ...prevData, [id]: value }));
+    };
+
+  const handleCheckboxChange = (id, checked) => {
+    console.log('handleCheckboxChange')
+
+
+    setProductData((prevData) => {
+
+      const existeCaracteristica = prevData.caracteristicas.some(caracteristica => caracteristica.id == id);
+      console.log(prevData.caracteristicas)
+      console.log(id, checked)
+      console.log(existeCaracteristica)
+      if (checked && !existeCaracteristica) {
+
+        const newCaracteristica = caracteristicas.find(caracteristica => caracteristica.id == id);
+        const result = 
+        {
+          ...prevData,
+          caracteristicas: [
+            ...prevData.caracteristicas,
+            newCaracteristica
+          ]
+        }
+        console.log(result)
+        return result;
+      }
+
+      if(!checked && existeCaracteristica) {
+
+        const result = {
+          ...prevData,
+          caracteristicas: [
+            ...prevData.caracteristicas.filter(caracteristica => caracteristica.id != id),
+          ]
+        }
+        console.log(result)
+        return result;
+      }
+
+      return prevData;
+    });
   };
 
+const handleCheckboxInputChange = (e) => {
+  console.log('handleCheckboxInputChange')
+  console.log(e)
+  const { value, checked } = e.target;
+  console.log(value, checked)
+
+  handleCheckboxChange(value, checked);
+};
   const handleImageUrlChange = (index, event) => {
     const inputValue = event.target.value.trim();
 
@@ -113,6 +165,7 @@ const AgregarProductos = () => {
             'Authorization': `Bearer ${token}`
           },
           body: JSON.stringify({
+            id: productData.id,
             categoria: productData.categoria,
             stock: productData.stock,
             precio: productData.precio,
@@ -152,6 +205,7 @@ const AgregarProductos = () => {
             disponibilidad: true,
             nombre: productData.nombre,
             descripcion: productData.descripcion,
+            caracteristicas:productData.caracteristicas.fill((titulo) => titulo !== ""),
             imagenes: productData.imageUrls.filter((url) => url !== ""),
           }),
         });
@@ -183,7 +237,7 @@ const AgregarProductos = () => {
 
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`
       },
     })
       .then((res) => res.json())
@@ -192,13 +246,46 @@ const AgregarProductos = () => {
         const categorias = responseData.map((categoria) => ({
           id: categoria.id,
           titulo: categoria.titulo,
-          descripcion: categoria.descripcion,
           icono: categoria.icono,
         }));
 
         setCategorias(categorias);
       });
   }, []);
+  console.log(categorias);
+
+   useEffect(() => {
+     fetch("http://localhost:8080/Caracteristicas", {
+       method: "GET",
+
+       headers: {
+         "Content-Type": "application/json",
+         'Authorization': `Bearer ${token}`
+       },
+     })
+       .then((res) => res.json())
+       .then((responseData) => {
+        
+         const caracteristicas = responseData.map((caracteristica) => ({
+           id: caracteristica.id,
+           titulo: caracteristica.titulo,
+           icono: caracteristica.icono,
+         }));
+
+         setCaracteristicas(caracteristicas);
+       });
+   }, []);
+
+   console.log(caracteristicas);
+
+  // const caracteristicas = [
+  //   { id: 1, titulo: "Electrico", icono: "bucket", },
+  //   { id: 2, titulo: "Manual", icono: "hammer", },
+  //   { id: 3, titulo: "Carga rapida", icono: "carBattery", },
+  //   { id: 4, titulo: "Repuestos", icono: "paintBrush", },
+  //   { id: 5, titulo: "Facil agarre", icono: "trowel", },
+  //   { id: 6, titulo: "facil Armado", icono: "powerOff", },
+  // ];
 
   return (
     <div className="mx-auto p-8 w-full">
@@ -230,6 +317,7 @@ const AgregarProductos = () => {
               />
             </div>
             <br />
+           
             <h5 className="text-white text-lg font-semibold mb-2">
               Informacion Adicional
             </h5>
@@ -267,11 +355,31 @@ const AgregarProductos = () => {
               >
                 <option hidden>Seleccionar...</option>
                 {categorias.map((categoria) => (
-              <option key={categoria.id} value={categoria.titulo}>{categoria.titulo}</option>
+              <option key={categoria.id} value={categoria.id}>{categoria.titulo}</option>
                  ))}
               </select>
             </div>
+
             <br />
+            
+            <h5 className="text-white text-lg font-semibold mb-2">Características</h5>
+            <div className="bg-colorSecundario text-white rounded-xl p-4">
+             <label>Opciones:</label>
+              {caracteristicas.map((caracteristica) => (
+              <div key={caracteristica.id}>
+                <input
+                type="checkbox"
+                id={`opcion${caracteristica.id}`}
+                name="caracteristicas"
+                value={caracteristica.id}
+                // checked={productData.caracteristicas.includes(caracteristica.id)}
+                onChange={handleCheckboxInputChange}
+                />
+                <label htmlFor={`opcion${caracteristica.id}`}>{caracteristica.titulo}</label>
+              </div>
+               ))}
+            </div>
+            
             <h5 className="text-white text-lg font-semibold mb-2">Imagenes</h5>
             <div className="bg-colorSecundario text-white rounded-xl p-4">
               {productData.imageUrls.map((imgObj, index) => (
@@ -311,6 +419,7 @@ const AgregarProductos = () => {
             </div>
           </div>
         </div>
+        
         <div className="flex justify-center gap-4 mt-4">
           <button
             type="button"
