@@ -19,12 +19,12 @@ const AgregarCategoria = () => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:8080/Categorias/${id}`,{
-        method: 'GET',
-        headers:{
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
+      fetch(`http://localhost:8080/Categorias/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
         .then((res) => res.json())
         .then((data) => {
@@ -75,7 +75,7 @@ const AgregarCategoria = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             id: categoryData.id,
@@ -88,7 +88,7 @@ const AgregarCategoria = () => {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const responseData = await response.text(); 
+        const responseData = await response.text();
         console.log(responseData);
         console.log("Success:", responseData);
         toast.success("Categoria actualizada con éxito!");
@@ -105,7 +105,7 @@ const AgregarCategoria = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             id: categoryData.id,
@@ -117,17 +117,17 @@ const AgregarCategoria = () => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
-        const responseData = await response.json();
-      console.log('Success:', responseData);
-      toast.success('Se ha agregado exitosamente la categoria!');
-    } catch (error) {
-      console.error('Error:', error.message);
-      toast.error('Ha ocurrido un problema al crear la nueva categoria.' , error.message);
-    }
 
-       
-      
+        const responseData = await response.json();
+        console.log("Success:", responseData);
+        toast.success("Se ha agregado exitosamente la categoria!");
+      } catch (error) {
+        console.error("Error:", error.message);
+        toast.error(
+          "Ha ocurrido un problema al crear la nueva categoria.",
+          error.message
+        );
+      }
     }
   };
 
@@ -146,6 +146,7 @@ const AgregarCategoria = () => {
             <input
               type="text"
               id="titulo"
+              autoComplete="off"
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-colorSecundario"
               placeholder="Nombre de la categoria"
               value={categoryData.titulo}
