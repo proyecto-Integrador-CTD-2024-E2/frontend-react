@@ -8,15 +8,14 @@ const Categories = ({ onCategorySelect }) => {
   const handleCategoryClick = (category) => {
     if (selectedCategory === category) {
       setSelectedCategory(null);
-      onCategorySelect(null); 
+      onCategorySelect(null);
     } else {
       setSelectedCategory(category);
       onCategorySelect(category);
     }
   };
   return (
-    <div className="w-full flex justify-between mb-6">
-    
+    <div className="w-full flex justify-between mb-6 flex-wrap">
       <CategoryButton
         label="Construccion"
         category="Construccion"
@@ -70,8 +69,9 @@ const CategoryButton = ({ label, category, onClick, isActive, iconName }) => {
         isActive ? "font-bold !text-black" : ""
       } hover:underline focus:outline-none focus:shadow-outline-blue flex flex-col items-center gap-2 text-[#717171] px-2 py-1 rounded-lg`}
       onClick={onClick}
-    ><FontAwesomeIcon icon={getIconByName(iconName)} size="sm" />
-    {label}
+    >
+      <FontAwesomeIcon icon={getIconByName(iconName)} size="sm" />
+      {label}
     </button>
   );
 };

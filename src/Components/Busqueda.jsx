@@ -5,13 +5,10 @@ const Busqueda = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState(null);
   const [showResults, setShowResults] = useState(false);
-  const [submitAttempted, setSubmitAttempted] = useState(false);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     if (searchQuery.trim() === "") return;
-
-    setSubmitAttempted(true); // Set flag to indicate search attempt
 
     try {
       const response = await fetch(
@@ -20,11 +17,10 @@ const Busqueda = () => {
       if (response.ok) {
         const data = await response.json();
         setSearchResults(Array.isArray(data) ? data : [data]);
-        setShowResults(true);
+        setShowResults(true); // Show results when fetched
       } else {
         console.error("Failed to fetch search results");
-        setSearchResults(null);
-        setShowResults(false);
+        setSearchResults(null); // Reset search results on fetch failure
       }
     } catch (error) {
       console.error("Error fetching search results:", error);
@@ -34,7 +30,10 @@ const Busqueda = () => {
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
     setShowResults(false);
-    setSubmitAttempted(false); // Reset flag when input changes
+  };
+
+  const handleInputFocus = () => {
+    setShowResults(true); // Show results when input is focused
   };
 
   return (
@@ -46,7 +45,7 @@ const Busqueda = () => {
         <label htmlFor="default-search" className="sr-only">
           Buscar
         </label>
-        <div className="relative z-50">
+        <div className="relative">
           <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
             <svg
               className="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -64,12 +63,12 @@ const Busqueda = () => {
           <input
             type="search"
             id="default-search"
-            className="block w-full px-6 py-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50  focus:border-colorPrimario"
+            className="relative z-40 w-full px-6 py-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50  focus:border-colorPrimario"
             placeholder="Qué estás buscando?"
             autoComplete="off"
             value={searchQuery}
             onChange={handleInputChange}
-            onFocus={() => setShowResults(false)} // Hide results when input is focused
+            onFocus={handleInputFocus} // Show results when input is focused
             required
           />
           <button
@@ -79,30 +78,24 @@ const Busqueda = () => {
             Buscar
           </button>
         </div>
-        <div className="absolute top-[20px] pt-10 pb-4 pl-4 w-full rounded-xl bg-[#e4e2d7]">
-          {searchResults !== null &&
-            showResults &&
-            searchResults.length > 0 && (
-              <div>
-                <ul>
-                  {searchResults.map((item) => (
-                    <Link key={item.id} to={"/detail/" + item.id}>
-                      <li className="w-[4em] flex items-center gap-2">
-                        <img src={item.imagenes[1].url} alt={item.nombre} />
-                        <p> {item.nombre}</p>
-                      </li>
-                    </Link>
-                  ))}
-                </ul>
-              </div>
+        {showResults && ( // Render search results only when showResults state is true
+          <div className="absolute top-[20px] pt-10 pb-4 pl-4 w-full rounded-xl bg-[#e4e2d7]">
+            {searchResults ? (
+              <ul>
+                {searchResults.map((item) => (
+                  <Link key={item.id} to={"/detail/" + item.id}>
+                    <li className="w-[4em] flex items-center gap-2">
+                      <img src={item.imagenes[0].url} alt={item.nombre} />
+                      <p> {item.nombre}</p>
+                    </li>
+                  </Link>
+                ))}
+              </ul>
+            ) : (
+              <p>No se encontraron resultados.</p>
             )}
-          {!showResults && submitAttempted && (
-            <p>No se encontraron resultados.</p>
-          )}
-          {searchQuery.trim() !== "" && searchResults === null && (
-            <p>Buscá: {searchQuery}</p>
-          )}
-        </div>
+          </div>
+        )}
       </form>
     </div>
   );

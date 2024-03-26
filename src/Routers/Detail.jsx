@@ -5,10 +5,11 @@ import { getIconByName } from "../utilities/icons";
 import Politicas from "../Components/Politicas";
 import Reseñas from "../Components/Reseñas";
 import StarRating from "../Components/StarRating";
-// import { useAuth } from "../Context/AuthContext";
+import { useAuth } from "../Context/AuthContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Favs from "../Components/Favs";
+import { toast } from "sonner";
 
 const Detail = () => {
   const [producto, setProducto] = useState(null);
@@ -21,9 +22,87 @@ const Detail = () => {
   const [rating, setRating] = useState(0);
   const [opinion, setOpinion] = useState("");
   const [reseñas, setReseñas] = useState([]);
+  const { isLogged } = useAuth();
 
-  const handleReserveClick = () => {
-    setShowRating(true);
+  const caracteristicas = [
+    { id: 1, titulo: "Electrico", icono: "bucket" },
+    { id: 2, titulo: "Manual", icono: "hammer" },
+    { id: 3, titulo: "Carga rapida", icono: "carBattery" },
+    { id: 4, titulo: "Repuestos", icono: "paintBrush" },
+    { id: 5, titulo: "Facil agarre", icono: "trowel" },
+    { id: 6, titulo: "facil Armado", icono: "powerOff" },
+  ];
+
+  useEffect(() => {
+    const fetchProducto = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8080/Herramientas/${id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              //'Authorization': `Bearer ${token}`
+            },
+          }
+        );
+        if (!response.ok) {
+          throw new Error("Error al obtener la Herramienta");
+        }
+        const responseData = await response.json();
+        const imagenes = responseData.imagenes
+          ? responseData.imagenes.map((imagen) => imagen.url)
+          : [];
+        const productoData = {
+          id: responseData.id,
+          nombre: responseData.nombre,
+          descripcion: responseData.descripcion,
+          precio: responseData.precio,
+          categoria: responseData.categoria,
+          imagenes: imagenes,
+          caracteristicas: caracteristicas,
+          fechaInicioReserva: "2024-04-10",
+          fechaFinalReserva: "2024-04-16",
+        };
+
+        setProducto(productoData);
+
+        if (productoData.fechaInicioReserva && productoData.fechaFinalReserva) {
+          const blocked = generateBlockedDates(
+            productoData.fechaInicioReserva,
+            productoData.fechaFinalReserva
+          );
+          // console.log(blocked);
+          setBlockedDates(blocked);
+        }
+      } catch (error) {
+        console.error("Error haciendo el fetch:", error);
+      }
+    };
+    const fetchReseñas = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/Reseñas");
+        if (!response.ok) {
+          throw new Error("Error al obtener las reseñas");
+        }
+        const data = await response.json();
+        setReseñas(data);
+      } catch (error) {
+        console.error("Error al obtener las reseñas:", error);
+      }
+    };
+    fetchReseñas();
+    fetchProducto();
+  }, [id]);
+
+  const handleReserveClick = () => {};
+
+  const handleRatingClick = () => {
+    if (isLogged) {
+      setShowRating(true);
+    } else {
+      toast.error("Tenes que loguearte para agregar una reseña.");
+    }
   };
 
   const handleRatingChange = (value) => {
@@ -36,14 +115,22 @@ const Detail = () => {
 
   const handleSendReview = async () => {
     const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const day = String(currentDate.getDate()).padStart(2, "0");
+
+    const formattedDate = `${year}-${month}-${day}`;
     console.log("fecha actual:", currentDate);
+
     const newReview = {
-      fecha: currentDate,
-      usuario: "Usuario",
+      fecha: formattedDate,
+      // usuario: "Usuario",
       raiting: rating,
       comentario: opinion,
-      herramienta_id: id,
+      herramienta_idReseña: producto.id,
+      id: producto.id,
     };
+
     console.log("Nueva reseña:", newReview);
     try {
       const response = await fetch("http://localhost:8080/Reseñas", {
@@ -53,6 +140,7 @@ const Detail = () => {
         },
         body: JSON.stringify(newReview),
       });
+
       console.log("Respuesta del servidor al agregar la reseña:", response);
       if (!response.ok) {
         throw new Error("Error al agregar la reseña");
@@ -78,6 +166,7 @@ const Detail = () => {
       console.error("Error al enviar la reseña:", error);
     }
   };
+
   const generateBlockedDates = (inicioReserva, finReserva) => {
     const datesInRange = [];
     const currentDate = new Date(inicioReserva);
@@ -118,79 +207,10 @@ const Detail = () => {
     setIsPolicyOpen(false);
   };
 
-  const caracteristicas = [
-    { id: 1, titulo: "Electrico", icono: "bucket" },
-    { id: 2, titulo: "Manual", icono: "hammer" },
-    { id: 3, titulo: "Carga rapida", icono: "carBattery" },
-    { id: 4, titulo: "Repuestos", icono: "paintBrush" },
-    { id: 5, titulo: "Facil agarre", icono: "trowel" },
-    { id: 6, titulo: "facil Armado", icono: "powerOff" },
-  ];
-
-  useEffect(() => {
-    const fetchProducto = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/Herramientas/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              //'Authorization': `Bearer ${token}`
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Error al obtener la Herramienta");
-        }
-        const responseData = await response.json();
-        const imagenes = responseData.imagenes
-          ? responseData.imagenes.map((imagen) => imagen.url)
-          : [];
-        const productoData = {
-          id: responseData.id,
-          nombre: responseData.nombre,
-          descripcion: responseData.descripcion,
-          precio: responseData.precio,
-          categoria: responseData.categoria.id,
-          imagenes: imagenes,
-          caracteristicas: caracteristicas,
-          fechaInicioReserva: "2024-04-10",
-          fechaFinalReserva: "2024-04-16",
-        };
-        setProducto(productoData);
-        if (productoData.fechaInicioReserva && productoData.fechaFinalReserva) {
-          const blocked = generateBlockedDates(
-            productoData.fechaInicioReserva,
-            productoData.fechaFinalReserva
-          );
-          // console.log(blocked);
-          setBlockedDates(blocked);
-        }
-      } catch (error) {
-        console.error("Error haciendo el fetch:", error);
-      }
-    };
-    const fetchReseñas = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/Reseñas");
-        if (!response.ok) {
-          throw new Error("Error al obtener las reseñas");
-        }
-        const data = await response.json();
-        setReseñas(data);
-      } catch (error) {
-        console.error("Error al obtener las reseñas:", error);
-      }
-    };
-    fetchReseñas();
-    fetchProducto();
-  }, [id]);
-
   if (!producto) return <div className="text-center">Cargando...</div>;
 
   return (
-    <div className="">
+    <div className="px-5 md:px-8 lg:!px-[18em] ">
       <div className=" px-4 pt-5 justify-between">
         <div className="flex justify-between">
           <Link to="/" className="text-colorPrimario px-4 py-2 rounded">
@@ -268,12 +288,12 @@ const Detail = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-arround py-6 px-10 gap-8">
+        <div className="flex flex-col md:flex-row justify-between py-6 px-10 gap-8">
           <div className="md:w-6/12 d-flex flex-col justify-center mr-6">
             <div className="flex items-center mb-2">
               <h5 className="font-semibold text-3xl">{producto.nombre}</h5>
             </div>
-            <span className="rounded-full px-4 bg-colorSecundario text-white text-sm">
+            <span className="rounded-full px-4 py-1 bg-colorSecundario text-white text-md">
               {producto.categoria.titulo}
             </span>
             <p className="text-lg mt-2">{producto.descripcion}</p>
@@ -284,7 +304,10 @@ const Detail = () => {
           <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
             <ul className="grid grid-cols-3 gap-4">
               {producto.caracteristicas.map((caracteristica) => (
-                <li key={caracteristica.id} className="flex items-center p-2">
+                <li
+                  key={caracteristica.id}
+                  className="flex items-center p-2 text-xs md:text-base"
+                >
                   <FontAwesomeIcon
                     icon={getIconByName(caracteristica.icono)}
                     className="mr-3 text-colorPrimario"
@@ -295,8 +318,8 @@ const Detail = () => {
             </ul>
           </div>
         </div>
-        <div className="flex flex-col  justify-center md:flex-row justify-arroud py-4 px-10 gap-10 ">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between py-4 px-10 gap-10 ">
+          <div className="flex flex-col md:flex-row items-center">
             <DatePicker
               selected={startDate}
               onChange={handleStartDateChange}
@@ -324,6 +347,12 @@ const Detail = () => {
               excludeDates={blockedDates}
               className="my-2 mx-2 border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:border-blue-500"
             />
+            <button
+              onClick={handleReserveClick}
+              className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
+            >
+              Reservar
+            </button>
           </div>
           <div className="flex flex-col md:flex-row gap-4 px-4">
             <button
@@ -334,13 +363,13 @@ const Detail = () => {
             </button>
             {isPolicyOpen && <Politicas onClose={closePolicy} />}
             <button
-              onClick={handleReserveClick}
+              onClick={handleRatingClick}
               className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
             >
-              Reserva
+              Agregar Reseña
             </button>
 
-            {showRating && (
+            {showRating && isLogged && (
               <div className="flex flex-col gap-4 px-4">
                 <div className="bg-white p-4 rounded-lg shadow-md ">
                   <h2 className="text-lg font-bold mb-4">Danos tu opinión</h2>
@@ -355,9 +384,10 @@ const Detail = () => {
                       >
                         Opinión:
                       </label>
-                      <input
+                      <textarea
                         type="text"
                         id="opinion"
+                        autoComplete="off"
                         value={opinion}
                         onChange={handleOpinionChange}
                         className=" my-2 border border-gray-300 rounded-lg px-3 py-1 focus:outline-none focus:border-blue-500"
@@ -378,7 +408,7 @@ const Detail = () => {
       </div>
 
       <div className="col-12 col-md-6 col-lg-3 p-2 md:p-4 border rounded-lg shadow-lg mt-2">
-        <Reseñas reseñas={reseñas} puntuación={rating} />
+        <Reseñas reseñasProp={reseñas} raiting={rating} />
       </div>
     </div>
   );

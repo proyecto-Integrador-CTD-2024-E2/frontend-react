@@ -60,9 +60,9 @@ const Avatar = () => {
 
   return (
     <>
-      <div className="flex items-center flex-row gap-4">
+      <div className="flex items-center flex-row gap-2 md:gap-4">
         <Link to={`/admin`}>
-          <button className="px-4 py-2 bg-colorPrimario text-white rounded hover:bg-colorPrimarioHover flex items-center gap-2">
+          <button className="px-4 py-2 bg-colorPrimario text-xs md:text-base  text-white rounded hover:bg-colorPrimarioHover flex items-center gap-2">
             <FontAwesomeIcon icon={getIconByName("user")} size="sm" />
             Panel Admin
           </button>
@@ -79,7 +79,7 @@ const Avatar = () => {
           </h1>
           <button
             onClick={handleLogout}
-            className="text-sm text-gray-500 flex items-center gap-2"
+            className="text-sm text-gray-500 flex items-center gap-1 md:gap-2"
           >
             <FontAwesomeIcon icon={getIconByName("signOut")} size="sm" />
             Cerrar sesión

@@ -18,7 +18,6 @@ const ListarCaracteristicas = () => {
     })
       .then((res) => res.json())
       .then((responseData) => {
-        
         const Caracteristicas = responseData.map((caracteristica) => ({
           id: caracteristica.id,
           titulo: caracteristica.titulo,
@@ -31,11 +30,16 @@ const ListarCaracteristicas = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("¿Estás seguro que queres eliminar esta caracteristicas?")) {
+    if (
+      window.confirm("¿Estás seguro que queres eliminar esta caracteristicas?")
+    ) {
       try {
-        const response = await fetch(`http://localhost:8080/Caracteristicas/${id}`, {
-          method: "DELETE",
-        });
+        const response = await fetch(
+          `http://localhost:8080/Caracteristicas/${id}`,
+          {
+            method: "DELETE",
+          }
+        );
 
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
@@ -85,14 +89,16 @@ const ListarCaracteristicas = () => {
                 {caracteristicas.id}
               </th>
               <td className="px-6 py-4">{caracteristicas.titulo}</td>
-              <td className="px-6 py-4 text-cyan-900">
+              <td className="px-6 py-4 text-colorPrimario">
                 <FontAwesomeIcon
                   icon={getIconByName(caracteristicas.icono)}
                   size="lg"
                 />
               </td>
               <td className="px-6 py-4 flex gap-x-2">
-                <Link to={`/admin/Caracteristicas/agregar/${caracteristicas.id}`}>
+                <Link
+                  to={`/admin/Caracteristicas/agregar/${caracteristicas.id}`}
+                >
                   <button className="px-4 py-2 bg-colorPrimario text-white rounded hover:bg-colorPrimarioHover">
                     <FontAwesomeIcon icon={getIconByName("pencil")} size="lg" />
                   </button>
