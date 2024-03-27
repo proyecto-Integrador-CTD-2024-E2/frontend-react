@@ -60,7 +60,7 @@ const Detail = () => {
           precio: responseData.precio,
           categoria: responseData.categoria,
           imagenes: imagenes,
-          caracteristicas: caracteristicas,
+          caracteristicas: responseData.caracteristicas,
           fechaInicioReserva: "2024-04-10",
           fechaFinalReserva: "2024-04-16",
         };
@@ -210,7 +210,7 @@ const Detail = () => {
   if (!producto) return <div className="text-center">Cargando...</div>;
 
   return (
-    <div className="px-5 md:px-8 lg:!px-[18em] ">
+    <div className="px-3 md:px-6">
       <div className=" px-4 pt-5 justify-between">
         <div className="flex justify-between">
           <Link to="/" className="text-colorPrimario px-4 py-2 rounded">
@@ -319,7 +319,7 @@ const Detail = () => {
           </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between py-4 px-10 gap-10 ">
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center gap-4">
             <DatePicker
               selected={startDate}
               onChange={handleStartDateChange}
@@ -349,14 +349,12 @@ const Detail = () => {
             />
             <button
               onClick={handleReserveClick}
-              className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
+              className=" mx-4 block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
             >
               Reservar
             </button>
-          </div>
-          <div className="flex flex-col md:flex-row gap-4 px-4">
             <button
-              className="block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
+              className=" mx-4 block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
               onClick={openPolicy}
             >
               Políticas
@@ -364,10 +362,13 @@ const Detail = () => {
             {isPolicyOpen && <Politicas onClose={closePolicy} />}
             <button
               onClick={handleRatingClick}
-              className=" block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
+              className="mx-4 block md:inline-block justify-center  h-10 rounded-lg border-2 hover:scale-105  text-black border-colorPrimario bg-white px-4  hover:bg-colorPrimarioHover hover:text-white hover:border-colorPrimarioHover transition-all"
             >
-              Agregar Reseña
+              Danos tu Opinion
             </button>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 px-4">
+            
 
             {showRating && isLogged && (
               <div className="flex flex-col gap-4 px-4">
